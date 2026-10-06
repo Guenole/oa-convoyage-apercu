@@ -1412,6 +1412,70 @@ ul{list-style:none}
 }
 
 .viewer__note{padding:7px 6px 7px 0;color:rgba(250,248,243,.66);font-size:11px;letter-spacing:.02em;white-space:nowrap}
+/* ══════════ Remarques : mode commentaire du site animé de présentation ══════════
+   Même vocabulaire que le site : anthracite, crème, rose poudré, Montserrat, pilules pour les boutons, 6 px pour les cartes. */
+.page{position:relative}
+.cm{font-family:var(--montserrat);color:var(--anth)}
+.cm button{font:inherit;cursor:pointer}
+.cm-btn{position:fixed;left:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;align-items:center;gap:8px;
+  padding:10px 16px 10px 14px;border:0;border-radius:999px;background:rgba(62,63,63,.92);backdrop-filter:blur(12px);color:var(--creme);
+  font:600 13px/1 var(--montserrat);letter-spacing:.02em;box-shadow:0 10px 24px -10px rgba(40,30,28,.45)}
+.cm-btn:hover{background:rgba(62,63,63,1)}
+.cm-nb{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--rose);color:var(--anth-profond);font:700 11px/20px var(--montserrat);text-align:center}
+.cm-panneau{position:fixed;left:20px;bottom:76px;z-index:121;width:360px;max-height:min(640px,calc(100vh - 110px));overflow:auto;
+  padding:20px;border-radius:6px;background:var(--creme);box-shadow:0 1px 1px rgba(80,62,58,.06),0 10px 20px -8px rgba(80,62,58,.18),0 34px 64px -26px rgba(110,74,64,.34)}
+.cm-tete{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cm-titre{margin:0;font:700 20px/1.2 var(--montserrat)}
+.cm-x{border:0;background:none;font-size:24px!important;line-height:1;color:var(--anth);padding:0 4px}
+.cm-aide{margin:0 0 14px;font:400 13px/1.55 var(--montserrat);color:#6c6d6d}
+.cm-ajout{width:100%;padding:13px 16px;border:0;border-radius:999px;background:var(--anth);color:var(--creme);font:600 14px/1 var(--montserrat)!important}
+.cm-liste{list-style:none;margin:16px 0 0;padding:0}
+.cm-liste li{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:12px 0;border-top:1px solid rgba(94,95,95,.16)}
+.cm-liste li>b{width:24px;height:24px;border-radius:50%;background:var(--rose);color:var(--anth-profond);font:700 12px/24px var(--montserrat);text-align:center}
+.cm-ou{display:block;font:600 10px/1.4 var(--montserrat);letter-spacing:.1em;text-transform:uppercase;color:#7d7e7e}
+.cm-liste p{margin:4px 0 6px;font:400 14px/1.5 var(--montserrat);white-space:pre-wrap;word-break:break-word}
+.cm-act{display:flex;gap:14px}
+.cm-act button{border:0;background:none;padding:0;font:600 12px/1.4 var(--montserrat)!important;color:var(--anth);text-decoration:underline;text-underline-offset:3px}
+.cm-vide{margin:14px 0 0;font:400 13px/1.5 var(--montserrat);color:#7d7e7e}
+.cm-nom{display:block;margin-top:16px}
+.cm-nom span{display:block;font:600 10px/1.4 var(--montserrat);letter-spacing:.1em;text-transform:uppercase;color:#7d7e7e;margin-bottom:4px}
+.cm-nom input{width:100%;padding:8px 0;border:0;border-bottom:1px solid var(--gris-clair,#bebab1);background:transparent;font:400 15px/1.4 var(--montserrat);color:var(--anth);outline:none}
+.cm-nom input:focus{border-bottom-color:var(--rose)}
+.cm-pied{display:flex;gap:10px;margin-top:16px}
+.cm-envoi,.cm-copie{flex:1;padding:12px 14px;border-radius:999px;font:600 13px/1 var(--montserrat)!important}
+.cm-envoi{border:0;background:var(--anth);color:var(--creme)}
+.cm-copie{border:1px solid var(--anth);background:transparent;color:var(--anth)}
+.cm-envoi:disabled,.cm-copie:disabled{opacity:.4;cursor:default}
+.cm-note{margin:10px 0 0;font:400 11px/1.4 var(--montserrat);color:#8a8b8b;text-align:center}
+.cm-consigne{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:122;display:flex;align-items:center;gap:14px;
+  padding:10px 10px 10px 18px;border-radius:999px;background:var(--anth);color:var(--creme);font:600 13px/1 var(--montserrat);box-shadow:0 10px 24px -10px rgba(40,30,28,.5)}
+.cm-consigne button{border:0;border-radius:999px;padding:8px 12px;background:rgba(250,248,243,.16);color:var(--creme);font:600 12px/1 var(--montserrat)!important}
+.device.cm-pose, .device.cm-pose *{cursor:crosshair!important}
+.device.cm-pose{outline:3px solid var(--rose);outline-offset:-3px}
+.cm-bulle,.cm-lecture{position:fixed;z-index:123;width:300px;padding:14px;border-radius:6px;background:var(--creme);
+  box-shadow:0 1px 1px rgba(80,62,58,.06),0 10px 20px -8px rgba(80,62,58,.18),0 34px 64px -26px rgba(110,74,64,.34)}
+.cm-lecture{width:280px}
+.cm-bulle textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid rgba(94,95,95,.25);border-radius:6px;background:#fff;
+  font:400 14px/1.5 var(--montserrat);color:var(--anth);resize:vertical;outline:none}
+.cm-bulle textarea:focus{border-color:var(--rose)}
+.cm-bulle>div,.cm-lecture>div{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.cm-bulle button,.cm-lecture button{padding:9px 14px;border-radius:999px;font:600 12px/1 var(--montserrat)!important;border:1px solid var(--anth);background:transparent;color:var(--anth)}
+.cm-bulle button[type=submit]{background:var(--anth);color:var(--creme)}
+.cm-lecture p{margin:0;font:400 14px/1.5 var(--montserrat);white-space:pre-wrap;word-break:break-word}
+/* pastille en goutte (le repère du logo), pointe sur l'endroit touché, numéro droit */
+.cm-pin{position:absolute;z-index:40;width:30px;height:30px;margin:-34px 0 0 -15px;padding:0;border:0;background:none;
+  display:flex;align-items:center;justify-content:center;color:var(--anth-profond);font:700 12px/1 var(--montserrat);cursor:pointer}
+.cm-pin::before{content:"";position:absolute;inset:0;z-index:-1;border:2px solid var(--creme);border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);background:var(--rose);box-shadow:0 6px 14px -4px rgba(60,40,36,.45)}
+.cm-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:124;margin:0;padding:10px 16px;border-radius:999px;
+  background:var(--anth);color:var(--creme);font:600 12px/1.3 var(--montserrat);max-width:calc(100vw - 32px);text-align:center}
+@media (max-width:767px){
+  .cm-btn{left:auto;right:12px;bottom:calc(92px + env(safe-area-inset-bottom,0px));padding:10px 12px}
+  .cm-btn span{display:none}
+  .cm-panneau{left:8px;right:8px;bottom:8px;width:auto;max-height:calc(100vh - 16px)}
+  .cm-bulle,.cm-lecture{left:12px!important;right:12px;width:auto!important}
+}
+
 </style>
 <div class="stage"><div class="device matiere" id="device"><div class="site" id="site"><div id="pages">
 <main class="page" data-page="accueil" data-title="Accueil" data-hero="dark">
@@ -2464,6 +2528,181 @@ allumer();
 })();
 
 window.OAready();
+/* ══════════ Remarques d'Océane : mode commentaire du site animé de présentation ══════════
+   Un bouton « Remarques » ouvre un panneau. « Ajouter une remarque » : on touche un endroit de la page,
+   on écrit, une pastille numérotée reste posée à cet endroit (page, section, ordinateur ou mobile).
+   Les remarques restent dans le navigateur (localStorage) jusqu'à l'envoi par email à HWS. */
+(() => {
+'use strict';
+const DEST = 'guenole@hws.pm';
+const LIEN = 'https://guenole.github.io/oa-convoyage-apercu/';
+const CLE = 'oa-remarques-v1', CLE_NOM = 'oa-remarques-nom';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const site = $('#site'), device = $('#device');
+const SECTIONS = {
+  'poster': 'Ouverture', 'poster-portrait': 'Ouverture', 'poster-compact': 'Ouverture', 'bandeau': 'Bandeau défilant',
+  'manif': 'Manifeste', 'presta': 'Prestations', 'engag': 'Engagements', 'parcours-sec': 'Déroulement', 'h48': '48 h',
+  'avis': 'Avis', 'avis-g': 'Avis', 'faqsec': 'Questions fréquentes', 'poster-cta': 'Bloc final', 'steps-sec': 'Les étapes',
+  'prepa': 'Préparer sa demande', 'svc': 'Prestations', 'types': 'Types de véhicules', 'zone': "Zone d'intervention",
+  'rappel': 'Rappel du déroulement', 'intro': 'Présentation', 'fiche': 'Fiche de la prestation', 'der': 'Déroulé',
+  'autres': 'Autres prestations', 'piste-sec': 'Parcours', 'exig': 'Exigence', 'conv': 'Convoyeurs', 'chif': 'Chiffres',
+  'img-sec': 'En images', 'cform': 'Formulaire', 'cinfos': 'Coordonnées'
+};
+const ICONE = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg>';
+
+let liste = [];
+try { liste = JSON.parse(localStorage.getItem(CLE) || '[]'); } catch (e) { liste = []; }
+const sauver = () => { try { localStorage.setItem(CLE, JSON.stringify(liste)); } catch (e) {} };
+const nomPar = () => { try { return localStorage.getItem(CLE_NOM) || ''; } catch (e) { return ''; } };
+const pageCourante = () => $$('.page').find(p => !p.hidden);
+const mobile = () => site.clientWidth < 768;
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* ---------- interface ---------- */
+const ui = document.createElement('div');
+ui.className = 'cm';
+ui.innerHTML = `
+<button type="button" class="cm-btn" aria-expanded="false">${ICONE}<span>Remarques</span><b class="cm-nb" hidden>0</b></button>
+<div class="cm-panneau" role="dialog" aria-label="Vos remarques" hidden>
+  <div class="cm-tete"><p class="cm-titre">Vos remarques</p><button type="button" class="cm-x" aria-label="Fermer">×</button></div>
+  <p class="cm-aide">Touchez l'endroit de la page qui vous fait réagir, puis écrivez votre remarque. Les textes du site sont des exemples&#8239;: commentez surtout l'ambiance, les images et la mise en page.</p>
+  <button type="button" class="cm-ajout">+ Ajouter une remarque</button>
+  <ol class="cm-liste"></ol>
+  <p class="cm-vide">Aucune remarque pour l'instant.</p>
+  <label class="cm-nom"><span>Votre prénom</span><input type="text" autocomplete="given-name" placeholder="Océane"></label>
+  <div class="cm-pied">
+    <button type="button" class="cm-envoi" disabled>Envoyer à HWS</button>
+    <button type="button" class="cm-copie" disabled>Copier</button>
+  </div>
+  <p class="cm-note">Vos remarques restent sur cet appareil jusqu'à l'envoi.</p>
+</div>
+<div class="cm-consigne" hidden><span>Touchez l'endroit à commenter</span><button type="button">Annuler</button></div>
+<form class="cm-bulle" hidden><textarea rows="4" placeholder="Votre remarque…" required></textarea><div><button type="button" class="cm-annule">Annuler</button><button type="submit">Enregistrer</button></div></form>
+<div class="cm-lecture" hidden><p></p><div><button type="button" class="cm-suppr">Supprimer</button><button type="button" class="cm-ferme">Fermer</button></div></div>
+<p class="cm-toast" hidden></p>`;
+document.body.appendChild(ui);
+const btn = $('.cm-btn', ui), panneau = $('.cm-panneau', ui), consigne = $('.cm-consigne', ui), bulle = $('.cm-bulle', ui);
+const lecture = $('.cm-lecture', ui), toast = $('.cm-toast', ui), champNom = $('.cm-nom input', ui);
+champNom.value = nomPar();
+champNom.addEventListener('input', () => { try { localStorage.setItem(CLE_NOM, champNom.value.trim()); } catch (e) {} });
+
+const ouvrir = v => { panneau.hidden = !v; btn.setAttribute('aria-expanded', v); };
+btn.addEventListener('click', () => ouvrir(panneau.hidden));
+$('.cm-x', ui).addEventListener('click', () => ouvrir(false));
+function info(t) { toast.textContent = t; toast.hidden = false; clearTimeout(info.t); info.t = setTimeout(() => { toast.hidden = true; }, 2600); }
+
+/* ---------- pose d'une remarque ---------- */
+let pose = false, brouillon = null;
+function placer(v) {
+  pose = v; consigne.hidden = !v; device.classList.toggle('cm-pose', v);
+  if (v) { ouvrir(false); lecture.hidden = true; }
+}
+$('.cm-ajout', ui).addEventListener('click', () => placer(true));
+$('button', consigne).addEventListener('click', () => placer(false));
+
+function sectionDe(el, page) {
+  if (el.closest('.hdr, .hdr-m, #hdr, #hdrm')) return 'Menu';
+  if (el.closest('.footer, .footer-m')) return 'Pied de page';
+  let n = el; while (n && n.parentElement !== page) n = n.parentElement;
+  if (!n) return 'Page';
+  for (const c of n.classList) if (SECTIONS[c]) return SECTIONS[c];
+  return n.getAttribute('aria-label') || 'Section';
+}
+
+document.addEventListener('click', e => {
+  if (!pose || ui.contains(e.target) || !device.contains(e.target)) return;
+  e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+  const page = pageCourante(); if (!page) return;
+  const pr = page.getBoundingClientRect();
+  brouillon = {
+    page: page.dataset.page, titre: page.dataset.title || page.dataset.page, section: sectionDe(e.target, page),
+    appareil: mobile() ? 'mobile' : 'ordinateur',
+    x: Math.max(0, Math.min(100, (e.clientX - pr.left) / pr.width * 100)), y: e.clientY - pr.top
+  };
+  placer(false);
+  bulle.hidden = false;
+  const w = 300, h = 170;
+  bulle.style.left = Math.max(12, Math.min(innerWidth - w - 12, e.clientX - w / 2)) + 'px';
+  bulle.style.top = Math.max(12, Math.min(innerHeight - h - 12, e.clientY + 14)) + 'px';
+  const ta = $('textarea', bulle); ta.value = ''; setTimeout(() => ta.focus(), 30);
+}, true);
+
+bulle.addEventListener('submit', e => {
+  e.preventDefault();
+  const t = $('textarea', bulle).value.trim();
+  if (!t || !brouillon) return;
+  liste.push({ ...brouillon, id: Date.now().toString(36), texte: t, date: new Date().toISOString() });
+  sauver(); brouillon = null; bulle.hidden = true; rendre(); info('Remarque enregistrée');
+});
+$('.cm-annule', bulle).addEventListener('click', () => { brouillon = null; bulle.hidden = true; });
+
+/* ---------- pastilles et liste ---------- */
+function rendre() {
+  $$('.cm-pin').forEach(p => p.remove());
+  const page = pageCourante(), app = mobile() ? 'mobile' : 'ordinateur';
+  liste.forEach((r, i) => {
+    if (!page || r.page !== page.dataset.page || r.appareil !== app) return;
+    const p = document.createElement('button');
+    p.type = 'button'; p.className = 'cm-pin'; p.textContent = i + 1;
+    p.style.left = r.x + '%'; p.style.top = r.y + 'px';
+    p.setAttribute('aria-label', 'Remarque ' + (i + 1));
+    p.addEventListener('click', ev => { ev.stopPropagation(); montrer(r, i, ev); });
+    page.appendChild(p);
+  });
+  const ol = $('.cm-liste', ui);
+  ol.innerHTML = liste.map((r, i) => `<li data-i="${i}"><b>${i + 1}</b><div><span class="cm-ou">${esc(r.titre)} · ${esc(r.section)} · ${r.appareil}</span><p>${esc(r.texte)}</p><span class="cm-act"><button type="button" data-voir>Voir</button><button type="button" data-suppr>Supprimer</button></span></div></li>`).join('');
+  $('.cm-vide', ui).hidden = liste.length > 0;
+  const nb = $('.cm-nb', ui); nb.hidden = !liste.length; nb.textContent = liste.length;
+  $('.cm-envoi', ui).disabled = $('.cm-copie', ui).disabled = !liste.length;
+}
+let lu = null;
+function montrer(r, i, ev) {
+  lu = r; $('p', lecture).textContent = (i + 1) + '. ' + r.texte; lecture.hidden = false;
+  const w = 280;
+  lecture.style.left = Math.max(12, Math.min(innerWidth - w - 12, ev.clientX - w / 2)) + 'px';
+  lecture.style.top = Math.max(12, Math.min(innerHeight - 160, ev.clientY + 16)) + 'px';
+}
+$('.cm-ferme', lecture).addEventListener('click', () => { lecture.hidden = true; });
+$('.cm-suppr', lecture).addEventListener('click', () => { if (lu) { liste = liste.filter(x => x !== lu); sauver(); rendre(); } lecture.hidden = true; });
+
+$('.cm-liste', ui).addEventListener('click', e => {
+  const li = e.target.closest('li'); if (!li) return;
+  const r = liste[+li.dataset.i];
+  if (e.target.closest('[data-suppr]')) { liste.splice(+li.dataset.i, 1); sauver(); rendre(); return; }
+  if (e.target.closest('[data-voir]')) {
+    ouvrir(false);
+    const aller = () => { rendre(); site.scrollTo({ top: Math.max(0, r.y - site.clientHeight / 3), behavior: 'smooth' }); };
+    if (location.hash.slice(1).split('--')[0] !== r.page) { location.hash = '#' + r.page; setTimeout(aller, 500); } else aller();
+    if ((r.appareil === 'mobile') !== mobile()) info(r.appareil === 'mobile' ? 'Passez en vue Mobile pour voir la pastille' : 'Passez en vue Desktop pour voir la pastille');
+  }
+});
+
+/* ---------- envoi ---------- */
+function texteEnvoi() {
+  const nom = champNom.value.trim();
+  const l = liste.map((r, i) => `${i + 1}. ${r.titre}, ${r.section} (${r.appareil})\n${r.texte}`).join('\n\n');
+  return `Remarques sur le site animé d'OA Convoyage${nom ? ' (' + nom + ')' : ''}\n${LIEN}\n\n${l}\n`;
+}
+$('.cm-envoi', ui).addEventListener('click', () => {
+  const sujet = 'Remarques sur le site animé' + (champNom.value.trim() ? ' (' + champNom.value.trim() + ')' : '');
+  const corps = texteEnvoi();
+  location.href = `mailto:${DEST}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;
+  if (corps.length > 1500) setTimeout(() => info('Si l\'email est incomplet : « Copier », puis collez dans un email'), 800);
+});
+$('.cm-copie', ui).addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(texteEnvoi()); info('Remarques copiées : collez-les dans un email à ' + DEST); }
+  catch (e) { info('Copie impossible : utilisez « Envoyer à HWS »'); }
+});
+
+/* ---------- suivi des pages et de la vue ---------- */
+$$('.page').forEach(p => p.addEventListener('oa:show', () => setTimeout(rendre, 50)));
+window.addEventListener('hashchange', () => { lecture.hidden = true; setTimeout(rendre, 120); });
+new ResizeObserver(() => rendre()).observe(site);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { placer(false); bulle.hidden = true; lecture.hidden = true; } });
+rendre();
+})();
+
 
 </script>
 </body></html>
