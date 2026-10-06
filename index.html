@@ -349,6 +349,16 @@ ul{list-style:none}
 .chiffre.pre .chiffre__trait{width:0}
 .chiffre.pre .chiffre__lib{opacity:0}
 .chiffre__lib{transition:opacity var(--d-slow) var(--ease) .3s}
+/* mobile : Mobile/Chiffre XL (96 px) et unité à 60 px, variante Taille=Mobile du composant Figma (06/10/2026) */
+@container site (max-width:767px){
+  .chiffre{width:350px;height:177px}
+  .chiffre__val{height:83px}
+  .chiffre__val b{font-size:96px}
+  .chiffre__val em{font-size:60px;line-height:.9}
+  .chiffre__trait{top:109px}
+  .chiffre__lib{top:131px;width:auto;right:0}
+  .chiffre.pre .chiffre__val{transform:translateY(30px)}
+}
 
 /* ===== Témoignages ===== */
 .temoin{position:relative;display:flex;flex-direction:column;align-items:center;gap:28px;width:1100px;max-width:100%}
@@ -492,9 +502,9 @@ ul{list-style:none}
   .parcours .voile-gauche{display:none}
   .parcours__sur{left:20px;top:80px}
   .parcours__num{left:20px;top:110px}
-  .parcours__num b{font-size:140px;line-height:.85}
+  .parcours__num b{font-size:96px;line-height:.85}
   .parcours__num em{display:none}
-  .parcours__contenu{left:20px;right:20px;top:300px;width:auto}
+  .parcours__contenu{left:20px;right:20px;top:263px;width:auto}
   .parcours__slide{width:100%}
   .parcours__slide .poster__titre{font-size:52px;line-height:.92}
   .parcours__slide .poster__accent{font-size:60px;line-height:.9;white-space:normal;text-wrap:balance}
