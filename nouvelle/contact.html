@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact et devis de convoyage, OA Convoyage</title>
+<meta name="description" content="Une demande de devis, une question sur un trajet, un besoin récurrent : écrivez-nous, ou appelez le 06 08 57 23 14.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#faf8f3">
+<link rel="icon" href="assets/svg/icone.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/swarsh-daisy-italic.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="assets/css/main.css">
+<script>(function(d){d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');setTimeout(function(){d.classList.remove('anim')},3500)}})(document.documentElement)</script>
+</head>
+<body class="page page--contact" data-page="contact">
+<a class="evitement" href="#contenu">Aller au contenu</a>
+<header class="entete entete--clair" data-entete>
+  <div class="entete__barre">
+    <a class="entete__logo" href="accueil.html" aria-label="OA Convoyage, retour à l’accueil">
+      <img class="entete__logo-img" src="assets/svg/logo-anthracite.svg" alt="" width="200" height="23">
+    </a>
+    <nav class="entete__nav" aria-label="Navigation principale">
+      <a class="entete__lien" href="professionnels.html">Professionnels</a>
+      <a class="entete__lien" href="particuliers.html">Particuliers</a>
+      <a class="entete__lien" href="a-propos.html">À propos</a>
+      <a class="bouton bouton--s entete__cta" href="contact.html" aria-current="page"><span class="bouton__libelle">Nous contacter</span></a>
+    </nav>
+    <button class="entete__menu" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-ouvrir>
+      <span class="sr">Ouvrir le menu</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><path class="entete__menu-l1" d="M4 8H20"/><path class="entete__menu-l2" d="M4 16H20"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="contenu">
+
+  <section class="contact" aria-labelledby="hero-titre">
+    <div class="contact__cote">
+      <div class="contact__collant">
+        <nav class="ariane" aria-label="Fil d’Ariane"><ol><li><a href="accueil.html">Accueil</a></li><li aria-current="page">Contact</li></ol></nav>
+        <h1 class="hero-public__titre contact__titre" id="hero-titre"><span class="t-titre1 hero-public__ligne">Parlons de votre</span> <span class="t-accent-m hero-public__accent" data-script>convoyage.</span></h1>
+        <p class="t-chapo contact__chapo">Une demande de devis, une question sur un trajet, un besoin récurrent&nbsp;: écrivez, ou appelez, c’est le plus rapide.</p>
+        <div class="contact__tel">
+          <p class="contact__etiquette">Téléphone</p>
+          <a class="t-titre1 contact__numero" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>
+          <a class="lien lien--sombre contact__appel" href="tel:+33608572314"><span class="lien__ligne"><span class="lien__libelle">Nous appeler</span><svg class="icone icone--fleche lien__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
+</span><span class="lien__trait" aria-hidden="true"></span></a>
+
+          <p class="crochet contact__dispo contact__dispo--d">[Jours et horaires de joignabilité à confirmer]</p>
+        </div>
+        <div class="signature contact__signature">
+  <img class="signature__portrait" src="assets/img/portrait-signature.webp" alt="Portrait d’Océane Agoutborde" width="64" height="64" loading="lazy" decoding="async">
+  <div class="signature__texte"><span class="signature__nom">Océane Agoutborde</span><span class="signature__role">Fondatrice et convoyeuse.</span></div>
+</div>
+
+        <p class="crochet contact__dispo contact__dispo--m">[Jours et horaires de joignabilité à confirmer]</p>
+      </div>
+    </div>
+
+    <div class="contact__carte carte-form" id="formulaire" data-carte-formulaire>
+      <div class="carte-form__entete">
+        <h2 class="carte-form__titre">Envoyer votre demande</h2>
+        <p class="carte-form__texte">Votre demande est étudiée individuellement.</p>
+      </div>
+      <form class="formulaire" data-formulaire action="#" method="post" novalidate>
+        <input type="hidden" name="source" value="contact">
+        <div class="bandeau" data-bandeau role="alert" hidden><p data-bandeau-texte>Votre demande n’a pas pu être envoyée.</p></div>
+        <fieldset class="choix" data-champ="profil">
+          <legend class="champ__libelle">Vous êtes *</legend>
+          <div class="choix__options">
+            <label class="choix__option"><input type="radio" name="profil" value="pro"><span>Professionnel</span></label>
+            <label class="choix__option"><input type="radio" name="profil" value="part"><span>Particulier</span></label>
+          </div>
+          <p class="champ__aide champ__aide--vide" data-aide></p>
+        </fieldset>
+        <div class="formulaire__rangee">
+          <div class="champ " data-champ="depart">
+  <label class="champ__libelle" for="f-depart">Adresse de départ *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-depart" name="depart" type="text" placeholder="Adresse, code postal, ville" autocomplete="off" aria-describedby="f-depart-aide"></span>
+  <p class="champ__aide" id="f-depart-aide" data-aide>Où se trouve le véhicule</p>
+</div>
+
+          <div class="champ " data-champ="arrivee">
+  <label class="champ__libelle" for="f-arrivee">Adresse d’arrivée *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-arrivee" name="arrivee" type="text" placeholder="Adresse, code postal, ville" autocomplete="off" aria-describedby="f-arrivee-aide"></span>
+  <p class="champ__aide" id="f-arrivee-aide" data-aide>Où le véhicule doit être livré</p>
+</div>
+
+        </div>
+        <div class="champ champ--liste" data-champ="vehicule">
+          <label class="champ__libelle" for="f-vehicule">Type de véhicule</label>
+          <span class="champ__saisie"><select class="champ__controle" id="f-vehicule" name="vehicule" aria-describedby="f-vehicule-aide"><option value="" selected>Choisir</option><option value="citadine">Citadine ou berline</option><option value="suv">SUV ou monospace</option><option value="utilitaire">Utilitaire</option><option value="autre">Autre</option></select><svg class="icone icone--chevron champ__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
+</span>
+          <p class="champ__aide" id="f-vehicule-aide" data-aide>Citadine ou berline, SUV ou monospace, utilitaire, autre [liste à confirmer]</p>
+        </div>
+        <div class="formulaire__rangee">
+          <div class="champ " data-champ="nom">
+  <label class="champ__libelle" for="f-nom">Nom *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-nom" name="nom" type="text" placeholder="Votre nom" autocomplete="family-name" aria-describedby="f-nom-aide"></span>
+  <p class="champ__aide" id="f-nom-aide" data-aide>Pour savoir à qui nous répondons</p>
+</div>
+
+          <div class="champ " data-champ="prenom">
+  <label class="champ__libelle" for="f-prenom">Prénom *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-prenom" name="prenom" type="text" placeholder="Votre prénom" autocomplete="given-name" aria-describedby="f-prenom-aide"></span>
+  <p class="champ__aide" id="f-prenom-aide" data-aide>Pour vous répondre personnellement</p>
+</div>
+
+        </div>
+        <div class="champ " data-champ="entreprise" data-champ-entreprise hidden>
+  <label class="champ__libelle" for="f-entreprise">Nom de l’entreprise *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-entreprise" name="entreprise" type="text" placeholder="Votre entreprise" autocomplete="organization" aria-describedby="f-entreprise-aide"></span>
+  <p class="champ__aide" id="f-entreprise-aide" data-aide>Seulement si vous êtes un professionnel</p>
+</div>
+
+        <div class="formulaire__rangee">
+          <div class="champ " data-champ="telephone">
+  <label class="champ__libelle" for="f-telephone">Téléphone *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-telephone" name="telephone" type="tel" placeholder="06 XX XX XX XX" autocomplete="tel" inputmode=tel aria-describedby="f-telephone-aide"></span>
+  <p class="champ__aide" id="f-telephone-aide" data-aide>Pour vous rappeler au sujet de votre demande</p>
+</div>
+
+          <div class="champ " data-champ="email">
+  <label class="champ__libelle" for="f-email">Email *</label>
+  <span class="champ__saisie"><input class="champ__controle" id="f-email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email" aria-describedby="f-email-aide"></span>
+  <p class="champ__aide" id="f-email-aide" data-aide>Pour vous envoyer la confirmation de votre demande</p>
+</div>
+
+        </div>
+        <div class="champ champ--zone" data-champ="precisions">
+          <label class="champ__libelle" for="f-precisions">Précisions (facultatif)</label>
+          <span class="champ__saisie"><textarea class="champ__controle" id="f-precisions" name="precisions" rows="3" placeholder="Le véhicule, la date souhaitée…" aria-describedby="f-precisions-aide"></textarea></span>
+          <p class="champ__aide" id="f-precisions-aide" data-aide>[Champ à confirmer avec Océane]</p>
+        </div>
+        <div class="consentement" data-champ="consentement">
+          <label class="consentement__ligne"><input class="consentement__controle" type="checkbox" name="consentement" aria-describedby="f-consentement-aide"><span class="consentement__case" aria-hidden="true"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5.2L4.3 8.4L11 1.6"/></svg></span><span class="consentement__texte">J’accepte que mes informations soient utilisées pour répondre à ma demande. <a href="#">Politique de confidentialité</a>.</span></label>
+          <p class="champ__aide champ__aide--vide" id="f-consentement-aide" data-aide></p>
+        </div>
+        <button class="bouton bouton--l formulaire__envoi" type="submit"><span class="bouton__libelle">Envoyer ma demande</span><svg class="icone icone--fleche bouton__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
+</button>
+        <p class="formulaire__note">Livraison en moins de 48&nbsp;h. Délai de réponse [à confirmer]</p>
+      </form>
+    </div>
+
+    <div class="contact__carte carte-form carte-form--envoye" data-envoye hidden>
+      <h2 class="t-titre3">Votre demande est envoyée.</h2>
+      <p class="t-corps-l">Nous l’étudions personnellement et vous rappelons [délai de réponse à confirmer]. Un email de confirmation vous est envoyé.</p>
+      <p class="t-corps-s">En attendant, vous pouvez nous appeler au <a class="lien-texte" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>.</p>
+      <a class="lien lien--sombre " href="accueil.html"><span class="lien__ligne"><span class="lien__libelle">Revenir à l’accueil</span><svg class="icone icone--fleche lien__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
+</span><span class="lien__trait" aria-hidden="true"></span></a>
+
+    </div>
+  </section>
+
+  <section class="coordonnees" aria-labelledby="coordonnees-titre">
+    <h2 class="t-titre2" id="coordonnees-titre" data-lignes>Nos coordonnées.</h2>
+    <div class="coordonnees__colonnes">
+      <dl class="fiche">
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Téléphone</dt><dd class="ligne-fiche__valeur"><a class="lien-texte" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a></dd></div>
+
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Email</dt><dd class="ligne-fiche__valeur"><a class="lien-texte" href="mailto:oceaneagoutborde@gmail.com">oceaneagoutborde@gmail.com</a> [Adresse email affichée à confirmer]</dd></div>
+
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Disponibilités</dt><dd class="ligne-fiche__valeur">[Jours et horaires de joignabilité à confirmer]</dd></div>
+
+      </dl>
+      <dl class="fiche">
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Zone d’intervention</dt><dd class="ligne-fiche__valeur">Toute la France et l’étranger, d’un point A à un point B. Livraison en moins de 48&nbsp;h.</dd></div>
+
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Réseaux sociaux</dt><dd class="ligne-fiche__valeur">[Comptes à confirmer&nbsp;: n’afficher que ceux réellement actifs]</dd></div>
+
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Informations légales</dt><dd class="ligne-fiche__valeur">EURL OA Convoyage, SIREN 991&nbsp;486&nbsp;762. Siège&nbsp;: voir les mentions légales.</dd></div>
+
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="pied" data-pied>
+  <div class="pied__haut">
+    <div class="pied__marque">
+      <a class="pied__logo" href="accueil.html" aria-label="OA Convoyage, retour à l’accueil"><img src="assets/svg/logo-anthracite.svg" alt="" width="180" height="20"></a>
+      <p class="pied__presentation">Convoyage de véhicules par la route, d’un point A à un point B, en France et à l’étranger.</p>
+    </div>
+    <nav class="pied__colonne" aria-label="Le site">
+      <h2 class="pied__titre">Le site</h2>
+      <a href="professionnels.html">Professionnels</a>
+      <a href="particuliers.html">Particuliers</a>
+      <a href="convoyages.html">Convoyages</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="pied__colonne pied__colonne--joindre">
+      <h2 class="pied__titre">Nous joindre</h2>
+      <a href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>
+      <a href="mailto:oceaneagoutborde@gmail.com">oceaneagoutborde@gmail.com</a>
+      <span>[Adresse email affichée à confirmer]</span>
+    </div>
+  </div>
+  <div class="pied__bas">
+    <p class="pied__legal">© 2026 OA Convoyage, EURL. SIREN 991&nbsp;486&nbsp;762.</p>
+    <p class="pied__liens"><a href="#">Mentions légales</a><a href="#">Politique de confidentialité</a></p>
+  </div>
+</footer>
+
+<div class="barre-action" data-barre-action aria-hidden="true">
+  <a class="barre-action__appel" href="tel:+33608572314" tabindex="-1"><svg class="icone icone--tel " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.45 16.66a1 1 0 0 1-.65-.06A13.6 13.6 0 0 1 7.4 10.2a1 1 0 0 1 .3-1.2l.5-.4A2 2 0 0 0 9 7V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2 18 18 0 0 0 18 18 2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-3a2 2 0 0 0-1.6.8l-.4.5a1 1 0 0 1-.55.36z"/></svg>
+<span>Appeler</span></a>
+  <a class="bouton bouton--s barre-action__devis" href="contact.html" tabindex="-1"><span class="bouton__libelle">Obtenir un devis</span><svg class="icone icone--fleche bouton__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
+</a>
+</div>
+
+<div class="menu-mobile" id="menu-mobile" data-menu hidden>
+  <div class="menu-mobile__panneau">
+    <div class="menu-mobile__haut">
+      <img class="menu-mobile__logo" src="assets/svg/logo-creme.svg" alt="OA Convoyage" width="150" height="17">
+      <button class="menu-mobile__fermer" type="button" data-menu-fermer><span class="sr">Fermer le menu</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6L18 18"/><path d="M18 6L6 18"/></svg></button>
+    </div>
+    <nav class="menu-mobile__nav" aria-label="Menu">
+      <a href="accueil.html">Accueil</a>
+      <a href="professionnels.html">Professionnels</a>
+      <a href="particuliers.html">Particuliers</a>
+      <a href="a-propos.html">À propos</a>
+    </nav>
+    <div class="menu-mobile__bas">
+      <a class="bouton bouton--l bouton--contour menu-mobile__cta" href="contact.html"><span class="bouton__libelle">Nous contacter</span><svg class="icone icone--fleche bouton__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
+</a>
+      <a class="menu-mobile__tel" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>
+      <span class="menu-mobile__mention">En France et à l’étranger</span>
+    </div>
+  </div>
+</div>
+
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/SplitText.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

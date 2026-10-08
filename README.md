@@ -1,3 +1,4 @@
 # Aperçu animé du site OA Convoyage
 
-Site de présentation (textes d’exemple), généré par `prototype/presentation/build_presentation.py`. Ne pas modifier ici : relancer le build puis `publier_github.sh`.
+Deux versions du même site (même structure, mêmes textes), sur ordinateur ou sur mobile, avec un mode Remarques.
+Généré par `prototype/presentation/build_apercu.py` ; ne pas modifier ici : relancer le build puis `publier_github.sh`.
