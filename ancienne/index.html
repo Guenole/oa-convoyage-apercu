@@ -1219,6 +1219,12 @@ picture{display:contents}
 .manif__txt{position:relative;flex:1;display:flex;flex-direction:column;gap:40px;align-items:flex-start}
 .manif__txt h2{display:flex;flex-direction:column;gap:14px}
 .manif__txt h2>span{display:block}
+.manif__chapo{max-width:620px}
+/* hero de l'Accueil : paragraphe sur quatre lignes depuis le 15/10, voile gauche renforcé (ordinateur) */
+.matiere .poster.poster--demande .voile-gauche{opacity:1}
+.matiere .poster.poster--demande .voile-bas{background:linear-gradient(to bottom,rgba(76,70,68,0) 30%,rgba(76,70,68,.5) 58%,rgba(76,70,68,.76))}
+/* Accueil, texte du panneau Particuliers allongé le 15/10 : la teinte remonte sous la première ligne */
+.matiere .presta .carte-aud:nth-child(2)::after{height:76%;background:linear-gradient(to bottom,rgba(68,64,62,0),rgba(68,64,62,.56) 40%,rgba(68,64,62,.7))}
 
 /* ---------- Deux publics ---------- */
 .presta{display:flex;flex-direction:column;gap:64px}
@@ -1437,6 +1443,9 @@ picture{display:contents}
   .manif__txt{align-items:center;gap:24px}
   .manif__txt .t-manifeste{font-size:26px;line-height:1.27;letter-spacing:0}
   .manif__txt .a-poster-m{font-size:46px;line-height:.95}
+  .manif__chapo{font-size:16px;line-height:1.65}
+  /* hero de l'Accueil : titre sur quatre lignes depuis le 15/10, le voile bas remonte sous le texte */
+  .matiere .poster.poster--demande .voile-bas{background:linear-gradient(to bottom,rgba(76,70,68,0) 22%,rgba(76,70,68,.68) 40%,rgba(76,70,68,.84))}
   .presta{gap:28px}
   .presta__chapo{font-size:16px;line-height:1.65}
   .presta__cartes{flex-direction:column;gap:20px}
@@ -1539,8 +1548,8 @@ picture{display:contents}
     <div class="voile-haut"></div><div class="voile-bas"></div><div class="voile-gauche"></div>
     <div class="poster__trace"><img src="assets/svg/trace-diagonale.svg" alt=""></div>
     <div class="poster__lockup">
-      <h1 id="acc-titre"><span class="poster__titre t-poster">Confiez-nous</span><span class="poster__accent a-poster">votre véhicule</span></h1>
-      <p class="poster__sous t-chapo">Un convoyeur le conduit par la route, d’une agence à l’autre ou jusqu’à votre porte, en France et à l’étranger.</p>
+      <h1 id="acc-titre"><span class="poster__titre t-poster">Convoyage de voiture</span><span class="poster__accent a-poster">en France<br class="m-only"> et à l’étranger</span></h1>
+      <p class="poster__sous t-chapo">Confiez-nous votre véhicule. Un convoyeur le conduit par la route, d’une agence à l’autre ou jusqu’à votre porte. Livraison en moins de 48&nbsp;h, prix ferme, carburant et péages inclus.</p>
     </div>
     <div class="releves"><div class="releve"><p class="releve__val"><b>48</b><em>h</em></p><p class="l-micro">Délai de livraison maximal</p></div><div class="releve"><p class="releve__val"><b>5,0</b><span class="etoiles" aria-hidden="true"><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i></span></p><p class="l-micro">Sur 25 avis Google</p></div></div>
   </section>
@@ -1551,7 +1560,8 @@ picture{display:contents}
     <div class="fond-sig"></div>
     <div class="epingle rv"><picture><source media="(max-width: 767px)" srcset="assets/img/nda/accueil-interieur-m.webp"><img src="assets/img/nda/accueil-interieur-d.webp" alt="Habitacle d’une voiture : volant et sièges en cuir clair." loading="lazy" decoding="async"></picture></div>
     <div class="manif__txt rv">
-      <h2 id="acc-manif"><span class="t-manifeste">Le convoyage,<br> le métier d’Océane</span> <span class="a-poster-m">depuis 2022.</span></h2>
+      <h2 id="acc-manif"><span class="t-manifeste">Océane, convoyeuse<br> professionnelle</span> <span class="a-poster-m">depuis 2022.</span></h2>
+      <p class="t-chapo manif__chapo">Océane Agoutborde a fondé OA Convoyage pour offrir un service de convoyage de véhicules fiable, humain et transparent. Fondatrice et convoyeuse, avec son équipe elle assure un suivi personnalisé de chaque trajet.</p>
       <div class="sig"><img class="sig__portrait" src="assets/img/nda/portrait-signature.webp" alt="Portrait d’Océane Agoutborde" loading="lazy"><div class="sig__txt"><b>Océane Agoutborde</b><span class="t-petit">Fondatrice et convoyeuse.</span></div></div>
     </div>
   </section>
@@ -1574,7 +1584,7 @@ picture{display:contents}
         <picture><source media="(max-width: 767px)" srcset="assets/img/nda/accueil-part-m.webp"><img class="carte-aud__photo" src="assets/img/nda/accueil-part-d.webp" alt="Phare rond d’une voiture ancienne blanche." loading="lazy" decoding="async"></picture>
         <span class="carte-aud__voile"></span><span class="carte-aud__voile-h"></span><span class="carte-aud__voile-t"></span>
         <h3 class="carte-aud__titre">Particuliers</h3>
-        <span class="carte-aud__desc t-courant">Une voiture achetée à distance, livrée chez vous sans faire la route.</span>
+        <span class="carte-aud__desc t-courant">Vous avez acheté une voiture à distance&nbsp;? Nous la convoyons jusqu’à votre domicile, sans que vous ayez à faire la route. Vous connaissez l’identité de votre convoyeur avant le départ.</span>
         <span class="btn btn--creme carte-aud__btn"><span>Découvrir l’offre particuliers</span><span class="btn__rond"><i data-i="arrow-right"></i></span></span>
       </a>
     </div>
@@ -1583,7 +1593,7 @@ picture{display:contents}
   <!-- ============================================ le trajet -->
   <section class="sec sec--rose trajet" aria-labelledby="acc-trajet">
     <div class="sec__head rv"><h2 class="t-manifeste" id="acc-trajet">Votre convoyage en cinq étapes.</h2></div>
-    <div class="deroule deroule--5 rv"><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Votre demande</span><span class="deroule__d">Départ, arrivée, véhicule&nbsp;: quelques minutes suffisent.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Étude &amp; devis</span><span class="deroule__d">Nous étudions le trajet et vous confirmons un prix ferme, carburant et péages inclus.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Prise en charge</span><span class="deroule__d">État des lieux documenté, identité du convoyeur communiquée avant le départ.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Convoyage</span><span class="deroule__d">Un convoyeur de l’équipe au volant, par la route.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Livraison</span><span class="deroule__d">Remise des clés à l’arrivée, en moins de 48&nbsp;h.</span></div></div>
+    <div class="deroule deroule--5 rv"><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Votre demande</span><span class="deroule__d">Départ, arrivée, véhicule, en quelques minutes.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Étude et devis</span><span class="deroule__d">Prix ferme, carburant et péages inclus.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Prise en charge</span><span class="deroule__d">État des lieux documenté.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Convoyage</span><span class="deroule__d">Un convoyeur de l’équipe au volant, par la route.</span></div><div class="deroule__item"><span class="deroule__pin"><svg viewBox="0 0 26 34" fill="none"><path d="M13 33.25C13 33.25 .65 20.25 .65 13.1C.65 11.48.97 9.87 1.59 8.37C2.21 6.88 3.12 5.51 4.27 4.37C5.41 3.22 6.78 2.31 8.27 1.69C9.77 1.07 11.38.75 13 .75C14.62.75 16.23 1.07 17.73 1.69C19.22 2.31 20.59 3.22 21.73 4.37C22.88 5.51 23.79 6.88 24.41 8.37C25.03 9.87 25.35 11.48 25.35 13.1C25.35 20.25 13 33.25 13 33.25Z" stroke="#5E5F5F" stroke-width="1.52"/><circle cx="13" cy="12.88" r="4.33" fill="#5E5F5F"/></svg></span><span class="deroule__t">Livraison</span><span class="deroule__d">Remise des clés à l’arrivée, en moins de 48&nbsp;h.</span></div></div>
     <div class="h48">
       <div class="chiffre" data-in data-js="chiffre">
         <div class="chiffre__val"><b data-to="48">48</b><em>h</em></div>
@@ -1617,7 +1627,7 @@ picture{display:contents}
   <section class="sec sec--rose equipe" aria-labelledby="acc-equipe">
     <figure class="equipe__portrait rv"><div class="epingle"><img src="assets/img/nda/portrait-equipe.webp" alt="Portrait d’Océane Agoutborde, fondatrice d’OA Convoyage." loading="lazy"></div><figcaption class="l-micro ph">[Portrait HD à prévoir]</figcaption></figure>
     <div class="equipe__txt rv">
-      <h2 class="t-manifeste" id="acc-equipe">Deux convoyeurs, joignables de la demande à la livraison.</h2>
+      <h2 class="t-manifeste" id="acc-equipe">Contactez directement Océane.</h2>
       <ul class="equipe__membres">
         <li><b>Océane Agoutborde</b><span class="t-courant">Fondatrice et convoyeuse</span></li>
         <li><b><span class="ph">[Prénom du convoyeur]</span></b><span class="t-courant">Convoyeur à temps plein</span></li>
@@ -1625,7 +1635,7 @@ picture{display:contents}
     </div>
     <div class="ligne-dir equipe__tel rv">
       <a class="t-h1 ligne-dir__tel" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>
-      <p class="l-micro">Nous appeler</p>
+      <p class="l-micro">Appeler Océane</p>
       <p class="t-petit ph">[Horaires de joignabilité à confirmer]</p>
     </div>
   </section>

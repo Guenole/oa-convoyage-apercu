@@ -682,6 +682,7 @@
     var phrase = $('[data-mots]', mani);
     var photoMani = $('.manifeste__photo img', mani);
     var sig = $('.manifeste__signature', mani);
+    var chapo = $('.manifeste__chapo', mani);
     if (split) {
       var mots = split.create(phrase, { type: 'words' });
       mm.add('(min-width: 1024px)', function () {
@@ -689,12 +690,14 @@
         var t = G.timeline({ scrollTrigger: { trigger: mani, start: 'top top', end: '+=85%', pin: true, scrub: 0.6, anticipatePin: 1 } });
         t.to(mots.words, { opacity: 1, stagger: 0.14, ease: 'none', duration: 0.5 }, 0)
           .fromTo(photoMani, { scale: 1.16 }, { scale: 1, ease: 'none', duration: 1.4 }, 0)
+          .from(chapo, { y: 24, opacity: 0, duration: 0.4, ease: 'power2.out' }, 0.8)
           .from(sig, { y: 24, opacity: 0, duration: 0.4, ease: 'power2.out' }, 0.95);
         return function () { G.set(mots.words, { clearProps: 'opacity' }); };
       });
       mm.add('(max-width: 1023px)', function () {
         G.set(mots.words, { opacity: 0.14 });
         G.to(mots.words, { opacity: 1, stagger: 0.1, ease: 'none', scrollTrigger: { trigger: phrase, start: 'top 85%', end: 'bottom 45%', scrub: 0.5 } });
+        G.from(chapo, { y: 20, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: chapo, start: 'top 92%', once: true } });
         G.from(sig, { y: 20, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: sig, start: 'top 92%', once: true } });
         G.fromTo(photoMani, { scale: 1.14 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: photoMani, start: 'top bottom', end: 'bottom top', scrub: true } });
       });

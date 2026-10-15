@@ -597,6 +597,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .hero__voile--titre { inset: 0; background: radial-gradient(42% 30% at 50% 33%, rgba(61, 62, 62, .34), rgba(61, 62, 62, 0)); }
 .hero__voile--halos { inset: 0; background:
   radial-gradient(20% 12.9% at 9% 76%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .44) 55%, rgba(61, 62, 62, 0) 100%),
+  radial-gradient(16% 14% at 13% 23%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .46) 55%, rgba(61, 62, 62, 0) 100%),
   radial-gradient(16% 10% at 8% 9%, rgba(61, 62, 62, .40) 0%, rgba(61, 62, 62, .24) 55%, rgba(61, 62, 62, 0) 100%); }
 .hero__surface > .entete { position: absolute; left: calc(var(--k) * 56); right: calc(var(--k) * 56); top: calc(var(--k) * 32); }
 .hero__titre { position: absolute; left: 0; right: 0; top: calc(var(--k) * 128); text-align: center; color: var(--creme); }
@@ -611,6 +612,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .manifeste { display: flex; justify-content: space-between; align-items: flex-start; margin-top: calc(var(--k) * 24); padding: calc(var(--k) * 120) var(--marge-contenu); }
 .manifeste__texte { width: calc(var(--k) * 633); padding-top: calc(var(--k) * 104); }
 .manifeste__phrase { color: var(--anth); }
+.manifeste__chapo { width: calc(var(--k) * 540); margin-top: calc(var(--k) * 32); color: var(--anth); }
 .manifeste__signature { margin-top: calc(var(--k) * 44); }
 .manifeste__media { width: calc(var(--k) * 560); flex: none; }
 .manifeste__photo { width: 100%; height: calc(var(--k) * 520); border-radius: var(--r-panneau); }
@@ -709,7 +711,8 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .hero__surface { height: calc(var(--k) * 680); }
   .hero__voile--haut { height: calc(var(--k) * 220); }
   .hero__voile--bas { height: calc(var(--k) * 320); }
-  .hero__voile--titre { background: radial-gradient(62% 26% at 50% 30%, rgba(61, 62, 62, .42), rgba(61, 62, 62, 0)); }
+  .hero__voile--titre { background: radial-gradient(62% 26% at 50% 30%, rgba(61, 62, 62, .42), rgba(61, 62, 62, 0)),
+    radial-gradient(84% 25% at 50% 61%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .52) 60%, rgba(61, 62, 62, 0) 100%); }
   .hero__voile--halos { display: none; }
   .hero__surface > .entete { left: 20px; right: 20px; top: 20px; }
   .hero__titre { top: calc(var(--k) * 132); }
@@ -723,6 +726,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 
   .manifeste { flex-direction: column-reverse; justify-content: flex-start; margin-top: 72px; padding: 0 24px; }
   .manifeste__texte { width: auto; padding-top: 32px; }
+  .manifeste__chapo { width: auto; margin-top: 16px; }
   .manifeste__signature { margin-top: 24px; }
   .manifeste__media { width: 100%; }
   .manifeste__photo { height: calc(var(--k) * 260); }
@@ -739,7 +743,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .publics__pros { order: 1; }
   .publics__part { order: 2; }
   .panneau--clair .panneau__voile { background: linear-gradient(to bottom, rgba(61, 62, 62, .66) 0%, rgba(61, 62, 62, .3) 30%, rgba(61, 62, 62, 0) 58%); }
-  .panneau--sombre .panneau__voile { background: linear-gradient(to bottom, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, 0) 50%); }
+  .panneau--sombre .panneau__voile { background: linear-gradient(to bottom, rgba(255, 255, 255, .62) 0%, rgba(255, 255, 255, .5) 42%, rgba(255, 255, 255, 0) 66%); }
   .panneau__texte { left: 24px; right: 24px; max-width: none !important; }
   .panneau--clair .panneau__texte, .panneau--sombre .panneau__texte { top: 32px; bottom: auto; }
   .panneau__phrase { margin-top: 14px; font-size: var(--fs-corps); font-weight: 400; }
@@ -765,7 +769,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .equipe { height: auto; margin-top: 72px; padding: 40px 24px 44px; display: grid; grid-template-columns: 128px 1fr; column-gap: 20px; }
   .equipe__portrait { position: static; grid-column: 1; grid-row: 1; }
   .equipe__portrait img { width: 128px; height: 170px; }
-  .equipe__legende { margin-top: 12px; white-space: nowrap; }
+  .equipe__legende { margin-top: 12px; }
   .equipe__texte { display: contents; }
   .equipe__titre { position: static; grid-column: 1 / -1; grid-row: 2; margin-top: 32px; }
   .equipe__membres { grid-column: 2; grid-row: 1; flex-direction: column; gap: 20px; margin-top: 13px; align-self: start; }
