@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Aperçu du site OA Convoyage</title>
-<meta name="description" content="Aperçu animé du futur site d’OA Convoyage : deux versions, sur ordinateur et sur mobile, avec un mode Remarques.">
+<meta name="description" content="Aperçu animé du futur site d’OA Convoyage : deux versions, sur ordinateur et sur mobile.">
 <link rel="icon" href="nouvelle/assets/svg/icone.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
@@ -31,7 +31,6 @@
       <button type="button" data-appareil="ordinateur" aria-pressed="true">Ordinateur</button>
       <button type="button" data-appareil="mobile" aria-pressed="false">Mobile</button>
     </div>
-    <button type="button" class="ap-rq" aria-expanded="false" aria-controls="ap-panneau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg><span class="ap-rq__lib">Remarques</span><b class="ap-rq__nb" hidden>0</b></button>
   </div>
 </header>
 
@@ -39,22 +38,10 @@
   <div class="ap-cadre"><iframe id="ap-site" title="Site OA Convoyage" src="about:blank"></iframe></div>
 </main>
 
-<aside class="ap-panneau" id="ap-panneau" aria-label="Vos remarques" hidden>
-  <div class="ap-panneau__tete"><h2>Vos remarques</h2><button type="button" class="ap-x" aria-label="Fermer">×</button></div>
-  <p class="ap-aide">Touchez l’endroit de la page qui vous fait réagir, puis écrivez votre remarque. Vous pouvez commenter les deux versions, sur ordinateur comme sur mobile. Les passages entre crochets sont des informations que nous vous demanderons de confirmer.</p>
-  <button type="button" class="ap-ajout">+ Ajouter une remarque</button>
-  <ol class="ap-liste"></ol>
-  <p class="ap-vide">Aucune remarque pour l’instant.</p>
-  <label class="ap-nom"><span>Votre prénom</span><input type="text" autocomplete="given-name" placeholder="Océane"></label>
-  <div class="ap-pied">
-    <button type="button" class="ap-envoi" disabled>Envoyer à HWS</button>
-    <button type="button" class="ap-copie" disabled>Copier</button>
-  </div>
-  <p class="ap-note">Vos remarques restent sur cet appareil jusqu’à l’envoi.</p>
-</aside>
-<div class="ap-consigne" hidden><span>Touchez l’endroit à commenter</span><button type="button">Annuler</button></div>
-<form class="ap-bulle" hidden><p class="ap-bulle__ou"></p><textarea rows="4" placeholder="Votre remarque…" required></textarea><div><button type="button" class="ap-annule">Annuler</button><button type="submit">Enregistrer</button></div></form>
-<div class="ap-lecture" hidden><p class="ap-bulle__ou"></p><p class="ap-lecture__texte"></p><div><button type="button" class="ap-suppr">Supprimer</button><button type="button" class="ap-ferme">Fermer</button></div></div>
+<div class="ap-anciennes" role="region" aria-label="Remarques gardées sur cet appareil" hidden>
+  <p>Vous aviez noté <b class="ap-anciennes__nb"></b> sur cet appareil avec l’ancien outil. Envoyez-les-nous pour qu’elles ne se perdent pas.</p>
+  <div><button type="button" class="ap-anciennes__envoi">Envoyer à HWS</button><button type="button" class="ap-anciennes__copie">Copier</button><button type="button" class="ap-anciennes__x" aria-label="Fermer">×</button></div>
+</div>
 <p class="ap-toast" role="status" hidden></p>
 <script src="apercu.js"></script>
 </body>
