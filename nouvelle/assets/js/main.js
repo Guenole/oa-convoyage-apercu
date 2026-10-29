@@ -907,9 +907,6 @@
       var re = getComputedStyle(eq).borderTopLeftRadius;
       G.fromTo(eq, { clipPath: 'inset(0% 100% 0% 0% round ' + re + ')' }, { clipPath: 'inset(0% 0% 0% 0% round ' + re + ')', duration: 1.5, ease: 'expo.inOut', scrollTrigger: { trigger: eq, start: 'top 82%', once: true } });
       G.from($('.equipe-ap__portrait img', eq), { scale: 1.2, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: eq, start: 'top 70%', once: true } });
-      var conv = $('[data-convoyeur]', eq);
-      G.from(conv, { y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: conv, start: 'top 90%', once: true } });
-      G.from($$('.convoyeur__points li', conv), { x: -14, opacity: 0, duration: 0.8, ease: 'expo.out', stagger: 0.09, scrollTrigger: { trigger: conv, start: 'top 80%', once: true } });
       $$('.equipe-ap__engagements .ligne-fiche', eq).forEach(function (l) { G.from(l, { y: 18, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: l, start: 'top 92%', once: true } }); });
     }
     animerFin($('[data-fin]'));

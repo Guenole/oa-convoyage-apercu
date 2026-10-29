@@ -658,7 +658,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 
 /* ----------------------------------------------------------------- avis */
 .avis { padding: calc(var(--k) * 120) 0 calc(var(--k) * 120) var(--marge-contenu); overflow-x: clip; }
-/* le titre en Display sur toute la largeur ; la note à gauche, les actions à droite, sur la même ligne */
+/* le titre en Titre 1, comme les autres H2 ; la note à gauche, les actions à droite, sur la même ligne */
 .avis__entete { display: grid; grid-template-columns: 1fr auto; align-items: end; row-gap: calc(var(--k) * 40); padding-right: var(--marge-contenu); }
 .avis__titre-bloc { display: contents; }
 .avis__titre { grid-column: 1 / -1; color: var(--anth); }
@@ -982,17 +982,10 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .equipe-ap__intro { width: calc(var(--k) * 560); margin-top: calc(var(--k) * 24); }
 .equipe-ap__engagements { margin-top: calc(var(--k) * 48); }
 .equipe-ap__crochet { margin-top: calc(var(--k) * 24); }
-.equipe-ap__portrait { position: absolute; left: calc(var(--k) * 744); top: calc(var(--k) * 88); display: flex; align-items: flex-end; gap: calc(var(--k) * 24); }
+/* seul objet de la colonne droite depuis le retrait de la carte convoyeur (29/10) : centré dans la hauteur de la section */
+.equipe-ap__portrait { position: absolute; left: calc(var(--k) * 744); top: 50%; transform: translateY(-50%); display: flex; align-items: flex-end; gap: calc(var(--k) * 24); }
 .equipe-ap__portrait img { width: calc(var(--k) * 240); height: calc(var(--k) * 320); object-fit: cover; border-radius: var(--r-objet); }
 .equipe-ap__legende { display: flex; flex-direction: column; gap: 6px; }
-.convoyeur { position: absolute; left: calc(var(--k) * 744); top: calc(var(--k) * 456); width: calc(var(--k) * 576); display: flex; flex-direction: column; gap: 20px; padding: 32px; background: var(--blanc); color: var(--anth); border-radius: var(--r-objet); box-shadow: var(--ombre-carte); }
-.convoyeur__etiquette { font-size: 10px; font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
-.convoyeur__qui { display: flex; align-items: center; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--gris); }
-.convoyeur__photo { width: 56px; height: 56px; flex: none; border-radius: 50%; background: var(--rose-doux); }
-.convoyeur__identite { display: flex; flex-direction: column; gap: 2px; }
-.convoyeur__points { display: flex; flex-direction: column; gap: 10px; }
-.convoyeur__points li { position: relative; padding-left: 18px; font-size: var(--fs-corps-s); font-weight: 300; line-height: 1.55; }
-.convoyeur__points li::before { content: ""; position: absolute; left: 0; top: 11px; width: 8px; height: 1px; background: rgba(94, 95, 95, .5); }
 
 /* ------------------------------------------------------------------ fin */
 .fin__texte .fin__legende { left: 0; top: calc(var(--k) * 452); }
@@ -1024,10 +1017,9 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .equipe-ap { padding: 40px 24px; }
   .equipe-ap__texte, .equipe-ap__engagements, .equipe-ap__crochet, .equipe-ap__intro { width: auto; }
   .equipe-ap__intro { margin-top: 16px; font-size: var(--fs-corps); font-weight: 400; }
-  .equipe-ap__portrait { position: static; margin-top: 28px; gap: 20px; }
+  .equipe-ap__portrait { position: static; transform: none; margin-top: 28px; gap: 20px; }
   .equipe-ap__portrait img { width: 140px; height: 187px; }
-  .convoyeur { position: static; width: auto; margin-top: 28px; padding: 24px; }
-  .equipe-ap__engagements { margin-top: 32px; }
+    .equipe-ap__engagements { margin-top: 32px; }
   .equipe-ap__crochet { margin-top: 20px; }
 
 
