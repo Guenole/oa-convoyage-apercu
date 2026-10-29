@@ -790,15 +790,14 @@
     G.set(el, { clipPath: depart }); // posé tout de suite, dans la même tâche que le retrait de .anim
     tl.fromTo(el, { clipPath: depart }, { clipPath: insetOuvert(depart), duration: duree, ease: 'expo.inOut', clearProps: 'clipPath' }, position);
   }
-  /* titre principal découpé en lettres : une copie invisible garde le texte pour les lecteurs d'écran,
-     les lettres animées leur sont masquées */
+  /* titre principal découpé en lettres : le H1 porte son texte complet en aria-label (lu par les lecteurs
+     d'écran), les lettres animées leur sont masquées ; le texte n'existe qu'une fois dans la page
+     (une copie invisible le doublait pour les outils SEO, corrigé le 29/10) */
   function lettres(tl, ligne, position) {
     if (!ligne) return;
     if (!split) { tl.from(ligne, Object.assign({ duration: 1.1 }, LETTRES), position); return; }
-    var copie = document.createElement('span');
-    copie.className = 'sr';
-    copie.textContent = ligne.textContent.replace(/\s+/g, ' ').trim();
-    ligne.parentNode.insertBefore(copie, ligne);
+    var titre = ligne.closest('h1');
+    if (titre && !titre.hasAttribute('aria-label')) titre.setAttribute('aria-label', titre.textContent.replace(/\s+/g, ' ').trim());
     /* autoSplit : la découpe se refait quand la police arrive (le premier écran n'attend pas les polices),
        et l'animation reprend où elle en était */
     split.create(ligne, {
