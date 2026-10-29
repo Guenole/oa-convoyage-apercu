@@ -8,8 +8,10 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#faf8f3">
 <link rel="icon" href="assets/svg/icone.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/webclip-256.png">
 <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/swarsh-daisy-italic.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/swarsh-daisy-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
 <script>(function(d){d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');setTimeout(function(){d.classList.remove('anim')},3500)}})(document.documentElement)</script>
 <script src="https://api-flowdesk.hws.pm/remarques.js" data-projet="pr-e3f974cdbcfcf78e87dd87f5c34ced4b" defer></script>
@@ -46,13 +48,13 @@
 </span><span class="lien__trait" aria-hidden="true"></span></a>
 
     </div>
-    <picture class="photo hero-public__photo"><source media="(max-width: 1023px)" srcset="assets/img/pro-hero-m.webp"><img src="assets/img/pro-hero-d.webp" alt="Une voiture blanche roule vers des villas sur une colline." width="696" height="720" loading="eager" decoding="async" fetchpriority=high></picture>
+    <picture class="photo hero-public__photo"><source media="(max-width: 767px)" srcset="assets/img/pro-hero-m.webp"><img src="assets/img/pro-hero-d.webp" srcset="assets/img/pro-hero-d-480.webp 480w, assets/img/pro-hero-d-640.webp 640w, assets/img/pro-hero-d-800.webp 800w, assets/img/pro-hero-d-960.webp 960w, assets/img/pro-hero-d.webp 1392w" sizes="(max-width: 991px) calc(100vw - 32px), (min-width: 1920px) 928px, 48.33vw" alt="Une voiture blanche roule vers des villas sur une colline." width="696" height="720" loading="eager" decoding="async" fetchpriority=high></picture>
 
     <form class="barre hero-public__barre" action="contact.html" method="get" data-barre="vide" novalidate>
   <input type="hidden" name="source" value="professionnels-hero">
   <div class="barre__champ barre__champ--liste barre__champ--profil">
     <label class="barre__etiquette" for="hero-profil">Vous êtes</label>
-    <span class="barre__valeur"><select class="barre__saisie" id="hero-profil" name="profil" data-exemple=""><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
+    <span class="barre__valeur"><select class="barre__saisie" id="hero-profil" name="profil" data-exemple=""><option value="" hidden>Choisir</option><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
 </span>
   </div>
   <div class="barre__champ barre__champ--depart">
@@ -118,7 +120,7 @@
       <dl class="fiche">
         <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Zone</dt><dd class="ligne-fiche__valeur">Toute la France et le monde entier, d’un point A à un point B.</dd></div>
 
-        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Trajets récents</dt><dd class="ligne-fiche__valeur">Toulouse&nbsp;→&nbsp;Paris, Mont-de-Marsan&nbsp;→&nbsp;Annemasse, Megève&nbsp;→&nbsp;Castres, et de la Suède vers la France. <a class="lien-texte" href="convoyages.html">Voir les convoyages réalisés</a></dd></div>
+        <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Trajets récents</dt><dd class="ligne-fiche__valeur">Toulouse&nbsp;→&nbsp;Paris, <span class="insecable">Mont-de-Marsan</span>&nbsp;→&nbsp;Annemasse, Megève&nbsp;→&nbsp;Castres, et de la Suède vers la France. <a class="lien-texte" href="convoyages.html">Voir les convoyages réalisés</a></dd></div>
 
         <div class="ligne-fiche "><dt class="ligne-fiche__libelle">Véhicules</dt><dd class="ligne-fiche__valeur">Tout véhicule jusqu’au permis BE&nbsp;: voitures et utilitaires de moins de 3,5&nbsp;t, avec ou sans remorque. Pas de motos ni de poids lourds.</dd></div>
 
@@ -134,11 +136,11 @@
   <section class="deroule encastre sur-nuit" id="deroule" data-mission aria-labelledby="deroule-titre">
     <h2 class="t-titre2 deroule__titre" id="deroule-titre" data-lignes>Cinq étapes, de votre demande<br class="br-d"> à la remise des clés.</h2>
     <div class="deroule__photos" aria-hidden="true">
-      <img class="deroule__photo est-active" data-mission-photo src="assets/img/etape-1-d.webp" srcset="assets/img/etape-1-m.webp 636w, assets/img/etape-1-d.webp 2400w" sizes="(max-width: 1023px) 318px, 1200px" alt="Mains qui écrivent un message sur un téléphone." width="1200" height="500" loading="lazy" decoding="async">
-      <img class="deroule__photo" data-mission-photo src="assets/img/etape-2-d.webp" srcset="assets/img/etape-2-m.webp 636w, assets/img/etape-2-d.webp 2400w" sizes="(max-width: 1023px) 318px, 1200px" alt="Mains sur une calculatrice, à côté d’un carnet et d’un ordinateur portable." width="1200" height="500" loading="lazy" decoding="async">
-      <img class="deroule__photo" data-mission-photo src="assets/img/etape-3-d.webp" srcset="assets/img/etape-3-m.webp 636w, assets/img/etape-3-d.webp 2400w" sizes="(max-width: 1023px) 318px, 1200px" alt="Clés de voiture dans une main, dans l’habitacle." width="1200" height="500" loading="lazy" decoding="async">
-      <img class="deroule__photo" data-mission-photo src="assets/img/etape-4-d.webp" srcset="assets/img/etape-4-m.webp 636w, assets/img/etape-4-d.webp 2400w" sizes="(max-width: 1023px) 318px, 1200px" alt="Main posée sur le volant, forêt à la vitre." width="1200" height="500" loading="lazy" decoding="async">
-      <img class="deroule__photo" data-mission-photo src="assets/img/etape-5-d.webp" srcset="assets/img/etape-5-m.webp 636w, assets/img/etape-5-d.webp 2400w" sizes="(max-width: 1023px) 318px, 1200px" alt="Clés tendues au client." width="1200" height="500" loading="lazy" decoding="async">
+      <picture><source media="(max-width: 767px)" srcset="assets/img/etape-1-m.webp"><img class="deroule__photo est-active" data-mission-photo src="assets/img/etape-1-d.webp" srcset="assets/img/etape-1-d-480.webp 480w, assets/img/etape-1-d-640.webp 640w, assets/img/etape-1-d-800.webp 800w, assets/img/etape-1-d-960.webp 960w, assets/img/etape-1-d-1280.webp 1280w, assets/img/etape-1-d-1440.webp 1440w, assets/img/etape-1-d-1600.webp 1600w, assets/img/etape-1-d-1920.webp 1920w, assets/img/etape-1-d.webp 2400w" sizes="(max-width: 991px) 112vw, (min-width: 1920px) 1782px, 92vw" alt="Mains qui écrivent un message sur un téléphone." width="1200" height="500" loading="lazy" decoding="async"></picture>
+      <picture><source media="(max-width: 767px)" srcset="assets/img/etape-2-m.webp"><img class="deroule__photo" data-mission-photo src="assets/img/etape-2-d.webp" srcset="assets/img/etape-2-d-480.webp 480w, assets/img/etape-2-d-640.webp 640w, assets/img/etape-2-d-800.webp 800w, assets/img/etape-2-d-960.webp 960w, assets/img/etape-2-d-1280.webp 1280w, assets/img/etape-2-d-1440.webp 1440w, assets/img/etape-2-d-1600.webp 1600w, assets/img/etape-2-d-1920.webp 1920w, assets/img/etape-2-d.webp 2400w" sizes="(max-width: 991px) 112vw, (min-width: 1920px) 1782px, 92vw" alt="Mains sur une calculatrice, à côté d’un carnet et d’un ordinateur portable." width="1200" height="500" loading="lazy" decoding="async"></picture>
+      <picture><source media="(max-width: 767px)" srcset="assets/img/etape-3-m.webp"><img class="deroule__photo" data-mission-photo src="assets/img/etape-3-d.webp" srcset="assets/img/etape-3-d-480.webp 480w, assets/img/etape-3-d-640.webp 640w, assets/img/etape-3-d-800.webp 800w, assets/img/etape-3-d-960.webp 960w, assets/img/etape-3-d-1280.webp 1280w, assets/img/etape-3-d-1440.webp 1440w, assets/img/etape-3-d-1600.webp 1600w, assets/img/etape-3-d-1920.webp 1920w, assets/img/etape-3-d.webp 2400w" sizes="(max-width: 991px) 112vw, (min-width: 1920px) 1782px, 92vw" alt="Clés de voiture dans une main, dans l’habitacle." width="1200" height="500" loading="lazy" decoding="async"></picture>
+      <picture><source media="(max-width: 767px)" srcset="assets/img/etape-4-m.webp"><img class="deroule__photo" data-mission-photo src="assets/img/etape-4-d.webp" srcset="assets/img/etape-4-d-480.webp 480w, assets/img/etape-4-d-640.webp 640w, assets/img/etape-4-d-800.webp 800w, assets/img/etape-4-d-960.webp 960w, assets/img/etape-4-d-1280.webp 1280w, assets/img/etape-4-d-1440.webp 1440w, assets/img/etape-4-d-1600.webp 1600w, assets/img/etape-4-d-1920.webp 1920w, assets/img/etape-4-d.webp 2400w" sizes="(max-width: 991px) 112vw, (min-width: 1920px) 1782px, 92vw" alt="Main posée sur le volant, forêt à la vitre." width="1200" height="500" loading="lazy" decoding="async"></picture>
+      <picture><source media="(max-width: 767px)" srcset="assets/img/etape-5-m.webp"><img class="deroule__photo" data-mission-photo src="assets/img/etape-5-d.webp" srcset="assets/img/etape-5-d-480.webp 480w, assets/img/etape-5-d-640.webp 640w, assets/img/etape-5-d-800.webp 800w, assets/img/etape-5-d-960.webp 960w, assets/img/etape-5-d-1280.webp 1280w, assets/img/etape-5-d-1440.webp 1440w, assets/img/etape-5-d-1600.webp 1600w, assets/img/etape-5-d-1920.webp 1920w, assets/img/etape-5-d.webp 2400w" sizes="(max-width: 991px) 112vw, (min-width: 1920px) 1782px, 92vw" alt="Clés tendues au client." width="1200" height="500" loading="lazy" decoding="async"></picture>
     </div>
     <div class="deroule__piste">
       <ol class="mission">
@@ -170,14 +172,14 @@
 
   <!-- ===================================== préparez votre demande -->
   <section class="preparez" data-preparez aria-labelledby="preparez-titre">
-    <h2 class="t-titre1" id="preparez-titre" data-lignes>Préparez votre demande.</h2>
+    <h2 class="t-titre2" id="preparez-titre" data-lignes>Préparez votre demande.</h2>
     <p class="t-chapo preparez__chapo" data-monte>Plus la demande est précise, plus la réponse est rapide.</p>
     <p class="preparez__exemple">Exemple de demande</p>
     <form class="barre preparez__barre" action="contact.html" method="get" data-barre="rempli" novalidate>
   <input type="hidden" name="source" value="professionnels-exemple">
   <div class="barre__champ barre__champ--liste barre__champ--profil">
     <label class="barre__etiquette" for="exemple-profil">Vous êtes</label>
-    <span class="barre__valeur"><select class="barre__saisie" id="exemple-profil" name="profil" data-exemple="pro"><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
+    <span class="barre__valeur"><select class="barre__saisie" id="exemple-profil" name="profil" data-exemple="pro"><option value="" hidden>Choisir</option><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
 </span>
   </div>
   <div class="barre__champ barre__champ--depart">
@@ -212,7 +214,7 @@
 
   <!-- ================================================ questions -->
   <section class="questions-public" aria-labelledby="questions-titre">
-    <h2 class="t-titre1 questions-public__titre" id="questions-titre" data-lignes>Les questions des professionnels.</h2>
+    <h2 class="t-titre2 questions-public__titre" id="questions-titre" data-lignes>Les questions des professionnels.</h2>
     <div class="questions-public__corps">
       <div class="questions-public__cote">
         <p class="t-corps">Une autre question&nbsp;? Appelez-nous au <a class="lien-texte" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>, de 9&nbsp;h à 18&nbsp;h.</p>
@@ -273,7 +275,7 @@
   <section class="avis avis--public" data-avis aria-labelledby="avis-titre">
     <div class="avis__entete">
       <div class="avis__titre-bloc">
-        <h2 class="t-titre1 avis__titre" id="avis-titre" data-lignes>Nos clients en parlent le mieux.</h2>
+        <h2 class="t-titre2 avis__titre" id="avis-titre" data-lignes>Nos clients en parlent le mieux.</h2>
         <div class="note-google avis__note">
   <svg class="icone icone--google note-google__logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="#FFC107" d="M29.07 13.4H28v-.07H16v5.34h7.53A8 8 0 0 1 16 24a8 8 0 1 1 5.33-14l3.8-3.8A13.3 13.3 0 0 0 16 2.67a13.33 13.33 0 1 0 13.07 10.73z"/><path fill="#FF3D00" d="M4.2 9.8l4.4 3.2A8 8 0 0 1 16 8c2.07 0 3.87.8 5.33 2l3.8-3.8A13.3 13.3 0 0 0 16 2.67c-5.13 0-9.53 2.86-11.8 7.13z"/><path fill="#4CAF50" d="M16 29.33c3.47 0 6.6-1.33 8.93-3.46l-4.13-3.47A8 8 0 0 1 16 24a8 8 0 0 1-7.53-5.27l-4.34 3.34A13.3 13.3 0 0 0 16 29.33z"/><path fill="#1976D2" d="M29.07 13.4H28v-.07H16v5.34h7.53a8 8 0 0 1-2.73 3.73l4.13 3.47c-.26.26 4.4-3.2 4.4-9.87 0-.87-.07-1.8-.26-2.6z"/></svg>
 
@@ -430,11 +432,11 @@
   <!-- ====================================================== fin -->
   <section class="fin" data-fin aria-labelledby="fin-titre">
     <div class="fin__panneau encastre sur-nuit">
-      <picture class="photo fin__photo"><source media="(max-width: 1023px)" srcset="assets/img/pro-fin-m.webp"><img src="assets/img/pro-fin-d.webp" alt="Sièges en cuir d’une voiture, prêts à partir." width="752" height="640" loading="lazy" decoding="async"></picture>
+      <picture class="photo fin__photo"><source media="(max-width: 767px)" srcset="assets/img/pro-fin-m.webp"><img src="assets/img/pro-fin-d.webp" srcset="assets/img/pro-fin-d-480.webp 480w, assets/img/pro-fin-d-640.webp 640w, assets/img/pro-fin-d-800.webp 800w, assets/img/pro-fin-d-960.webp 960w, assets/img/pro-fin-d-1280.webp 1280w, assets/img/pro-fin-d.webp 1504w" sizes="(max-width: 991px) 78vw, (min-width: 1920px) 1003px, 52.22vw" alt="Sièges en cuir d’une voiture, prêts à partir." width="752" height="640" loading="lazy" decoding="async"></picture>
 
       <span class="fin__fondu" aria-hidden="true"></span>
       <div class="fin__texte">
-        <h2 class="t-titre1" id="fin-titre" data-lignes>Un véhicule<br> à transférer&nbsp;?</h2>
+        <h2 class="t-titre2" id="fin-titre" data-lignes>Un véhicule<br> à transférer&nbsp;?</h2>
         <p class="t-chapo fin__chapo" data-monte>Indiquez l’agence de départ et l’adresse d’arrivée&nbsp;: nous étudions votre demande et vous confirmons un prix ferme dans la journée.</p>
         <a class="lien lien--clair fin__appel" href="tel:+33608572314"><span class="lien__ligne"><span class="lien__libelle">Appeler le 06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</span><svg class="icone icone--fleche lien__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
 </span><span class="lien__trait" aria-hidden="true"></span></a>
@@ -446,7 +448,7 @@
   <input type="hidden" name="source" value="professionnels-fin">
   <div class="barre__champ barre__champ--liste barre__champ--profil">
     <label class="barre__etiquette" for="fin-profil">Vous êtes</label>
-    <span class="barre__valeur"><select class="barre__saisie" id="fin-profil" name="profil" data-exemple=""><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
+    <span class="barre__valeur"><select class="barre__saisie" id="fin-profil" name="profil" data-exemple=""><option value="" hidden>Choisir</option><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
 </span>
   </div>
   <div class="barre__champ barre__champ--depart">
@@ -505,7 +507,7 @@
 </a>
 </div>
 
-<div class="menu-mobile" id="menu-mobile" data-menu hidden>
+<div class="menu-mobile" id="menu-mobile" data-menu role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <div class="menu-mobile__panneau">
     <div class="menu-mobile__haut">
       <img class="menu-mobile__logo" src="assets/svg/logo-creme.svg" alt="OA Convoyage" width="150" height="17">

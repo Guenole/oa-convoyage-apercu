@@ -8,8 +8,10 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#faf8f3">
 <link rel="icon" href="assets/svg/icone.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/webclip-256.png">
 <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/swarsh-daisy-italic.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/swarsh-daisy-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
 <script>(function(d){d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');setTimeout(function(){d.classList.remove('anim')},3500)}})(document.documentElement)</script>
 <script src="https://api-flowdesk.hws.pm/remarques.js" data-projet="pr-e3f974cdbcfcf78e87dd87f5c34ced4b" defer></script>
@@ -39,7 +41,7 @@
   <section class="convoyage-fiche" data-convoyage-fiche aria-labelledby="fiche-titre">
     <div class="convoyage-fiche__texte">
       <nav class="ariane" aria-label="Fil d’Ariane"><ol><li><a href="accueil.html">Accueil</a></li><li><a href="convoyages.html">Convoyages</a></li><li aria-current="page">Audi A3 Sportback</li></ol></nav>
-      <h1 class="convoyage-fiche__titre" id="fiche-titre"><span class="t-titre1 convoyage-fiche__ligne">Audi&nbsp;A3 Sportback</span> <span class="t-accent-m convoyage-fiche__accent" data-script>de Megève à&nbsp;Castres</span></h1>
+      <h1 class="convoyage-fiche__titre" id="fiche-titre"><span class="t-titre1 convoyage-fiche__ligne">Audi A3 Sportback</span> <span class="t-accent-m convoyage-fiche__accent" data-script>de <span class="insecable">Megève</span> à&nbsp;<span class="insecable">Castres</span></span></h1>
       <p class="t-chapo convoyage-fiche__chapo">Une Audi A3 Sportback conduite de Megève à Castres par un convoyeur d’OA Convoyage, par la route. Océane l’a présentée parmi ses convoyages récents, réalisés pour ses clients.</p>
       <p class="crochet convoyage-fiche__crochet">[Récit de la mission (contexte, distance, délai, client professionnel ou particulier)&nbsp;: à compléter avec Océane]</p>
       <dl class="fiche convoyage-fiche__donnees">
@@ -56,7 +58,7 @@
       </dl>
     </div>
     <figure class="convoyage-fiche__figure">
-      <picture class="photo convoyage-fiche__photo"><source media="(max-width: 1023px)" srcset="assets/img/convoyage-audi-a3-sportback-megeve-castres-m.webp"><img src="assets/img/convoyage-audi-a3-sportback-megeve-castres-d.webp" alt="Audi A3 Sportback grise sur une route de montagne, plaque floutée." width="900" height="1200" loading="eager" decoding="async"></picture>
+      <picture class="photo convoyage-fiche__photo"><source media="(max-width: 767px)" srcset="assets/img/convoyage-audi-a3-sportback-megeve-castres-m.webp"><img src="assets/img/convoyage-audi-a3-sportback-megeve-castres-d.webp" srcset="assets/img/convoyage-audi-a3-sportback-megeve-castres-d-480.webp 480w, assets/img/convoyage-audi-a3-sportback-megeve-castres-m.webp 600w, assets/img/convoyage-audi-a3-sportback-megeve-castres-d.webp 900w, assets/img/convoyage-audi-a3-sportback-megeve-castres-d-1151.webp 1151w" sizes="(max-width: 991px) 36vw, (min-width: 1920px) 747px, 38.89vw" alt="Audi A3 Sportback grise sur une route de montagne, plaque floutée." width="900" height="1200" loading="eager" decoding="async" fetchpriority=high></picture>
 
       <figcaption class="legende convoyage-fiche__legende">Photo de la mission, plaque floutée.</figcaption>
     </figure>
@@ -70,7 +72,7 @@
   <input type="hidden" name="source" value="convoyage-audi-a3-sportback-megeve-castres">
   <div class="barre__champ barre__champ--liste barre__champ--profil">
     <label class="barre__etiquette" for="fiche-profil">Vous êtes</label>
-    <span class="barre__valeur"><select class="barre__saisie" id="fiche-profil" name="profil" data-exemple=""><option value="pro" selected>Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
+    <span class="barre__valeur"><select class="barre__saisie" id="fiche-profil" name="profil" data-exemple=""><option value="" hidden>Choisir</option><option value="pro">Professionnel</option><option value="part">Particulier</option></select><svg class="icone icone--chevron barre__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9L12 15L18 9"/></svg>
 </span>
   </div>
   <div class="barre__champ barre__champ--depart">
@@ -102,11 +104,11 @@
 </span><span class="lien__trait" aria-hidden="true"></span></a>
 
     </div>
-    <ul class="convoyages-grille "><li class="convoyage-carte" data-carte-convoyage><a class="convoyage-carte__lien" href="convoyage-skoda-toulouse-paris.html"><picture class="photo convoyage-carte__photo"><source media="(max-width: 1023px)" srcset="assets/img/convoyage-skoda-toulouse-paris-m.webp"><img src="assets/img/convoyage-skoda-toulouse-paris-d.webp" alt="Skoda vert olive vue de face dans un garage, plaque floutée." width="900" height="1200" loading="lazy" decoding="async"></picture>
+    <ul class="convoyages-grille "><li class="convoyage-carte" data-carte-convoyage><a class="convoyage-carte__lien" href="convoyage-skoda-toulouse-paris.html"><picture class="photo convoyage-carte__photo"><source media="(max-width: 767px)" srcset="assets/img/convoyage-skoda-toulouse-paris-m.webp"><img src="assets/img/convoyage-skoda-toulouse-paris-d.webp" srcset="assets/img/convoyage-skoda-toulouse-paris-d-480.webp 480w, assets/img/convoyage-skoda-toulouse-paris-m.webp 600w, assets/img/convoyage-skoda-toulouse-paris-d.webp 900w" sizes="(max-width: 991px) 31vw, (min-width: 1920px) 540px, 28vw" alt="Skoda vert olive vue de face dans un garage, plaque floutée." width="900" height="1200" loading="lazy" decoding="async"></picture>
 <span class="convoyage-carte__vehicule">Skoda</span><span class="convoyage-carte__trajet"><span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Départ</span>Toulouse</span><svg class="icone icone--fleche convoyage-carte__vers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
-<span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Arrivée</span>Paris</span></span></a></li><li class="convoyage-carte" data-carte-convoyage><a class="convoyage-carte__lien" href="convoyage-megane-rs-toulouse-montelimar.html"><picture class="photo convoyage-carte__photo"><source media="(max-width: 1023px)" srcset="assets/img/convoyage-megane-rs-toulouse-montelimar-m.webp"><img src="assets/img/convoyage-megane-rs-toulouse-montelimar-d.webp" alt="Renault Mégane RS blanche à bandes tricolores, garée dans une rue de village, plaque floutée." width="900" height="1200" loading="lazy" decoding="async"></picture>
+<span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Arrivée</span>Paris</span></span></a></li><li class="convoyage-carte" data-carte-convoyage><a class="convoyage-carte__lien" href="convoyage-megane-rs-toulouse-montelimar.html"><picture class="photo convoyage-carte__photo"><source media="(max-width: 767px)" srcset="assets/img/convoyage-megane-rs-toulouse-montelimar-m.webp"><img src="assets/img/convoyage-megane-rs-toulouse-montelimar-d.webp" srcset="assets/img/convoyage-megane-rs-toulouse-montelimar-d-480.webp 480w, assets/img/convoyage-megane-rs-toulouse-montelimar-m.webp 600w, assets/img/convoyage-megane-rs-toulouse-montelimar-d.webp 900w" sizes="(max-width: 991px) 31vw, (min-width: 1920px) 540px, 28vw" alt="Renault Mégane RS blanche à bandes tricolores, garée dans une rue de village, plaque floutée." width="900" height="1200" loading="lazy" decoding="async"></picture>
 <span class="convoyage-carte__vehicule">Renault Mégane RS</span><span class="convoyage-carte__trajet"><span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Départ</span>Toulouse</span><svg class="icone icone--fleche convoyage-carte__vers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
-<span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Arrivée</span>Montélimar</span></span></a></li><li class="convoyage-carte" data-carte-convoyage><a class="convoyage-carte__lien" href="convoyage-audi-s3-mont-de-marsan-annemasse.html"><picture class="photo convoyage-carte__photo"><source media="(max-width: 1023px)" srcset="assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-m.webp"><img src="assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-d.webp" alt="Audi S3 blanche vue de face sur du gravier, plaque floutée." width="900" height="1200" loading="lazy" decoding="async"></picture>
+<span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Arrivée</span>Montélimar</span></span></a></li><li class="convoyage-carte" data-carte-convoyage><a class="convoyage-carte__lien" href="convoyage-audi-s3-mont-de-marsan-annemasse.html"><picture class="photo convoyage-carte__photo"><source media="(max-width: 767px)" srcset="assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-m.webp"><img src="assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-d.webp" srcset="assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-d-480.webp 480w, assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-m.webp 600w, assets/img/convoyage-audi-s3-mont-de-marsan-annemasse-d.webp 900w" sizes="(max-width: 991px) 31vw, (min-width: 1920px) 540px, 28vw" alt="Audi S3 blanche vue de face sur du gravier, plaque floutée." width="900" height="1200" loading="lazy" decoding="async"></picture>
 <span class="convoyage-carte__vehicule">Audi S3</span><span class="convoyage-carte__trajet"><span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Départ</span>Mont-de-Marsan</span><svg class="icone icone--fleche convoyage-carte__vers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
 <span class="convoyage-carte__lieu"><span class="convoyage-carte__etiquette">Arrivée</span>Annemasse</span></span></a></li></ul>
   </section>
@@ -146,7 +148,7 @@
 </a>
 </div>
 
-<div class="menu-mobile" id="menu-mobile" data-menu hidden>
+<div class="menu-mobile" id="menu-mobile" data-menu role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <div class="menu-mobile__panneau">
     <div class="menu-mobile__haut">
       <img class="menu-mobile__logo" src="assets/svg/logo-creme.svg" alt="OA Convoyage" width="150" height="17">

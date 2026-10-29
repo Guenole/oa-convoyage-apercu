@@ -6,14 +6,6 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url("../fonts/montserrat-latin.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Montserrat";
   src: url("../fonts/montserrat-latin-ext.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
@@ -21,8 +13,16 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
   font-family: "Swarsh Daisy";
-  src: url("../fonts/swarsh-daisy-italic.ttf") format("truetype");
+  src: url("../fonts/swarsh-daisy-italic.woff2") format("woff2"), url("../fonts/swarsh-daisy-italic.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -54,9 +54,12 @@
   --accent: var(--rose);
   --filet: var(--gris);
 
-  /* une unité de maquette : 1 px à 1440, proportionnelle en dessous */
+  /* une unité de maquette : 1 px à 1440, proportionnelle de 992 à 1800 px (plafond 1,25 px).
+     Paliers (alignés sur Webflow) : Grand écran ≥ 1441 · Ordinateur 1280-1440 · Ordinateur compact 992-1279
+     · Tablette 768-991 · Mobile ≤ 767 (paysage 479-767, portrait ≤ 478). */
   --k: min(1.25px, calc(100vw / 1440));
 
+  /* Ordinateur et Grand écran : marges et sections proportionnelles (24 / 96 / 120 à 1440, 30 / 120 / 150 à 1920) */
   --marge-cadre: calc(var(--k) * 24);
   --marge-contenu: calc(var(--k) * 96);
   --section: calc(var(--k) * 120);
@@ -64,6 +67,8 @@
   --r-panneau: calc(var(--k) * 32);
   --r-objet: calc(var(--k) * 24);
   --r-pilule: 999px;
+  /* hauteur de la barre de demande : une rangée (≥ 1280), deux rangées (768-1279) ; empilée en mobile */
+  --barre-h: 88px;
 
   /* réglages Figma (étalement −24) tels que Figma les dessine : sans étalement ; mesuré sur ses exports */
   --ombre-flottante: 0 2px 6px 0 rgba(35, 30, 28, .10), 0 28px 56px 0 rgba(35, 30, 28, .32);
@@ -72,50 +77,71 @@
   --sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
   --script: "Swarsh Daisy", "Cormorant Garamond", Georgia, serif;
 
-  /* échelle typographique (desktop) */
-  --fs-display: calc(var(--k) * 120);
-  --fs-accent: calc(var(--k) * 124);
-  --fs-accent-m: calc(var(--k) * 80);
-  --fs-titre1: calc(var(--k) * 72);
-  --fs-titre2: calc(var(--k) * 64);
-  --fs-titre3: calc(var(--k) * 48);
-  --fs-releve: calc(var(--k) * 40);
-  --fs-enonce: calc(var(--k) * 40);
-  /* textes courants : taille DS à 1440, légère mise à l'échelle entre 1024 et 1600 */
-  --fs-citation: clamp(17px, calc(var(--k) * 22), 23px);
-  --fs-chapo: clamp(15px, calc(var(--k) * 19), 20px);
-  --fs-intitule: clamp(16px, calc(var(--k) * 20), 21px);
-  --fs-intitule-c: clamp(16px, calc(var(--k) * 20), 21px);
-  --fs-corps-l: clamp(14px, calc(var(--k) * 17), 18px);
-  --fs-corps: clamp(14px, calc(var(--k) * 16), 17px);
-  --fs-corps-s: clamp(13px, calc(var(--k) * 15), 16px);
-  --fs-petit: clamp(12px, calc(var(--k) * 13), 14px);
+  /* échelle des titres (Ordinateur et Grand écran) : taille DS à 1440, plancher du palier 1280,
+     plafond à 1920 (1,1 × la maquette) ; paliers suivants dans les blocs @media ci-dessous */
+  --fs-display: clamp(108px, calc(var(--k) * 120), 132px);
+  --fs-accent: clamp(112px, calc(var(--k) * 124), 136px);
+  --fs-accent-m: clamp(72px, calc(var(--k) * 80), 88px);
+  --fs-titre1: clamp(64px, calc(var(--k) * 72), 80px);
+  --fs-titre2: clamp(58px, calc(var(--k) * 64), 70px);
+  --fs-titre3: clamp(44px, calc(var(--k) * 48), 52px);
+  --fs-releve: clamp(38px, calc(var(--k) * 40), 44px);
+  --fs-enonce: clamp(36px, calc(var(--k) * 40), 44px);
+  /* textes courants : taille DS à 1440, jamais plus petits que sur téléphone (planchers 29/10) */
+  --fs-citation: clamp(18px, calc(var(--k) * 22), 23px);
+  --fs-chapo: clamp(18px, calc(var(--k) * 19), 20px);
+  --fs-intitule: clamp(18px, calc(var(--k) * 20), 21px);
+  --fs-intitule-c: clamp(18px, calc(var(--k) * 20), 21px);
+  --fs-corps-l: clamp(17px, calc(var(--k) * 17), 18px);
+  --fs-corps: clamp(16px, calc(var(--k) * 16), 17px);
+  --fs-corps-s: clamp(15px, calc(var(--k) * 15), 16px);
+  --fs-petit: clamp(13px, calc(var(--k) * 13), 14px);
   --fs-etiquette: 11px; /* Étiquette : 10 px jusqu’au 29/10, passée à 11 px pour la lisibilité */
-  --fs-nom: clamp(13px, calc(var(--k) * 15), 16px);
+  --fs-nom: clamp(15px, calc(var(--k) * 15), 16px);
 
   --ease-sortie: cubic-bezier(.16, 1, .3, 1);
   --ease-doux: cubic-bezier(.65, 0, .35, 1);
 }
 
-@media (max-width: 1023px) {
+/* Ordinateur compact (992-1279) : même composition resserrée, tient à 992 */
+@media (max-width: 1279px) {
+  :root {
+    --marge-cadre: 16px;
+    --marge-contenu: 56px;
+    --section: 96px;
+    --barre-h: 152px;
+    --fs-display: min(92px, 8.4vw); /* 92 dès 1096 px ; 83 à 992 pour garder de l'air au bord de la photo */
+    --fs-accent: 96px;
+    --fs-accent-m: 62px;
+    --fs-titre1: 56px;
+    --fs-titre2: 50px;
+    --fs-titre3: 40px;
+    --fs-releve: 34px;
+    --fs-enonce: 34px;
+  }
+}
+
+/* Tablette (768-991) : mise en page à part, dérivée de l'ordinateur ; tailles fixes.
+   --k reprend l'unité mobile : seules les règles mobiles des pages intérieures (en attente du lot L2) s'en servent encore. */
+@media (max-width: 991px) {
   :root {
     --k: min(1.15px, calc(100vw / 390));
-    --marge-cadre: 12px;
-    --marge-contenu: 24px;
-    --section: 72px;
+    --marge-cadre: 16px;
+    --marge-contenu: 40px;
+    --section: 88px;
     --r-surface: 28px;
     --r-panneau: 24px;
     --r-objet: 20px;
-    --fs-display: calc(var(--k) * 52);
-    --fs-accent: calc(var(--k) * 60);
-    --fs-accent-m: calc(var(--k) * 46);
-    --fs-titre1: calc(var(--k) * 40);
-    --fs-titre2: calc(var(--k) * 34);
-    --fs-titre3: calc(var(--k) * 30);
-    --fs-releve: calc(var(--k) * 32);
-    --fs-enonce: calc(var(--k) * 26);
+    --fs-display: min(72px, 8.6vw); /* 72 dès 837 px ; 66 à 768 */
+    --fs-accent: 76px;
+    --fs-accent-m: 54px;
+    --fs-titre1: 48px;
+    --fs-titre2: 42px;
+    --fs-titre3: 36px;
+    --fs-releve: 34px;
+    --fs-enonce: 32px;
     --fs-citation: 18px;
-    --fs-chapo: 16px;
+    --fs-chapo: 17px;
     --fs-intitule: 18px;
     --fs-intitule-c: 20px;
     --fs-corps-l: 17px;
@@ -123,6 +149,25 @@
     --fs-corps-s: 15px;
     --fs-petit: 13px;
     --fs-nom: 15px;
+  }
+}
+
+/* Mobile (≤ 767) : maquette 390 ; titres proportionnels sous 430 px (Display 48 à 360),
+   plafonnés aux valeurs du mobile paysage (479-767) */
+@media (max-width: 767px) {
+  :root {
+    --marge-cadre: 12px;
+    --marge-contenu: 24px;
+    --section: 72px;
+    --fs-display: min(calc(var(--k) * 52), 56px);
+    --fs-accent: min(calc(var(--k) * 60), 60px);
+    --fs-accent-m: min(calc(var(--k) * 46), 50px);
+    --fs-titre1: min(calc(var(--k) * 40), 44px);
+    --fs-titre2: min(calc(var(--k) * 34), 38px);
+    --fs-titre3: min(calc(var(--k) * 30), 32px);
+    --fs-releve: min(calc(var(--k) * 32), 32px);
+    --fs-enonce: min(calc(var(--k) * 26), 28px);
+    --fs-chapo: 16px;
   }
 }
 
@@ -146,6 +191,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+/* Grand écran : la page se plafonne à 1920 px, centrée (le fond crème couvre tout l'écran) */
+body { max-width: 1920px; margin-inline: auto; }
 main { overflow-x: clip; }
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
@@ -191,8 +238,10 @@ input, textarea { caret-color: var(--nuit); }
 .t-petit { font-size: var(--fs-petit); font-weight: 400; line-height: 1.5; }
 .t-nom { font-size: var(--fs-nom); font-weight: 500; line-height: 1.3; }
 .t-etiquette { font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
+/* titres : lignes équilibrées, pas de mot seul en dernière ligne (29/10) */
+h1, h2, h3, .t-display, .t-accent, .t-accent-m, .t-titre1, .t-titre2, .t-titre3, .t-enonce { text-wrap: balance; }
 
-@media (max-width: 1023px) {
+@media (max-width: 991px) {
   .t-titre1 { line-height: 1.06; letter-spacing: -.02em; }
   .t-titre2 { line-height: 1.1; letter-spacing: -.015em; }
   .t-titre3 { line-height: 1.12; letter-spacing: -.01em; }
@@ -217,6 +266,13 @@ input, textarea { caret-color: var(--nuit); }
 .photo img { width: 100%; height: 100%; object-fit: cover; }
 .legende { font-size: var(--fs-corps-s); font-weight: 300; line-height: 1.55; color: var(--texte); margin-top: 12px; }
 .crochet { font-size: var(--fs-corps-s); font-weight: 300; line-height: 1.55; }
+/* mot composé à ne pas couper au trait d'union (« devons-nous », « Mont-de-Marsan ») */
+.insecable { white-space: nowrap; }
+
+/* mobile paysage (479-767) : paragraphes à 600 px au plus (sans effet sous 648 px de large) */
+@media (max-width: 767px) {
+  p.t-chapo, p.t-corps-l, p.t-corps, p.crochet { max-width: 600px; }
+}
 
 /* ============================================================ composants */
 
@@ -284,10 +340,10 @@ input, textarea { caret-color: var(--nuit); }
 .entete--clair .entete__menu { box-shadow: inset 0 0 0 1px rgba(94, 95, 95, .45); }
 .entete__menu svg { width: 20px; height: 20px; }
 
-/* page claire : l'en-tête ouvre la page */
-.page:not(.page--accueil) > .entete { padding: calc(var(--k) * 40) calc(var(--k) * 80) 0; }
+/* page claire : l'en-tête ouvre la page (sauf l'en-tête fixe, cloné par le script : même hauteur sur toutes les pages) */
+.page:not(.page--accueil) > .entete:not(.est-fixe) { padding: calc(var(--k) * 40) calc(var(--k) * 80) 0; }
 
-/* en-tête fixe au défilement vers le haut */
+/* en-tête fixe au défilement vers le haut : 76 px (14 + 48 + 14) sur toutes les pages, 64 px en tablette et mobile */
 .entete.est-fixe {
   position: fixed; top: 0; left: 0; right: 0;
   padding: 14px calc(var(--k) * 80);
@@ -303,12 +359,15 @@ input, textarea { caret-color: var(--nuit); }
 .entete-place { display: none; }
 
 /* ------------------------------------------------------ barre de demande */
+/* trois dispositions : une rangée (≥ 1280), deux rangées : quatre champs puis le bouton (768-1279), empilée (≤ 767).
+   Largeurs minimales : la plus longue valeur de chaque liste (« Professionnel », « SUV ou monospace ») et le texte
+   indicatif « Ville ou adresse » restent entiers. */
 .barre {
   display: flex;
   align-items: center;
   width: calc(var(--k) * 1280);
   max-width: 100%;
-  height: 88px;
+  height: var(--barre-h);
   padding: 0 12px 0 8px;
   background: var(--blanc);
   color: var(--anth);
@@ -317,11 +376,11 @@ input, textarea { caret-color: var(--nuit); }
 }
 .barre__champ { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 6px; height: 56px; padding: 0 20px 0 28px; min-width: 0; flex: 0 1 auto; }
 .barre__champ::before { content: ""; position: absolute; left: 0; top: 8px; width: 1px; height: 40px; background: var(--gris); }
-.barre__champ--profil { width: calc(var(--k) * 220); flex-shrink: .25; }
+.barre__champ--profil { width: calc(var(--k) * 220); min-width: 184px; flex-shrink: .25; }
 .barre__champ--profil::before, .barre__champ--arrivee::before { display: none; }
-.barre__champ--depart { width: calc(var(--k) * 280); }
-.barre__champ--arrivee { width: calc(var(--k) * 280); padding-left: 18px; }
-.barre__champ--vehicule { width: calc(var(--k) * 240); flex-shrink: .5; }
+.barre__champ--depart { width: calc(var(--k) * 280); min-width: 174px; }
+.barre__champ--arrivee { width: calc(var(--k) * 280); min-width: 164px; padding-left: 18px; }
+.barre__champ--vehicule { width: calc(var(--k) * 240); min-width: 234px; flex-shrink: .5; }
 .barre__vers { flex: none; width: 18px; height: 18px; color: var(--anth); }
 .barre__envoi { flex: none; margin-left: auto; }
 .barre__etiquette { font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: color .3s; }
@@ -484,10 +543,13 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .mission__declencheur:focus-visible .mission__nom, .mission__declencheur:focus-visible .mission__detail { color: var(--creme); }
 
 /* --------------------------------------------------------- ligne de fiche */
+/* disposition Ligne (libellé à gauche) ; passe seule en Colonne (libellé au-dessus) quand la valeur aurait moins de
+   260 px ; .fiche--colonne force la Colonne à toutes les largeurs */
 .fiche { border-bottom: 1px solid rgba(86, 87, 87, .22); color: var(--anth-profond); }
-.ligne-fiche { display: flex; align-items: baseline; gap: 32px; padding: 24px 0; border-top: 1px solid rgba(86, 87, 87, .22); }
+.ligne-fiche { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 32px; row-gap: 8px; padding: 24px 0; border-top: 1px solid rgba(86, 87, 87, .22); }
 .ligne-fiche__libelle { flex: none; width: 200px; font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
-.ligne-fiche__valeur { flex: 1; min-width: 0; font-size: var(--fs-corps-l); font-weight: 300; line-height: 1.65; white-space: pre-line; }
+.ligne-fiche__valeur { flex: 1 1 260px; min-width: 0; font-size: var(--fs-corps-l); font-weight: 300; line-height: 1.65; white-space: pre-line; }
+.fiche--colonne .ligne-fiche__valeur { flex-basis: 100%; }
 
 /* ------------------------------------------------------------------ jalon */
 .jalons { position: relative; display: flex; justify-content: space-between; }
@@ -508,41 +570,57 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .compteur__lecture { position: absolute; left: calc(188 / 560 * 100%); top: calc(372 / 560 * 100%); width: calc(137 / 560 * 100%); font-size: var(--fs-titre2); font-weight: 200; line-height: 1.06; letter-spacing: -.025em; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .compteur__libelle { position: absolute; left: calc(151 / 560 * 100%); top: calc(448 / 560 * 100%); width: calc(210 / 560 * 100%); font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; text-align: center; text-wrap: balance; } /* passe sur deux lignes plutôt que de déborder (Étiquette à 11 px depuis le 29/10) */
 
-/* ===================================================== mobile (≤ 900) */
-@media (max-width: 1023px) {
+/* ============================== Ordinateur compact et tablette (≤ 1279) */
+@media (max-width: 1279px) {
+  /* barre de demande sur deux rangées : les quatre champs en ligne, le bouton dessous (152 px de haut) */
+  .barre { flex-wrap: wrap; align-content: center; row-gap: 8px; padding: 12px; }
+  .barre__champ { flex: 1 1 0; width: auto; }
+  .barre__envoi { flex: 1 0 100%; margin-left: 0; }
+
+  .carte-avis { width: 340px; padding: 36px; }
+  .carte-avis__haut { padding-bottom: 36px; }
+
+  /* compteur : libellé élargi (240 au lieu de 210 sur 560), toujours sur deux lignes dans le cadran réduit */
+  .compteur__libelle { left: calc(136 / 560 * 100%); width: calc(240 / 560 * 100%); }
+
+  /* un lien dans une valeur de fiche peut passer à la ligne plutôt que de sortir du filet (e-mail, « Voir les convoyages réalisés ») */
+  .ligne-fiche__valeur .lien-texte { white-space: normal; overflow-wrap: anywhere; }
+}
+
+/* ================================================ tablette et mobile (≤ 991) */
+@media (max-width: 991px) {
+  /* en-tête : menu replié */
   .entete__nav { display: none; }
   .entete__menu { display: grid; }
   .entete__barre { height: 44px; }
   .entete__logo { width: 150px; height: 17px; }
-  .page:not(.page--accueil) > .entete { padding: 24px 32px 0; }
-  .entete.est-fixe { padding: 10px 20px; }
+  .page:not(.page--accueil) > .entete:not(.est-fixe) { padding: 24px var(--marge-contenu) 0; }
+  .entete.est-fixe { padding: 10px var(--marge-contenu); }
 
-  .barre { flex-direction: column; align-items: stretch; width: auto; height: auto; padding: 16px 20px; }
-  .barre__champ { width: auto !important; height: 64px; padding: 0 !important; border-bottom: 1px solid var(--gris); }
-  .barre__champ::before { display: none; }
-  .barre__champ--vehicule { border-bottom: 0; }
+  /* barre de deux rangées resserrée : champs plus étroits, flèche retirée */
+  .barre { width: auto; padding: 12px 8px; }
+  .barre__champ { padding: 0 10px 0 14px; min-width: 120px; }
+  .barre__champ--profil { min-width: 154px; }
+  .barre__champ--vehicule { min-width: 204px; }
+  .barre__champ--arrivee::before { display: block; }
   .barre__vers { display: none; }
-  .barre__envoi { width: 100%; margin: 12px 0 0; }
-  .barre__valeur::after { bottom: -9px; }
+  select.barre__saisie { padding-right: 22px; }
 
-  .carte-avis { width: 300px; padding: 28px; }
-  .carte-avis__haut { padding-bottom: 28px; }
+  .carte-avis { width: 320px; padding: 32px; }
+  .carte-avis__haut { padding-bottom: 32px; }
 
-  .question__bouton { font-size: 18px; line-height: 1.35; }
-
-  /* 48 px dans Figma ; 104 px là où la barre d'action fixe peut recouvrir les mentions */
-  .pied { padding: 72px 24px 104px; }
+  /* pied : trois colonnes (marque, le site, nous joindre) ; 104 px dessous pour la barre d'action fixe */
+  .pied { padding: 0 var(--marge-contenu) 104px; }
   .page--contact .pied { padding-bottom: 48px; }
-  .pied__haut { display: flex; flex-direction: column; gap: 32px; }
+  .pied__haut { grid-template-columns: minmax(0, 1fr) auto auto; column-gap: 48px; }
   .pied__logo, .pied__logo img { width: 150px; height: 17px; }
-  .pied__presentation { margin-top: 32px; max-width: none; }
-  .pied__colonne { gap: 12px; }
-  .pied__bas { flex-direction: column; gap: 10px; margin-top: 32px; padding-top: 32px; }
-  .pied__liens { gap: 24px; }
+  .pied__presentation { max-width: 300px; margin-top: 24px; }
 
+  /* barre d'action : plafonnée à 420 px et centrée ; « Appeler » sur toute la hauteur de la pilule */
   .barre-action {
     position: fixed; left: 24px; right: 24px; bottom: calc(12px + env(safe-area-inset-bottom));
     z-index: 40; display: flex; align-items: center; justify-content: space-between;
+    max-width: 420px; margin-inline: auto;
     height: 60px; padding: 0 8px 0 20px;
     background: var(--blanc); color: var(--anth);
     border-radius: var(--r-pilule); box-shadow: var(--ombre-flottante);
@@ -550,14 +628,14 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
     transition: transform .55s var(--ease-sortie), opacity .35s;
   }
   .barre-action.est-visible { transform: none; opacity: 1; }
-  .barre-action__appel { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; letter-spacing: .01em; }
+  .barre-action__appel { display: flex; align-items: center; align-self: stretch; gap: 10px; min-height: 44px; padding-right: 16px; font-size: 15px; font-weight: 500; letter-spacing: .01em; }
   .barre-action__appel svg { width: 18px; height: 18px; }
   .barre-action__devis { height: 44px; }
   .page--contact .barre-action { display: none; }
 
   .etapes { grid-auto-rows: auto; gap: 28px; }
 
-  /* mobile : les étapes s'empilent, la voiture descend la ligne */
+  /* étapes de mission : verticales en tablette et en mobile (la voiture descend la ligne) */
   .mission { display: flex; flex-direction: column; row-gap: 26px; }
   .mission__filet { left: 6px; right: auto; top: 13px; bottom: 13px; width: 1px; height: auto; transform-origin: top; }
   .mission__progression { left: 6px; top: 13px; width: 1px; height: 0; }
@@ -568,20 +646,57 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .mission__repere { position: absolute; left: 0; top: 6.5px; margin: 0; }
   .mission__detail { margin-top: 6px; }
 
-  .ligne-fiche { flex-direction: column; align-items: stretch; gap: 8px; padding: 20px 0; }
-  .ligne-fiche__libelle { width: auto; }
-  .ligne-fiche__valeur { font-size: var(--fs-corps); font-weight: 400; }
+  .ligne-fiche__libelle { width: 160px; }
 
   .jalons { gap: 24px; justify-content: flex-start; }
   .jalon { flex: none; width: 260px; }
   .jalons__filet { right: 254px; top: calc(var(--fs-releve) + 26px); }
 
-  .compteur { width: calc(var(--k) * 320); }
-  .compteur__lecture { left: calc(123 / 320 * 100%); top: calc(220 / 320 * 100%); width: calc(74 / 320 * 100%); }
+  /* compteur : cadran mobile (320) */
+  .compteur { width: 320px; }
+  .compteur__lecture { left: calc(123 / 320 * 100%); top: calc(220 / 320 * 100%); width: calc(74 / 320 * 100%); font-size: 34px; }
   .compteur__libelle { left: calc(55 / 320 * 100%); top: calc(292 / 320 * 100%); width: calc(210 / 320 * 100%); }
 }
 
+/* ========================================================== mobile (≤ 767) */
+@media (max-width: 767px) {
+  .entete.est-fixe { padding: 10px 20px; }
+  .page:not(.page--accueil) > .entete:not(.est-fixe) { padding: 24px 32px 0; }
+
+  .barre { flex-direction: column; flex-wrap: nowrap; align-items: stretch; row-gap: 0; height: auto; padding: 16px 20px; }
+  .barre__champ { flex: none; width: auto !important; min-width: 0; height: 64px; padding: 0 !important; border-bottom: 1px solid var(--gris); }
+  .barre__champ::before { display: none; }
+  .barre__champ--vehicule { border-bottom: 0; }
+  .barre__envoi { flex: none; width: 100%; margin: 12px 0 0; }
+  .barre__valeur::after { bottom: -9px; }
+  select.barre__saisie { padding-right: 26px; }
+
+  .carte-avis { width: 300px; padding: 28px; }
+  .carte-avis__haut { padding-bottom: 28px; }
+
+  .question__bouton { font-size: 18px; line-height: 1.35; }
+
+  /* 48 px dans Figma ; 104 px là où la barre d'action fixe peut recouvrir les mentions ;
+     pas de marge intérieure en haut : l'écart avant le pied est le jeton de section (72) */
+  .pied { padding: 0 24px 104px; }
+  .pied__haut { display: flex; flex-direction: column; gap: 32px; }
+  .pied__presentation { margin-top: 32px; max-width: none; }
+  .pied__colonne { gap: 12px; }
+  .pied__bas { flex-direction: column; gap: 10px; margin-top: 32px; padding-top: 32px; }
+  .pied__liens { gap: 24px; }
+
+  .ligne-fiche { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 8px; padding: 20px 0; }
+  .ligne-fiche__libelle { width: auto; }
+  .ligne-fiche__valeur { flex: none; font-size: var(--fs-corps); font-weight: 400; }
+
+  .compteur { width: calc(var(--k) * 320); }
+  .compteur__lecture { font-size: var(--fs-titre2); }
+}
+
 /* ============================================================== Accueil */
+/* 29/10 : positions absolues refaites en flex et en grille, rendu inchangé à 1440. Seuls restent superposés les
+   photos et voiles de fond, et la barre de demande, posée sur le bas d'une photo par une marge négative.
+   Les hauteurs de maquette sont des hauteurs minimales : un texte plus long agrandit la section. */
 
 .br-m { display: none; }
 .lien-texte { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: rgba(94, 95, 95, .3); transition: text-decoration-color .3s; white-space: nowrap; }
@@ -589,8 +704,14 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .lien-texte:hover { text-decoration-color: currentColor; }
 
 /* ----------------------------------------------------------------- hero */
-.hero { position: relative; padding-top: var(--marge-cadre); }
-.hero__surface { height: calc(var(--k) * 852); background: var(--nuit); }
+/* la surface garde en bas la place des relevés et de la barre ; tous deux y remontent par une marge négative */
+.hero {
+  --hero-preuves: calc(var(--k) * 120); /* du haut des relevés au haut de la barre */
+  --hero-pied: calc(var(--k) * 40);     /* sous la barre, dans la photo */
+  --hero-reserve: calc(var(--hero-preuves) + var(--barre-h) + var(--hero-pied));
+  position: relative; display: flex; flex-direction: column; padding-top: var(--marge-cadre);
+}
+.hero__surface { display: flex; flex-direction: column; min-height: min(calc(var(--k) * 852), calc(100svh - var(--marge-cadre))); padding-bottom: var(--hero-reserve); background: var(--nuit); }
 .hero__photo { position: absolute; inset: 0; }
 .hero__voile { position: absolute; left: 0; right: 0; pointer-events: none; }
 .hero__voile--haut { top: 0; height: calc(var(--k) * 240); background: linear-gradient(to bottom, rgba(61, 62, 62, .42), rgba(61, 62, 62, 0)); }
@@ -600,17 +721,27 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   radial-gradient(20% 12.9% at 9% 76%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .44) 55%, rgba(61, 62, 62, 0) 100%),
   radial-gradient(16% 14% at 13% 23%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .46) 55%, rgba(61, 62, 62, 0) 100%),
   radial-gradient(16% 10% at 8% 9%, rgba(61, 62, 62, .40) 0%, rgba(61, 62, 62, .24) 55%, rgba(61, 62, 62, 0) 100%); }
-.hero__surface > .entete { position: absolute; left: calc(var(--k) * 56); right: calc(var(--k) * 56); top: calc(var(--k) * 32); }
-.hero__titre { position: absolute; left: 0; right: 0; top: calc(var(--k) * 128); text-align: center; color: var(--creme); }
+.hero__surface > .entete { margin: calc(var(--k) * 32) calc(var(--k) * 56) 0; }
+.hero__titre { position: relative; margin-top: calc(var(--k) * 48); padding-bottom: 32px; text-align: center; color: var(--creme); }
 .hero__titre h1 { display: flex; flex-direction: column; align-items: center; font-weight: 200; }
-.hero__ligne { display: block; height: calc(var(--k) * 120); }
-.hero__accent { display: block; margin-top: calc(var(--k) * -12); height: calc(var(--k) * 109); }
-.hero__sous-titre { width: calc(var(--k) * 620); margin: calc(var(--k) * 27) auto 0; }
-.hero__preuves { position: absolute; left: calc(var(--k) * 80); right: calc(var(--k) * 80); top: calc(var(--k) * 628); display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; }
-.hero__barre { position: absolute; left: 0; right: 0; top: calc(var(--k) * 748); margin-inline: auto; z-index: 2; }
+.hero__ligne { display: block; height: 1em; }
+.hero__accent { display: block; margin-top: calc(-12em / 124); height: calc(109em / 124); }
+.hero__sous-titre { width: calc(var(--k) * 620); max-width: 100%; margin: calc(var(--k) * 27) auto 0; }
+.hero__preuves { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: flex-start; height: var(--hero-preuves); margin: calc(-1 * var(--hero-reserve)) calc(var(--k) * 80) 0; pointer-events: none; }
+.hero__barre { position: relative; z-index: 2; align-self: center; margin-bottom: var(--hero-pied); }
+/* écrans d'ordinateur peu hauts (portables) : le hero tient dans l'écran et la barre de demande reste visible (décision du 29/10) */
+@media (min-width: 992px) and (max-height: 800px) {
+  .hero { --hero-preuves: calc(var(--k) * 88); --hero-pied: calc(var(--k) * 28); }
+  .hero__titre { margin-top: calc(var(--k) * 24); }
+  .hero__sous-titre { margin-top: calc(var(--k) * 18); }
+}
+@media (min-width: 992px) and (max-height: 690px) {
+  .hero { --hero-preuves: calc(var(--k) * 72); --hero-pied: calc(var(--k) * 20); }
+  .hero__titre { margin-top: 4px; padding-bottom: 16px; }
+}
 
 /* ------------------------------------------------------------ manifeste */
-.manifeste { display: flex; justify-content: space-between; align-items: flex-start; margin-top: calc(var(--k) * 24); padding: calc(var(--k) * 120) var(--marge-contenu); }
+.manifeste { display: flex; justify-content: space-between; align-items: flex-start; padding: var(--section) var(--marge-contenu); }
 .manifeste__texte { width: calc(var(--k) * 633); padding-top: calc(var(--k) * 104); }
 .manifeste__phrase { color: var(--anth); }
 .manifeste__chapo { width: calc(var(--k) * 540); margin-top: calc(var(--k) * 32); color: var(--anth); }
@@ -619,47 +750,48 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .manifeste__photo { width: 100%; height: calc(var(--k) * 520); border-radius: var(--r-panneau); }
 
 /* -------------------------------------------------------- deux publics */
-.publics { display: flex; gap: calc(var(--k) * 48); padding-inline: var(--marge-cadre); }
-.publics__pros { flex: 1 1 auto; height: calc(var(--k) * 1000); border-radius: var(--r-surface); }
-.publics__droite { flex: none; display: flex; flex-direction: column; width: calc(var(--k) * 504); padding-top: calc(var(--k) * 24); }
-.publics__intro h2 { width: calc(var(--k) * 456); color: var(--anth); }
+/* grille : le panneau Professionnels occupe la colonne gauche sur toute la hauteur ; à droite, le titre puis Particuliers */
+.publics { display: grid; grid-template-columns: minmax(0, 1fr) calc(var(--k) * 504); grid-template-rows: 1fr auto; column-gap: calc(var(--k) * 48); padding-inline: var(--marge-cadre); }
+.publics__intro { grid-column: 2; grid-row: 1; padding: calc(var(--k) * 24) 0 calc(var(--k) * 32); }
+.publics__intro h2 { color: var(--anth); }
 .publics__chapo { width: calc(var(--k) * 380); margin-top: calc(var(--k) * 36); }
-.publics__part { margin-top: auto; height: calc(var(--k) * 620); border-radius: var(--r-panneau); }
+.publics__pros { grid-column: 1; grid-row: 1 / 3; min-height: calc(var(--k) * 1000); border-radius: var(--r-surface); }
+.publics__part { grid-column: 2; grid-row: 2; min-height: calc(var(--k) * 620); border-radius: var(--r-panneau); }
 
-.panneau { position: relative; overflow: hidden; isolation: isolate; background: var(--nuit); }
-.panneau--sombre { background: var(--creme); }
-.panneau__photo { position: absolute; inset: 0; z-index: -2; }
-.panneau__photo { transition: transform 1.2s var(--ease-sortie); }
+/* panneau photo : texte en bas (ton clair) ou en haut (ton sombre), dans le flux */
+.panneau { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; background: var(--nuit); }
+.panneau--clair { justify-content: flex-end; padding: 0 calc(var(--k) * 44) calc(var(--k) * 48); }
+.panneau--sombre { justify-content: flex-start; padding: calc(var(--k) * 44) calc(var(--k) * 44) 0; background: var(--creme); }
+.panneau__photo { position: absolute; inset: 0; z-index: -2; transition: transform 1.2s var(--ease-sortie); }
 .panneau:hover .panneau__photo { transform: scale(1.035); }
 .panneau__voile { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .panneau--clair .panneau__voile { background: linear-gradient(to bottom, rgba(61, 62, 62, 0) 0%, rgba(61, 62, 62, .22) 42%, rgba(61, 62, 62, .7) 100%); }
 .panneau--sombre .panneau__voile { background: linear-gradient(to bottom, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, 0) 45%); }
-.panneau__texte { position: absolute; left: calc(var(--k) * 44); right: calc(var(--k) * 44); display: flex; flex-direction: column; align-items: flex-start; }
-.panneau--clair .panneau__texte { bottom: calc(var(--k) * 48); color: var(--creme); }
-.panneau--sombre .panneau__texte { top: calc(var(--k) * 44); color: var(--anth); max-width: calc(var(--k) * 420); }
+.panneau__texte { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.panneau--clair .panneau__texte { color: var(--creme); }
+.panneau--sombre .panneau__texte { color: var(--anth); max-width: calc(var(--k) * 420); }
 .panneau__titre { color: inherit; }
 .panneau__phrase { margin-top: 18px; font-size: var(--fs-corps-l); font-weight: 300; line-height: 1.65; }
-.panneau__lien { margin-top: 28px; }
+.panneau__lien { margin-top: 28px; max-width: 100%; }
 /* tout le panneau réagit : la flèche du bouton pivote au survol du panneau */
 .panneau:hover .panneau__lien .bouton__fleche { transform: rotate(-45deg); }
 .panneau--clair:hover .bouton--clair { background: var(--rose); }
 .panneau--sombre:hover .panneau__lien { background: var(--action-survol); }
 .panneau__lien::after { content: ""; position: absolute; inset: 0; }
-.panneau__texte { z-index: 1; }
 
 /* ------------------------------------------------------------ le trajet */
-.trajet { height: calc(var(--k) * 920); margin-top: calc(var(--k) * 24); background: var(--nuit); color: var(--creme); }
-.trajet__titre { position: absolute; left: calc(var(--k) * 72); top: calc(var(--k) * 96); width: calc(var(--k) * 660); }
-.trajet__etapes { position: absolute; left: calc(var(--k) * 72); top: calc(var(--k) * 288); width: calc(var(--k) * 560); }
+/* grille : titre puis étapes à gauche, instrument (compteur et zone) à droite */
+.trajet { display: grid; grid-template-columns: calc(var(--k) * 660) calc(var(--k) * 560); grid-template-rows: auto 1fr; justify-content: space-between; align-items: start; min-height: calc(var(--k) * 920); margin-top: var(--section); /* 120 comme les autres sections (décision du 29/10, 24 avant) */ padding: calc(var(--k) * 96) calc(var(--k) * 72) calc(var(--k) * 72); background: var(--nuit); color: var(--creme); }
+.trajet__titre { grid-column: 1; grid-row: 1; }
+.trajet__etapes { grid-column: 1; grid-row: 2; width: calc(var(--k) * 560); margin-top: calc(var(--k) * 56); }
 .trajet__etapes .etapes__route { height: calc(var(--k) * 432); top: 12.5px; left: 6px; }
-.trajet__compteur { position: absolute; left: calc(var(--k) * 760); top: calc(var(--k) * 120); }
+.trajet__instrument { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; align-items: center; margin-top: calc(var(--k) * 24); }
 .compteur__m { display: none; }
-.trajet__zone { position: absolute; left: calc(var(--k) * 860); top: calc(var(--k) * 720); width: calc(var(--k) * 360); font-size: var(--fs-corps-s); font-weight: 300; line-height: 1.55; text-align: center; color: rgba(250, 248, 243, .8); }
-.trajet__confirmer { position: absolute; left: calc(var(--k) * 848); top: calc(var(--k) * 776); width: calc(var(--k) * 384); font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; text-align: center; white-space: nowrap; color: rgba(250, 248, 243, .62); }
+.trajet__zone { width: calc(var(--k) * 360); margin-top: calc(var(--k) * 40); font-size: var(--fs-corps-s); font-weight: 300; line-height: 1.55; text-align: center; color: rgba(250, 248, 243, .8); }
 
 /* ----------------------------------------------------------------- avis */
-.avis { padding: calc(var(--k) * 120) 0 calc(var(--k) * 120) var(--marge-contenu); overflow-x: clip; }
-/* le titre en Titre 1, comme les autres H2 ; la note à gauche, les actions à droite, sur la même ligne */
+.avis { padding: var(--section) 0 var(--section) var(--marge-contenu); overflow-x: clip; }
+/* le titre en Titre 2, comme tous les H2 de section ; la note à gauche, les actions à droite, sur la même ligne */
 .avis__entete { display: grid; grid-template-columns: 1fr auto; align-items: end; row-gap: calc(var(--k) * 40); padding-right: var(--marge-contenu); }
 .avis__titre-bloc { display: contents; }
 .avis__titre { grid-column: 1 / -1; color: var(--anth); }
@@ -673,16 +805,17 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .avis__bas-mobile { display: none; }
 
 /* --------------------------------------------------------------- équipe */
-.equipe { height: calc(var(--k) * 490); margin-top: 0; background: var(--rose-doux); color: var(--anth-profond); }
-.equipe__portrait { position: absolute; left: calc(var(--k) * 72); top: calc(var(--k) * 72); }
+/* grille : portrait | texte | filet | téléphone ; les colonnes de 64, 24 et 47 sont les écarts de la maquette */
+.equipe { display: grid; grid-template-columns: calc(var(--k) * 240) calc(var(--k) * 64) calc(var(--k) * 520) calc(var(--k) * 24) 1px calc(var(--k) * 47) auto; align-items: center; min-height: calc(var(--k) * 490); margin-top: 0; padding: calc(var(--k) * 72) calc(var(--k) * 72) calc(var(--k) * 70); background: var(--rose-doux); color: var(--anth-profond); }
+.equipe__portrait { grid-column: 1; align-self: start; }
 .equipe__portrait img { width: calc(var(--k) * 240); height: calc(var(--k) * 320); object-fit: cover; border-radius: var(--r-objet); }
 .equipe__legende { margin-top: calc(var(--k) * 14); font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
-.equipe__texte { position: absolute; left: calc(var(--k) * 376); top: calc(var(--k) * 131); width: calc(var(--k) * 520); }
+.equipe__texte { grid-column: 3; }
 .equipe__titre { color: var(--anth-profond); }
 .equipe__membres { display: flex; gap: calc(var(--k) * 56); margin-top: calc(var(--k) * 36); }
 .equipe__membres li { display: flex; flex-direction: column; gap: 4px; }
-.equipe__filet { position: absolute; left: calc(var(--k) * 920); top: calc(var(--k) * 145); width: 1px; height: calc(var(--k) * 200); background: rgba(86, 87, 87, .3); transform-origin: top; }
-.equipe__tel { position: absolute; left: calc(var(--k) * 968); top: calc(var(--k) * 198); display: flex; flex-direction: column; gap: 10px; }
+.equipe__filet { grid-column: 5; width: 1px; height: calc(var(--k) * 200); background: rgba(86, 87, 87, .3); transform-origin: top; }
+.equipe__tel { grid-column: 7; display: flex; flex-direction: column; gap: 10px; }
 /* le numéro et « Appeler Océane » forment un seul lien d’appel */
 .equipe__appel { display: flex; flex-direction: column; gap: 10px; }
 .equipe__numero { white-space: nowrap; transition: color .3s; }
@@ -690,113 +823,222 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .equipe__horaires { font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
 
 /* ------------------------------------------------------------ questions */
-.questions { position: relative; display: flex; justify-content: space-between; min-height: calc(var(--k) * 572); margin-top: calc(var(--k) * 160); padding-inline: var(--marge-contenu); }
+.questions { position: relative; display: flex; justify-content: space-between; min-height: calc(var(--k) * 572); margin-top: var(--section); padding-inline: var(--marge-contenu); }
 .questions__cote { width: calc(var(--k) * 480); }
 .questions__cote h2 { color: var(--anth); }
 .questions__appel { width: 380px; max-width: 100%; margin-top: calc(var(--k) * 29); }
 .questions__liste { width: calc(var(--k) * 672); margin-top: calc(var(--k) * 8); border-top: 1px solid var(--gris); }
 
 /* -------------------------------------------------------------- arrivée */
-.arrivee { position: relative; margin-top: calc(var(--k) * 160); }
-.arrivee__surface { height: calc(var(--k) * 820); background: var(--nuit); color: var(--creme); }
+/* la surface garde en bas la place de la barre, qui y remonte par une marge négative */
+.arrivee {
+  --arrivee-pied: calc(var(--k) * 56); /* sous la barre, dans la photo */
+  --arrivee-reserve: calc(var(--barre-h) + var(--arrivee-pied));
+  position: relative; display: flex; flex-direction: column; margin-top: var(--section);
+}
+.arrivee__surface { display: flex; flex-direction: column; min-height: calc(var(--k) * 820); padding: calc(var(--k) * 96) calc(var(--k) * 72) calc(var(--arrivee-reserve) + var(--k) * 48); background: var(--nuit); color: var(--creme); }
 .arrivee__photo { position: absolute; inset: 0; z-index: -2; }
 .arrivee__voile { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to right, rgba(61, 62, 62, .62) 0%, rgba(61, 62, 62, .1) 60%, rgba(61, 62, 62, 0) 100%); }
-.arrivee__texte { position: absolute; left: calc(var(--k) * 72); top: calc(var(--k) * 96); width: calc(var(--k) * 560); }
-.arrivee__sous-titre { width: calc(var(--k) * 460); margin-top: calc(var(--k) * 28); }
+.arrivee__texte { position: relative; width: calc(var(--k) * 560); max-width: 100%; }
+.arrivee__sous-titre { width: calc(var(--k) * 460); max-width: 100%; margin-top: calc(var(--k) * 28); }
 .arrivee__tel { margin-top: calc(var(--k) * 16); }
 .arrivee__tel--m { display: none; }
-.arrivee__barre { position: absolute; left: 0; right: 0; top: calc(var(--k) * 676); margin-inline: auto; z-index: 2; }
+.arrivee__barre { position: relative; z-index: 2; align-self: center; margin: calc(-1 * var(--arrivee-reserve)) 0 var(--arrivee-pied); }
 
-/* =================================================== mobile (≤ 900) */
-@media (max-width: 1023px) {
-  .br-m { display: inline; }
+/* « Les derniers convoyages » : l'écart au-dessus suit le jeton de section (styles de la section dans 60-convoyages.css) */
+@media (min-width: 768px) {
+  .page--accueil .convoyages-une { padding-top: var(--section); }
+}
 
-  .hero__surface { height: calc(var(--k) * 680); }
-  .hero__voile--haut { height: calc(var(--k) * 220); }
-  .hero__voile--bas { height: calc(var(--k) * 320); }
-  .hero__voile--titre { background: radial-gradient(62% 26% at 50% 30%, rgba(61, 62, 62, .42), rgba(61, 62, 62, 0)),
-    radial-gradient(84% 25% at 50% 61%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .52) 60%, rgba(61, 62, 62, 0) 100%); }
+/* ============================================ Ordinateur compact (≤ 1279) */
+/* même composition ; les colonnes de texte se règlent sur la place disponible, plus sur la maquette */
+@media (max-width: 1279px) {
+  .hero__sous-titre { width: 520px; }
+  .manifeste { column-gap: 48px; }
+  .manifeste__texte { flex: 1 1 0; width: auto; }
+  .manifeste__chapo { width: auto; max-width: 540px; }
+  /* publics : Professionnels à 58 %, colonne droite à 42 % */
+  .publics { grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); }
+  .publics__chapo { width: auto; }
+  .panneau--sombre .panneau__voile { background: linear-gradient(to bottom, rgba(255, 255, 255, .62) 0%, rgba(255, 255, 255, .5) 42%, rgba(255, 255, 255, 0) 70%); }
+  .arrivee__sous-titre { width: auto; max-width: 460px; }
+  /* étapes : un écart entre deux étapes quand un détail passe sur deux lignes */
+  .trajet .etapes { row-gap: 16px; }
+}
+
+/* ========================================================= tablette (≤ 991) */
+/* mise en page à part, dérivée de l'ordinateur : deux colonnes quand le contenu s'y prête, lignes de 60 à 75 signes */
+@media (max-width: 991px) {
+  /* hero : composition de l'ordinateur, relevés et barre (deux rangées) en bas de la photo, environ 640 px de haut */
+  .hero { --hero-preuves: 96px; --hero-pied: 16px; }
+  .hero__surface { min-height: 640px; }
+  .hero__voile--haut { height: 200px; }
+  .hero__voile--bas { height: 440px; background: linear-gradient(to bottom, rgba(61, 62, 62, 0) 0%, rgba(61, 62, 62, .34) 36%, rgba(61, 62, 62, .72) 100%); }
   .hero__voile--halos { display: none; }
-  .hero__surface > .entete { left: 20px; right: 20px; top: 20px; }
-  .hero__titre { top: calc(var(--k) * 132); }
-  .hero__ligne { height: auto; }
-  .hero__accent { height: auto; margin-top: 0; }
-  .hero__sous-titre { width: calc(var(--k) * 300); margin-top: calc(var(--k) * 24); }
-  .hero { display: flex; flex-direction: column; }
-  .hero__barre { position: relative; top: auto; order: 1; margin: calc(var(--k) * -96) 24px 0; }
-  .hero__preuves { position: static; order: 2; margin: 36px 24px 0; align-items: flex-end; }
-  .hero__preuves .releve { color: var(--anth); }
+  .hero__surface > .entete { margin: 20px 24px 0; }
+  .hero__titre { margin-top: 56px; }
+  .hero__sous-titre { width: auto; max-width: 520px; margin-top: 24px; padding-inline: 24px; }
+  .hero__preuves { margin-inline: 40px; }
+  .hero__barre { align-self: stretch; width: auto; margin-inline: calc(var(--marge-cadre) + 16px); }
 
-  .manifeste { flex-direction: column-reverse; justify-content: flex-start; margin-top: 72px; padding: 0 24px; }
-  .manifeste__texte { width: auto; padding-top: 32px; }
-  .manifeste__chapo { width: auto; margin-top: 16px; }
-  .manifeste__signature { margin-top: 24px; }
-  .manifeste__media { width: 100%; }
-  .manifeste__photo { height: calc(var(--k) * 260); }
+  /* manifeste : texte à 55 %, photo à 45 % */
+  .manifeste { display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); column-gap: 40px; align-items: center; }
+  .manifeste__texte { width: auto; padding-top: 0; }
+  .manifeste__chapo { width: auto; max-width: none; margin-top: 24px; }
+  .manifeste__signature { margin-top: 32px; }
+  .manifeste__media { width: auto; }
+  .manifeste__photo { height: auto; aspect-ratio: 4 / 5; }
 
-  .publics { flex-direction: column-reverse; gap: 12px; margin-top: 72px; padding-inline: 12px; }
-  .publics__pros { flex: none; height: calc(var(--k) * 520); border-radius: var(--r-surface); }
-  .publics__droite { display: contents; }
-  .publics__intro { order: 3; padding: 0 12px 20px; }
-  .publics__intro h2 { width: auto; }
-  .publics__chapo { width: auto; margin-top: 16px; }
-  .publics__part { order: 1; height: calc(var(--k) * 480); border-radius: var(--r-surface); }
-  .publics { display: flex; flex-direction: column; }
-  .publics__intro { order: 0; }
-  .publics__pros { order: 1; }
-  .publics__part { order: 2; }
-  .panneau--clair .panneau__voile { background: linear-gradient(to bottom, rgba(61, 62, 62, .66) 0%, rgba(61, 62, 62, .3) 30%, rgba(61, 62, 62, 0) 58%); }
+  /* publics : titre et chapô (640 px au plus), puis les deux panneaux empilés en 16:9, texte en haut */
+  .publics { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 16px; }
+  .publics__intro { grid-column: 1; grid-row: auto; max-width: 688px; padding: 0 calc(var(--marge-contenu) - var(--marge-cadre)) 24px; }
+  .publics__chapo { margin-top: 20px; }
+  .publics__pros, .publics__part { grid-column: 1; grid-row: auto; min-height: 0; aspect-ratio: 16 / 9; border-radius: var(--r-surface); }
+  .panneau--clair, .panneau--sombre { justify-content: flex-start; padding: 32px 32px 0; }
+  .panneau--sombre .panneau__texte { max-width: 520px; }
+  .panneau--clair .panneau__voile { background: linear-gradient(to bottom, rgba(61, 62, 62, .66) 0%, rgba(61, 62, 62, .3) 34%, rgba(61, 62, 62, 0) 62%); }
   .panneau--sombre .panneau__voile { background: linear-gradient(to bottom, rgba(255, 255, 255, .62) 0%, rgba(255, 255, 255, .5) 42%, rgba(255, 255, 255, 0) 66%); }
-  .panneau__texte { left: 24px; right: 24px; max-width: none !important; }
-  .panneau--clair .panneau__texte, .panneau--sombre .panneau__texte { top: 32px; bottom: auto; }
-  .panneau__phrase { margin-top: 14px; font-size: var(--fs-corps); font-weight: 400; }
-  .panneau__lien { margin-top: 20px; height: 52px; padding: 0 20px 0 24px; }
+  .panneau__phrase { max-width: 560px; }
 
-  .trajet { height: auto; margin-top: 72px; padding: 48px 24px 56px; }
-  .trajet__titre, .trajet__etapes, .trajet__compteur, .trajet__zone, .trajet__confirmer { position: static; width: auto; }
-  .trajet__etapes { margin-top: 40px; }
+  /* trajet : titre, puis étapes à gauche et compteur de 320 px à droite */
+  .trajet { grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: auto auto; column-gap: 40px; justify-content: stretch; min-height: 0; padding: 56px 40px 64px; }
+  .trajet__titre { grid-column: 1 / -1; }
+  .trajet__etapes { grid-column: 1; grid-row: 2; width: auto; margin-top: 48px; }
   .trajet__etapes .etapes__route { height: auto; }
-  .trajet__compteur { display: flex; justify-content: center; margin-top: 48px; }
+  .trajet__instrument { grid-column: 2; grid-row: 2; align-self: center; margin-top: 48px; }
   .compteur__d { display: none; }
   .compteur__m { display: block; }
-  .trajet__zone { margin-top: 8px; }
-  .trajet__confirmer { margin-top: 10px; line-height: 1.2; white-space: normal; }
+  .trajet__zone { width: auto; max-width: 300px; margin-top: 8px; }
 
-  .avis { margin-top: 72px; padding: 0; }
+  /* avis : en-tête sur une ligne (note à gauche, défilement à droite), cartes de 320 px */
+  .avis { padding: var(--section) 0; }
+  .avis__entete { row-gap: 32px; padding-inline: var(--marge-contenu); }
+  .avis__piste { gap: 16px; margin: 8px 0 -72px; padding: 32px var(--marge-contenu) 72px; scroll-padding-left: var(--marge-contenu); }
+
+  /* équipe : portrait | titre, noms, téléphone */
+  .equipe { grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 40px; align-items: start; align-content: center; min-height: 0; padding: 40px; }
+  .equipe__portrait { grid-column: 1; grid-row: 1 / 4; }
+  .equipe__portrait img { width: 200px; height: 267px; }
+  .equipe__texte { grid-column: 2; grid-row: 1; }
+  .equipe__membres { gap: 32px; margin-top: 24px; }
+  .equipe__filet { grid-column: 2; grid-row: 2; width: 100%; height: 1px; margin-top: 28px; transform-origin: left; }
+  .equipe__tel { grid-column: 2; grid-row: 3; margin-top: 28px; }
+
+  /* questions : titre et appel au-dessus, liste de 720 px au plus */
+  .questions { display: block; min-height: 0; }
+  .questions__cote { width: auto; }
+  .questions__appel { width: auto; max-width: 640px; margin-top: 16px; }
+  .questions__liste { width: auto; max-width: 720px; margin-top: 40px; }
+
+  /* arrivée : texte en haut sur le noir, photo dessous, barre de deux rangées en bas de la photo */
+  .arrivee { --arrivee-pied: 16px; --arrivee-photo: calc(var(--arrivee-reserve) + 220px); }
+  .arrivee__surface { min-height: 0; padding: 48px 40px var(--arrivee-photo); }
+  .arrivee__photo { top: auto; height: var(--arrivee-photo); }
+  .arrivee__voile { top: auto; bottom: calc(var(--arrivee-photo) - 120px); height: 120px; background: linear-gradient(to bottom, rgba(61, 62, 62, 1) 0%, rgba(61, 62, 62, .7) 45%, rgba(61, 62, 62, 0) 100%); }
+  .arrivee__texte { width: auto; max-width: 560px; }
+  .arrivee__sous-titre { width: auto; max-width: 460px; margin-top: 20px; }
+  .arrivee__barre { align-self: stretch; width: auto; margin-inline: calc(var(--marge-cadre) + 16px); }
+}
+
+/* tablette : le lien « Voir les convoyages réalisés » garde sa ligne à côté du chapô */
+@media (min-width: 768px) and (max-width: 991px) {
+  .page--accueil .convoyages-une__lien { flex: none; }
+}
+
+/* =========================================================== mobile (≤ 767) */
+/* maquette 390 ; mobile paysage (479-767) : hero limité à la hauteur d'écran, paragraphes à 600 px au plus */
+@media (max-width: 767px) {
+  .br-m { display: inline; }
+
+  .hero__surface { min-height: min(calc(var(--k) * 680), 100svh); padding-bottom: calc(var(--k) * 96 + 24px); }
+  .hero__voile--haut { height: calc(var(--k) * 220); }
+  .hero__voile--bas { height: calc(var(--k) * 320); background: linear-gradient(to bottom, rgba(61, 62, 62, 0) 0%, rgba(61, 62, 62, .22) 42%, rgba(61, 62, 62, .7) 100%); }
+  .hero__voile--titre { background: radial-gradient(62% 26% at 50% 30%, rgba(61, 62, 62, .42), rgba(61, 62, 62, 0)),
+    radial-gradient(84% 25% at 50% 61%, rgba(61, 62, 62, .74) 0%, rgba(61, 62, 62, .52) 60%, rgba(61, 62, 62, 0) 100%); }
+  .hero__surface > .entete { margin: 20px 20px 0; }
+  .hero__titre { margin-top: 40px; padding-bottom: 0; }
+  .hero__ligne { height: auto; }
+  .hero__accent { height: auto; margin-top: 0; }
+  .hero__sous-titre { max-width: 480px; margin-top: calc(var(--k) * 24); }
+  .hero__barre { order: 1; align-self: stretch; width: auto; margin: calc(var(--k) * -96) 24px 0; }
+  .hero__preuves { order: 2; height: auto; margin: 36px 24px 0; align-items: flex-end; }
+  .hero__preuves .releve { color: var(--anth); }
+
+  .manifeste { display: flex; flex-direction: column-reverse; justify-content: flex-start; margin-top: var(--section); padding: 0 24px; }
+  .manifeste__texte { width: auto; padding-top: 32px; }
+  .manifeste__chapo { margin-top: 16px; }
+  .manifeste__signature { margin-top: 24px; }
+  .manifeste__media { width: 100%; }
+  .manifeste__photo { height: calc(var(--k) * 260); aspect-ratio: auto; }
+
+  .publics { display: flex; flex-direction: column; gap: 12px; margin-top: var(--section); padding-inline: 12px; }
+  .publics__intro { max-width: none; padding: 0 12px 20px; }
+  .publics__chapo { margin-top: 16px; }
+  .publics__pros { min-height: calc(var(--k) * 520); aspect-ratio: auto; }
+  .publics__part { min-height: calc(var(--k) * 480); aspect-ratio: auto; }
+  .panneau--clair, .panneau--sombre { padding: 32px 24px 0; }
+  .panneau--sombre .panneau__texte { max-width: none; }
+  .panneau--clair .panneau__voile { background: linear-gradient(to bottom, rgba(61, 62, 62, .66) 0%, rgba(61, 62, 62, .3) 30%, rgba(61, 62, 62, 0) 58%); }
+  .panneau__phrase { max-width: none; margin-top: 14px; font-size: var(--fs-corps); font-weight: 400; }
+  .panneau__lien { margin-top: 20px; height: 52px; padding: 0 20px 0 24px; }
+
+  .trajet { display: block; margin-top: var(--section); padding: 48px 24px 56px; }
+  .trajet__etapes { margin-top: 40px; }
+  .trajet__instrument { margin-top: 48px; }
+  .trajet__zone { max-width: none; }
+
+  .avis { margin-top: var(--section); padding: 0; }
   .avis__entete { display: block; padding: 0 24px; }
   .avis__titre-bloc { display: flex; flex-direction: column; gap: 24px; }
   .avis__actions { display: none; }
   .avis__piste { gap: 12px; margin: 4px 0 -72px; padding: 32px 24px 72px; scroll-padding-left: 24px; }
   .avis__bas-mobile { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; margin-top: 28px; padding: 0 24px; }
 
-  .equipe { height: auto; margin-top: 72px; padding: 40px 24px 44px; display: grid; grid-template-columns: 128px 1fr; column-gap: 20px; }
-  .equipe__portrait { position: static; grid-column: 1; grid-row: 1; }
+  .equipe { grid-template-columns: 128px 1fr; grid-template-rows: none; column-gap: 20px; align-items: stretch; align-content: normal; margin-top: var(--section); padding: 40px 24px 44px; }
+  .equipe__portrait { grid-column: 1; grid-row: 1; align-self: auto; }
   .equipe__portrait img { width: 128px; height: 170px; }
   .equipe__legende { margin-top: 12px; }
   .equipe__texte { display: contents; }
-  .equipe__titre { position: static; grid-column: 1 / -1; grid-row: 2; margin-top: 32px; }
+  .equipe__titre { grid-column: 1 / -1; grid-row: 2; margin-top: 32px; }
   .equipe__membres { grid-column: 2; grid-row: 1; flex-direction: column; gap: 20px; margin-top: 13px; align-self: start; }
-  .equipe__filet { position: static; grid-column: 1 / -1; grid-row: 3; width: 100%; height: 1px; margin-top: 32px; transform-origin: left; }
-  .equipe__tel { position: static; grid-column: 1 / -1; grid-row: 4; margin-top: 32px; }
+  .equipe__filet { grid-column: 1 / -1; grid-row: 3; margin-top: 32px; }
+  .equipe__tel { grid-column: 1 / -1; grid-row: 4; margin-top: 32px; }
 
-  .questions { display: block; min-height: 0; margin-top: 72px; padding-inline: 24px; }
-  .questions__cote { width: auto; }
-  .questions__appel { width: auto; margin-top: 16px; }
-  .questions__liste { width: auto; margin-top: 40px; border-top: 0; }
+  .questions { margin-top: var(--section); padding-inline: 24px; }
+  .questions__appel { max-width: 600px; }
+  .questions__liste { max-width: none; border-top: 0; }
 
-  .arrivee { margin-top: 72px; }
-  .arrivee__surface { height: calc(var(--k) * 680); }
-  .arrivee__photo { top: auto; height: calc(var(--k) * 404); }
-  .arrivee__voile { top: auto; bottom: calc(var(--k) * 284); height: calc(var(--k) * 120); background: linear-gradient(to bottom, rgba(61, 62, 62, 1) 0%, rgba(61, 62, 62, .7) 45%, rgba(61, 62, 62, 0) 100%); }
-  .arrivee__texte { left: 24px; right: 24px; top: 40px; width: auto; }
-  .arrivee__sous-titre { width: auto; margin-top: 16px; }
+  .arrivee { --arrivee-pied: 0px; margin-top: var(--section); }
+  .arrivee__surface { min-height: calc(var(--k) * 680); padding: 40px 24px calc(var(--k) * 284); }
+  .arrivee__photo { height: calc(var(--k) * 404); }
+  .arrivee__voile { bottom: calc(var(--k) * 284); height: calc(var(--k) * 120); }
+  .arrivee__texte { max-width: none; }
+  .arrivee__sous-titre { max-width: 600px; margin-top: 16px; }
   .arrivee__tel--d { display: none; }
-  .arrivee__barre { position: relative; top: auto; margin: calc(var(--k) * -96) 24px 0; }
-  .arrivee__tel--m { display: block; margin-top: 28px; padding-inline: 24px; text-align: center; }
+  .arrivee__barre { margin: calc(var(--k) * -96) 24px 0; }
+  .arrivee__tel--m { display: block; margin: 28px auto 0; padding-inline: 24px; text-align: center; }
+
+  /* derniers convoyages : la rangée défile ; cartes plafonnées à 280 px (deux cartes et demie en paysage) */
+  .page--accueil .convoyages-une__grille .convoyage-carte { flex-basis: min(72%, 280px); }
+}
+
+/* mobile portrait (≤ 478) : maquette 390 telle quelle */
+@media (max-width: 478px) {
+  .hero__surface { min-height: calc(var(--k) * 680); }
+  .hero__titre { margin-top: calc(var(--k) * 132 - 64px); }
+  .hero__sous-titre { width: calc(var(--k) * 300); max-width: none; padding-inline: 0; }
+  /* bouton des panneaux : passe sur deux lignes plutôt que d'être rogné (360 px et moins) */
+  .panneau__lien { white-space: normal; height: auto; min-height: 52px; padding-block: 14px; text-align: left; }
 }
 
 /* ======================================= pages de public (Pro, Particuliers)
-   et blocs partagés avec À propos et Contact (hero partagé, fin, questions) */
+   et blocs partagés avec À propos et Contact (hero partagé, fin, questions)
+
+   Paliers (lot L2, 29/10) : Ordinateur ≥ 1280 (maquette 1440 en unités --k) · Ordinateur compact 992-1279
+   (même composition, resserrée) · Tablette 768-991 (mise en page à part, en px et jetons : --k y vaut
+   encore l'unité mobile, elle n'est pas employée) · Mobile ≤ 767 (maquette 390, inchangée).
+   Plus aucune position absolue de mise en page : seuls les photos de fond, les voiles et les petits
+   repères décoratifs restent posés en absolu. */
 
 .br-d { display: inline; }
 .page--professionnels main > * + *, .page--particuliers main > * + *,
@@ -810,18 +1052,20 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .ariane a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ------------------------------------------------------- hero partagé */
-.hero-public { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-height: calc(var(--k) * 796); padding-left: var(--marge-contenu); }
-.hero-public__texte { order: 0; width: calc(var(--k) * 576); padding-top: calc(var(--k) * 64); }
+/* grille : texte (rangée 1) et relevés (rangée 2) à gauche, photo à droite sur les rangées 1 à 3,
+   barre sur toute la largeur (rangée 4). La photo descend de 44 unités sous la barre (marge basse négative) :
+   la barre est à cheval sur son bas. Un texte plus long agrandit le hero au lieu de passer sous la photo. */
+.hero-public { display: grid; grid-template-columns: minmax(0, 1fr) calc(var(--k) * 696); grid-template-rows: auto auto 1fr auto; align-items: start; padding: 0 var(--marge-cadre) 0 var(--marge-contenu); }
+.hero-public__texte { grid-column: 1; grid-row: 1; width: calc(var(--k) * 576); padding-top: calc(var(--k) * 64); }
 .hero-public__titre { display: flex; flex-direction: column; margin-top: calc(var(--k) * 52); color: var(--anth); font-weight: 200; }
 .hero-public__ligne { display: block; }
 .hero-public__accent { display: block; margin: calc(var(--k) * -3) 0 0 calc(var(--k) * -4); }
 .hero-public__chapo { width: calc(var(--k) * 470); margin-top: calc(var(--k) * 44); }
 .hero-public__lien { margin-top: calc(var(--k) * 28); }
-.hero-public__photo { position: absolute; top: calc(var(--k) * 32); right: var(--marge-cadre); width: calc(var(--k) * 696); height: calc(var(--k) * 720); border-radius: var(--r-surface); }
-.hero-public__preuves { order: 1; display: flex; gap: calc(var(--k) * 54); margin: calc(var(--k) * 88) 0 calc(var(--k) * 96); }
+.hero-public__photo { grid-column: 2; grid-row: 1 / 4; width: 100%; height: calc(var(--k) * 720); margin: calc(var(--k) * 32) 0 calc(var(--k) * -44); border-radius: var(--r-surface); }
+.hero-public__preuves { grid-column: 1; grid-row: 2; display: flex; gap: calc(var(--k) * 54); margin: calc(var(--k) * 88) 0 calc(var(--k) * 96); }
 .hero-public__preuves .releve { color: var(--anth); }
-.hero-public__barre { order: 2; position: relative; z-index: 2; margin-top: auto; margin-left: calc(var(--k) * -16); }
-.hero-public__legende { position: absolute; top: calc(var(--k) * 764); left: calc(100% - var(--marge-cadre) - var(--k) * 696); width: calc(var(--k) * 696); margin: 0; }
+.hero-public__barre { grid-column: 1 / -1; grid-row: 4; position: relative; z-index: 2; margin-left: calc(var(--k) * -16); }
 
 /* -------------------------------------------------------- introduction */
 .intro-public { padding-inline: var(--marge-contenu); }
@@ -830,14 +1074,17 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .intro-public__crochet { margin-top: calc(var(--k) * 28); }
 
 /* -------------------------------------------------------- l'essentiel */
-.essentiel { padding: calc(var(--k) * 88) calc(var(--k) * 72); background: var(--rose-doux); color: var(--anth-profond); }
+/* panneaux encastrés : marge intérieure = marge du contenu − marge du cadre (72 à 1440), le texte reste sur la colonne */
+.essentiel { padding: calc(var(--k) * 88) calc(var(--marge-contenu) - var(--marge-cadre)); background: var(--rose-doux); color: var(--anth-profond); }
 .essentiel__titre { width: calc(var(--k) * 1200); color: var(--anth-profond); }
 .essentiel__colonnes { display: grid; grid-template-columns: calc(var(--k) * 576) calc(var(--k) * 576); column-gap: calc(var(--k) * 96); align-items: start; margin-top: calc(var(--k) * 56); }
 
 /* ----------------------------------------------------------- le déroulé */
-.deroule { padding: calc(var(--k) * 96); background: var(--nuit); color: var(--creme); }
+/* aligné sur la colonne comme les autres panneaux (96 du bord, et non plus 120) */
+.deroule { padding: calc(var(--k) * 96) calc(var(--marge-contenu) - var(--marge-cadre)); background: var(--nuit); color: var(--creme); }
 .deroule__titre { width: calc(var(--k) * 1200); }
 .deroule__photos { position: relative; height: calc(var(--k) * 500); margin-top: calc(var(--k) * 56); border-radius: var(--r-panneau); overflow: hidden; isolation: isolate; background: var(--nuit); }
+.deroule__photos picture { display: contents; }
 .deroule__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
 .deroule__photo.est-active { opacity: 1; }
 .deroule__piste { margin-top: calc(var(--k) * 64); }
@@ -848,6 +1095,7 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .preparez__chapo { width: calc(var(--k) * 560); margin-top: calc(var(--k) * 20); }
 .preparez__exemple { margin-top: calc(var(--k) * 56); font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
 .preparez__barre { width: calc(var(--k) * 1280); max-width: none; margin: calc(var(--k) * 16) 0 0 calc(var(--k) * -16); }
+/* pièces alignées sous les champs de la barre d'une rangée (≥ 1280) ; le petit repère vertical les relie au champ */
 .preparez__pieces { display: grid; grid-template-columns: calc(var(--k) * 20) calc(var(--k) * 180) calc(var(--k) * 40) calc(var(--k) * 538) calc(var(--k) * 40) calc(var(--k) * 226) calc(var(--k) * 20) calc(var(--k) * 184); margin-top: calc(var(--k) * 44); }
 .piece { position: relative; display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid var(--gris); }
 .piece__repere { position: absolute; left: 0; top: calc(var(--k) * -36); width: 1px; height: calc(var(--k) * 36); background: var(--gris); transform-origin: top; }
@@ -857,7 +1105,9 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .piece--trajet { grid-column: 4; }
 .piece--vehicule { grid-column: 6; }
 .piece--coordonnees { grid-column: 8; }
-.piece--appel { grid-column: 2 / 4; border-top: 0; padding-top: 18px; white-space: nowrap; }
+/* Particuliers : le lien d'appel prend la case « Vous êtes » (220 unités, lien de 207 px) ; 12 px de retrait à droite :
+   sous 1436 px, il passe sur deux lignes au lieu de toucher « Le trajet » */
+.piece--appel { grid-column: 2 / 4; margin-right: 12px; border-top: 0; padding-top: 18px; }
 .piece--appel .piece__repere { display: none; }
 .preparez__appel { margin-top: calc(var(--k) * 44); }
 .preparez--particuliers .preparez__appel { margin-top: 0; }
@@ -871,92 +1121,146 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .questions-public__liste { width: calc(var(--k) * 672); }
 
 /* ----------------------------------------------------------------- avis */
-.avis--public { padding: 0 0 calc(var(--k) * 40) var(--marge-contenu); }
+/* plus de marge intérieure basse : l'écart avis → fin est le jeton de section (120 à 1440, 160 avant) */
+.avis--public { padding: 0 0 0 var(--marge-contenu); }
 
 /* ------------------------------------------------------------------ fin */
-.fin { position: relative; height: calc(var(--k) * 684); }
-.fin__panneau { height: calc(var(--k) * 640); background: var(--nuit); color: var(--creme); }
+/* panneau en colonne avec une hauteur minimale ; la barre suit le panneau et remonte de 44 unités
+   sur son bas (marge négative). Photo et fondu restent en fond, en absolu. */
+.fin { display: flex; flex-direction: column; }
+.fin__panneau { display: flex; flex-direction: column; align-items: flex-start; min-height: calc(var(--k) * 640); padding: calc(var(--k) * 88) calc(var(--marge-contenu) - var(--marge-cadre)) calc(var(--k) * 108); background: var(--nuit); color: var(--creme); }
 .fin__photo { position: absolute; top: 0; right: 0; bottom: 0; width: calc(var(--k) * 752); z-index: -2; }
 .fin__fondu { position: absolute; top: 0; bottom: 0; right: calc(var(--k) * 452); width: calc(var(--k) * 300); z-index: -1; background: linear-gradient(to right, rgba(61, 62, 62, 1), rgba(61, 62, 62, 0)); }
-.fin__texte { position: absolute; left: calc(var(--k) * 72); top: calc(var(--k) * 88); width: calc(var(--k) * 560); }
+.fin__texte { width: calc(var(--k) * 560); }
 .fin__chapo { width: calc(var(--k) * 470); margin-top: calc(var(--k) * 28); }
 .fin__appel { margin-top: calc(var(--k) * 32); }
 .fin__mention { margin-top: calc(var(--k) * 20); font-size: var(--fs-petit); line-height: 1.5; color: rgba(250, 248, 243, .72); }
-.fin__legende { position: absolute; left: calc(var(--k) * 72); top: calc(var(--k) * 540); width: calc(var(--k) * 520); font-size: var(--fs-petit); line-height: 1.5; color: rgba(250, 248, 243, .72); }
-.fin__barre { position: absolute; left: 0; right: 0; top: calc(var(--k) * 596); margin-inline: auto; z-index: 2; }
+.fin__barre { align-self: center; position: relative; z-index: 2; margin-top: calc(var(--k) * -44); }
 
-/* =================================================== mobile (≤ 1023) */
-@media (max-width: 1023px) {
-  .br-d { display: none; }
+/* ================================================ ordinateur compact (≤ 1279) */
+@media (max-width: 1279px) {
+  /* hero : la colonne de texte prend toute la place à gauche de la photo */
+  .hero-public { column-gap: 32px; }
+  .hero-public__texte { width: auto; }
+  .hero-public__chapo { width: auto; max-width: 470px; }
 
-  .hero-public { min-height: 0; padding: 0; }
-  .hero-public__texte { width: auto; padding: 32px 24px 0; }
+  /* pièces : la barre est sur deux rangées, les pièces ne sont plus alignées sous ses champs :
+     grille de quatre colonnes égales, sans repère ; le lien d'appel (Particuliers) passe sur sa propre rangée */
+  .preparez__pieces { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; }
+  .piece--profil, .piece--trajet, .piece--vehicule, .piece--coordonnees { grid-column: auto; }
+  .piece__repere { display: none; }
+  .piece--appel { grid-column: 1 / -1; order: 9; margin: calc(var(--k) * 44) 0 0; padding-top: 0; }
+}
+
+/* ======================================================= tablette (≤ 991) */
+/* mise en page dérivée de l'ordinateur : hero empilé, textes sur 600 à 720 px, déroulé en deux colonnes */
+@media (max-width: 991px) {
+  .hero-public { display: flex; flex-direction: column; align-items: stretch; padding: 0; }
+  .hero-public__texte { width: auto; padding: 32px var(--marge-contenu) 0; }
   .ariane { margin-top: 0; }
   .hero-public__titre { margin-top: 16px; }
   .hero-public__accent { margin: -2px 0 0 -2px; }
-  .hero-public__chapo { width: auto; margin-top: 20px; }
+  .hero-public__chapo { width: auto; max-width: 560px; margin-top: 20px; }
   .hero-public__lien { margin-top: 20px; }
-  .hero-public__photo { position: relative; top: auto; right: auto; order: 1; width: calc(100% - 24px); height: calc(var(--k) * 440); margin: 32px 12px 0; }
-  .hero-public__barre { order: 2; margin: calc(var(--k) * -96) 24px 0; width: calc(100% - 48px); }
-  .hero-public__preuves { order: 3; justify-content: space-between; align-items: flex-end; width: calc(100% - 48px); margin: 36px 24px 0; gap: 0; }
-  .hero-public__legende { position: static; order: 2; width: auto; margin: 12px 24px 0; }
+  .hero-public__photo { width: auto; height: auto; aspect-ratio: 16 / 9; margin: 32px var(--marge-cadre) 0; }
+  .hero-public__barre { width: auto; margin: calc(var(--barre-h) / -2) var(--marge-contenu) 0; }
+  .hero-public__preuves { gap: 64px; margin: 36px var(--marge-contenu) 0; }
 
-  .intro-public { padding-inline: 24px; }
-  .intro-public__titre { width: auto; }
-  /* « Vos clients livrés chez » mesure 341,6 px dans Chrome, un peu plus dans Figma, qui coupe avant « chez » */
-  .page--professionnels .intro-public__titre { max-width: 340px; }
-  .intro-public__colonnes { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
-  .intro-public__colonnes p { font-size: var(--fs-corps); font-weight: 400; }
+  .intro-public__titre { width: auto; max-width: 720px; }
+  .intro-public__colonnes { display: flex; flex-direction: column; gap: 16px; max-width: 640px; margin-top: 28px; }
   .intro-public__crochet { margin-top: 20px; }
 
-  .essentiel { padding: 40px 24px; }
+  .essentiel { padding: 48px calc(var(--marge-contenu) - var(--marge-cadre)); }
   .essentiel__titre { width: auto; }
-  .essentiel__colonnes { display: block; margin-top: 28px; }
+  .essentiel__colonnes { display: block; max-width: 720px; margin-top: 32px; }
   .essentiel__colonnes .fiche:first-child { border-bottom: 0; }
 
-  .deroule { padding: 40px 0; }
-  .deroule__titre { width: auto; padding-inline: 24px; }
-  .deroule__photos { height: calc(var(--k) * 212); margin: 28px 24px 0; }
-  .deroule__piste { margin-top: 36px; padding: 0 24px 8px; }
+  /* déroulé : titre sur toute la largeur, puis photo carrée (collante) à gauche et étapes verticales à droite ;
+     overflow: clip (au lieu de hidden) pour que la photo puisse rester collée sous l'en-tête */
+  .deroule { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; align-items: start; padding: 56px calc(var(--marge-contenu) - var(--marge-cadre)) 64px; overflow: clip; }
+  .deroule__titre { grid-column: 1 / -1; width: auto; }
+  .deroule > .deroule__photos { position: sticky; top: 88px; grid-column: 1; height: auto; aspect-ratio: 1; margin-top: 40px; }
+  .deroule__piste { grid-column: 2; margin-top: 40px; }
 
-  .preparez { padding-inline: 24px; }
-  .preparez h2, .preparez__chapo { width: auto; }
-  .preparez__chapo { margin-top: 16px; }
+  .preparez h2 { width: auto; }
+  .preparez__chapo { width: auto; max-width: 600px; margin-top: 16px; }
   .preparez__exemple { margin-top: 32px; }
-  .preparez__barre { width: auto; margin: 12px 0 0; }
-  .preparez__pieces { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
-  .piece__repere { display: none; }
-  .piece__titre { font-size: var(--fs-intitule); }
-  .piece--appel { order: 9; border-top: 0; padding-top: 12px; }
+  .preparez__barre { width: auto; margin: 12px calc(var(--marge-cadre) - var(--marge-contenu)) 0; }
+  .preparez__pieces { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 32px; margin-top: 40px; }
+  .piece--appel { margin-top: 4px; }
   .preparez__appel { margin-top: 32px; }
 
-  .questions-public { padding-inline: 24px; }
   .questions-public__corps { display: block; margin-top: 16px; }
-  .questions-public__cote { position: static; width: auto; padding-top: 0; }
+  .questions-public__cote { position: static; width: auto; max-width: 640px; padding-top: 0; }
   .questions-public__signature { margin-top: 24px; }
-  .questions-public__liste { width: auto; margin-top: 40px; }
+  .questions-public__liste { width: auto; max-width: 720px; margin-top: 40px; }
 
+  /* avis : l'en-tête et la piste prennent la marge du contenu (20-accueil.css) */
   .avis--public { padding: 0; }
 
-  .fin { height: auto; }
-  .fin__panneau { height: calc(var(--k) * 640); }
+  /* fin : composition de l'ordinateur, texte à gauche sur le noir, photo à droite ; barre de deux rangées */
+  .fin__panneau { min-height: 520px; padding: 56px calc(var(--marge-contenu) - var(--marge-cadre)) calc(var(--barre-h) / 2 + 48px); }
+  .fin__photo { width: 56%; }
+  .fin__fondu { right: auto; left: 44%; width: 24%; }
+  .fin__texte { width: 46%; max-width: 400px; }
+  .fin__chapo { width: auto; margin-top: 20px; }
+  .fin__appel { margin-top: 24px; }
+  .fin__mention { margin-top: 16px; }
+  .fin__barre { align-self: stretch; width: auto; margin: calc(var(--barre-h) / -2) var(--marge-contenu) 0; }
+}
+
+/* =================================================== mobile (≤ 767) */
+@media (max-width: 767px) {
+  .br-d { display: none; }
+
+  .hero-public { align-items: flex-start; }
+  .hero-public__texte { padding: 32px 24px 0; }
+  .hero-public__chapo { max-width: 600px; }
+  .hero-public__photo { order: 1; width: calc(100% - 24px); height: calc(var(--k) * 440); aspect-ratio: auto; margin: 32px 12px 0; }
+  .hero-public__barre { order: 2; margin: calc(var(--k) * -96) 24px 0; width: calc(100% - 48px); }
+  .hero-public__preuves { order: 3; justify-content: space-between; align-items: flex-end; width: calc(100% - 48px); margin: 36px 24px 0; gap: 0; }
+
+  .intro-public__titre { max-width: none; }
+  /* « Vos clients livrés chez » mesure 341,6 px dans Chrome, un peu plus dans Figma, qui coupe avant « chez » */
+  .page--professionnels .intro-public__titre { max-width: 340px; }
+  .intro-public__colonnes { max-width: none; margin-top: 24px; }
+  .intro-public__colonnes p { font-size: var(--fs-corps); font-weight: 400; }
+
+  .essentiel { padding: 40px 24px; }
+  .essentiel__colonnes { max-width: none; margin-top: 28px; }
+
+  .deroule { display: block; padding: 40px 0; overflow: hidden; }
+  .deroule__titre { padding-inline: 24px; }
+  .deroule > .deroule__photos { position: relative; top: auto; height: calc(var(--k) * 212); aspect-ratio: auto; margin: 28px 24px 0; }
+  .deroule__piste { margin-top: 36px; padding: 0 24px 8px; }
+
+  .preparez__chapo { max-width: none; }
+  .preparez__barre { margin: 12px 0 0; }
+  .preparez__pieces { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+  .piece__titre { font-size: var(--fs-intitule); }
+  .piece--appel { order: 9; border-top: 0; margin-top: 0; padding-top: 12px; }
+
+  .questions-public__cote { max-width: none; }
+  .questions-public__liste { max-width: none; }
+
+  .fin__panneau { min-height: calc(var(--k) * 640); padding: 40px 24px calc(var(--k) * 240); }
   .fin__photo { top: auto; left: 0; width: auto; height: calc(var(--k) * 313); }
   .fin__fondu { top: auto; left: 0; right: 0; bottom: calc(var(--k) * 203); width: auto; height: calc(var(--k) * 110); background: linear-gradient(to bottom, rgba(61, 62, 62, 1), rgba(61, 62, 62, 0)); }
-  .fin__texte { left: 24px; right: 24px; top: 40px; width: auto; }
-  .fin__chapo { width: auto; margin-top: 16px; }
+  .fin__texte { width: auto; max-width: none; align-self: stretch; }
+  .fin__chapo { margin-top: 16px; }
   .fin__appel { margin-top: 20px; }
-  .fin__mention { margin-top: 16px; }
-  .fin__legende { position: static; margin-top: 8px; width: auto; }
-  .fin__barre { position: relative; top: auto; margin: calc(var(--k) * -96) 24px 0; }
+  .fin__barre { margin: calc(var(--k) * -96) 24px 0; }
 }
 
 /* ============================================================== À propos */
 
-/* hero : signature au lieu des relevés, pas de barre */
-.hero-public--apropos { min-height: calc(var(--k) * 787); }
+/* hero : signature au lieu des relevés, pas de barre. Grille du hero partagé (30-public.css) :
+   la signature se cale en bas de la colonne de gauche, au niveau du bas de la photo (plus d'absolu) */
+.hero-public--apropos { padding-bottom: calc(var(--k) * 35); }
 .hero-public__chapo--large { width: calc(var(--k) * 480); margin-top: calc(var(--k) * 32); }
 .hero-public--apropos .hero-public__accent { margin-top: calc(var(--k) * -4); }
-.hero-public__signature { position: absolute; left: var(--marge-contenu); top: calc(var(--k) * 688); width: calc(var(--k) * 480); }
+.hero-public--apropos .hero-public__photo { margin-bottom: 0; }
+.hero-public__signature { grid-column: 1; grid-row: 3; align-self: end; width: calc(var(--k) * 480); margin-top: 32px; }
 
 /* --------------------------------------------------------- son parcours */
 .parcours__titre { padding-inline: var(--marge-contenu); color: var(--anth); }
@@ -977,58 +1281,93 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .exigence__crochet { margin-top: calc(var(--k) * 24); }
 
 /* --------------------------------------------------------------- équipe */
-.equipe-ap { position: relative; padding: calc(var(--k) * 88) calc(var(--k) * 72); background: var(--rose-doux); color: var(--anth-profond); }
-.equipe-ap__texte, .equipe-ap__engagements, .equipe-ap__crochet { width: calc(var(--k) * 600); }
+/* grille : texte, fiche et crochet à gauche ; portrait à droite, centré dans la hauteur (plus d'absolu).
+   Colonne de gauche à 648 unités (600 avant) : « une même exigence. » tient sur une ligne, plus de mot seul. */
+.equipe-ap { display: grid; grid-template-columns: calc(var(--k) * 648) auto; grid-template-rows: auto auto 1fr; column-gap: calc(var(--k) * 24); align-items: start; padding: calc(var(--k) * 88) calc(var(--marge-contenu) - var(--marge-cadre)); background: var(--rose-doux); color: var(--anth-profond); }
+.equipe-ap__texte { grid-column: 1; grid-row: 1; }
+.equipe-ap__engagements, .equipe-ap__crochet { grid-column: 1; width: calc(var(--k) * 600); }
 .equipe-ap__titre { color: var(--anth-profond); }
 .equipe-ap__intro { width: calc(var(--k) * 560); margin-top: calc(var(--k) * 24); }
-.equipe-ap__engagements { margin-top: calc(var(--k) * 48); }
-.equipe-ap__crochet { margin-top: calc(var(--k) * 24); }
-/* seul objet de la colonne droite depuis le retrait de la carte convoyeur (29/10) : centré dans la hauteur de la section */
-.equipe-ap__portrait { position: absolute; left: calc(var(--k) * 744); top: 50%; transform: translateY(-50%); display: flex; align-items: flex-end; gap: calc(var(--k) * 24); }
+.equipe-ap__engagements { grid-row: 2; margin-top: calc(var(--k) * 48); }
+.equipe-ap__crochet { grid-row: 3; margin-top: calc(var(--k) * 24); }
+.equipe-ap__portrait { grid-column: 2; grid-row: 1 / -1; align-self: center; display: flex; align-items: flex-end; gap: calc(var(--k) * 24); }
 .equipe-ap__portrait img { width: calc(var(--k) * 240); height: calc(var(--k) * 320); object-fit: cover; border-radius: var(--r-objet); }
 .equipe-ap__legende { display: flex; flex-direction: column; gap: 6px; }
 
-/* ------------------------------------------------------------------ fin */
-.fin__texte .fin__legende { left: 0; top: calc(var(--k) * 452); }
+/* ================================================ ordinateur compact (≤ 1279) */
+@media (max-width: 1279px) {
+  .hero-public__chapo--large { width: auto; max-width: 480px; }
 
-/* =================================================== mobile (≤ 1023) */
-@media (max-width: 1023px) {
-  .hero-public--apropos { min-height: 0; }
+  /* équipe : colonne de texte souple, légende sous le portrait (le titre garde ses deux lignes) */
+  .equipe-ap { grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; }
+  .equipe-ap__engagements, .equipe-ap__crochet { width: auto; max-width: 600px; }
+  .equipe-ap__intro { width: auto; max-width: 560px; }
+  .equipe-ap__portrait { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+/* ======================================================= tablette (≤ 991) */
+@media (max-width: 991px) {
+  .hero-public--apropos { padding-bottom: 0; }
   .hero-public__chapo--large { width: auto; margin-top: 20px; }
   .hero-public--apropos .hero-public__accent { margin-top: -2px; }
-  .hero-public__signature { position: static; order: 3; width: calc(100% - 48px); margin: 24px 24px 0; }
+  .hero-public__signature { align-self: auto; width: auto; margin: 24px var(--marge-contenu) 0; }
+
+  .parcours__planche { margin-top: 32px; }
+  .parcours__photo { height: auto; aspect-ratio: 16 / 9; }
+  .parcours__legende { margin-top: 12px; }
+  .parcours__route { margin-top: 48px; }
+  /* quatre jalons en colonnes, sans défilement ; l'année se resserre pour qu'« Aujourd'hui » tienne dans sa colonne */
+  .parcours__route { --annee: min(var(--fs-releve), 3.4vw); }
+  .parcours__route .jalons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  .parcours__route .jalon { width: auto; }
+  .parcours__route .jalon__annee { font-size: var(--annee); }
+  .parcours__route .jalons__filet { right: calc((100% - 72px) / 4 - 6px); top: calc(var(--annee) + 26px); }
+  .parcours__crochet { margin-top: 32px; max-width: 720px; }
+
+  .exigence__grille { display: block; max-width: 720px; margin-top: 24px; }
+  .exigence__intro { padding: 0 0 32px; }
+  .exigence__intro p { max-width: 640px; }
+  .exigence__crochet { margin-top: 20px; }
+
+  .equipe-ap { grid-template-columns: minmax(0, 1fr) 200px; column-gap: 40px; padding: 48px calc(var(--marge-contenu) - var(--marge-cadre)); }
+  .equipe-ap__intro { margin-top: 16px; }
+  .equipe-ap__engagements { margin-top: 32px; }
+  .equipe-ap__crochet { margin-top: 20px; }
+  .equipe-ap__portrait { align-self: start; }
+  .equipe-ap__portrait img { width: 200px; height: 267px; }
+}
+
+/* =================================================== mobile (≤ 767) */
+@media (max-width: 767px) {
+  .hero-public__signature { order: 3; width: calc(100% - 48px); margin: 24px 24px 0; }
 
   .parcours__titre { padding-inline: 24px; }
   .parcours__planche { margin-top: 28px; }
-  .parcours__photo { height: calc(var(--k) * 300); }
-  .parcours__legende { margin-top: 12px; padding-inline: 24px; }
+  .parcours__photo { height: calc(var(--k) * 300); aspect-ratio: auto; }
+  .parcours__legende { padding-inline: 24px; }
   .parcours__route { margin-top: 40px; padding: 0 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 24px; scrollbar-width: none; overscroll-behavior-x: contain; }
   .parcours__route::-webkit-scrollbar { display: none; }
-  .parcours__route .jalons { width: max-content; }
-  .parcours__route .jalon { scroll-snap-align: start; }
+  .parcours__route .jalons { display: flex; width: max-content; }
+  .parcours__route .jalon { width: 260px; scroll-snap-align: start; }
+  .parcours__route .jalon__annee { font-size: var(--fs-releve); }
+  .parcours__route .jalons__filet { right: 254px; top: calc(var(--fs-releve) + 26px); }
   .parcours__defilement { display: flex; margin: 24px 24px 0; }
-  .parcours__crochet { margin-top: 24px; padding-inline: 24px; }
+  .parcours__crochet { margin-top: 24px; padding-inline: 24px; max-width: none; }
   .parcours__crochet--2 { margin-top: 8px; }
 
   .exigence { padding-inline: 24px; }
-  .exigence__grille { display: block; margin-top: 16px; }
-  .exigence__intro { padding: 0 0 32px; }
-  .exigence__crochet { margin-top: 20px; }
+  .exigence__grille { max-width: none; margin-top: 16px; }
+  .exigence__intro p { max-width: 600px; }
 
-  .equipe-ap { padding: 40px 24px; }
-  .equipe-ap__texte, .equipe-ap__engagements, .equipe-ap__crochet, .equipe-ap__intro { width: auto; }
-  .equipe-ap__intro { margin-top: 16px; font-size: var(--fs-corps); font-weight: 400; }
-  .equipe-ap__portrait { position: static; transform: none; margin-top: 28px; gap: 20px; }
+  .equipe-ap { display: block; padding: 40px 24px; }
+  .equipe-ap__intro { font-size: var(--fs-corps); font-weight: 400; }
+  .equipe-ap__portrait { flex-direction: row; align-items: flex-end; margin-top: 28px; gap: 20px; }
   .equipe-ap__portrait img { width: 140px; height: 187px; }
-    .equipe-ap__engagements { margin-top: 32px; }
-  .equipe-ap__crochet { margin-top: 20px; }
+  .equipe-ap__engagements, .equipe-ap__crochet { max-width: none; }
 
-
-
-  .fin--apropos .fin__panneau { height: calc(var(--k) * 680); }
+  .fin--apropos .fin__panneau { min-height: calc(var(--k) * 680); }
   .fin--apropos .fin__photo { height: calc(var(--k) * 339); }
   .fin--apropos .fin__fondu { bottom: calc(var(--k) * 229); }
-  .fin__texte .fin__legende { position: static; margin-top: 8px; }
 }
 
 /* =============================================================== Contact */
@@ -1045,7 +1384,8 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .contact__numero:hover { color: var(--nuit); }
 .contact__signature { margin-top: calc(var(--k) * 48); }
 .contact__dispo--m { display: none; }
-.contact__carte { flex: none; width: calc(var(--k) * 560); margin-top: calc(var(--k) * 32); align-self: flex-start; }
+/* carte : 560 à 1440, jamais moins de 512 px (champs de 208 px : « Adresse, code postal, ville » reste entier) */
+.contact__carte { flex: none; width: max(512px, calc(var(--k) * 560)); margin-top: calc(var(--k) * 32); align-self: flex-start; }
 
 /* ---------------------------------------------------- carte du formulaire */
 .carte-form { display: flex; flex-direction: column; gap: 28px; padding: 40px; background: var(--blanc); color: var(--anth); border-radius: var(--r-objet); box-shadow: var(--ombre-flottante); }
@@ -1121,20 +1461,41 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .coordonnees h2 { color: var(--anth); }
 .coordonnees__colonnes { display: grid; grid-template-columns: calc(var(--k) * 576) calc(var(--k) * 576); column-gap: calc(var(--k) * 96); align-items: start; margin-top: calc(var(--k) * 48); }
 
-/* =================================================== mobile (≤ 1023) */
-@media (max-width: 1023px) {
-  .contact { display: flex; flex-direction: column; padding: 0; }
+/* ================================================ ordinateur compact (≤ 1279) */
+@media (max-width: 1279px) {
+  /* colonne du téléphone souple, carte de 512 px ; le grand numéro (Titre 1) se resserre sous 1143 px
+     pour tenir dans sa colonne (49 px à 992) au lieu de passer sous la carte */
+  .contact { gap: 32px; padding-right: var(--marge-contenu); }
+  .contact__cote { flex: 1 1 auto; width: auto; min-width: 0; }
+  .contact__titre { width: auto; }
+  .contact__numero { font-size: min(var(--fs-titre1), 4.9vw); }
+}
+
+/* ======================================================= tablette (≤ 991) */
+/* téléphone d'abord (titre, chapô, numéro), puis la carte centrée de 640 px au plus (rangées à deux colonnes),
+   signature et disponibilités dessous ; coordonnées en deux colonnes de fiches */
+@media (max-width: 991px) {
+  .contact { flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
   .contact__cote, .contact__collant { display: contents; }
-  .contact .ariane, .contact__titre, .contact__chapo, .contact__tel, .contact__signature, .contact__dispo--m { margin-inline: 24px; }
+  .contact .ariane, .contact__titre, .contact__chapo, .contact__tel, .contact__signature, .contact__dispo--m { margin-inline: var(--marge-contenu); }
   .contact .ariane { order: 0; margin-top: 32px; }
-  .contact__titre { order: 1; width: auto; margin-top: 16px; }
+  .contact__titre { order: 1; margin-top: 16px; }
   .contact .hero-public__accent { margin-top: -2px; }
-  .contact__chapo { order: 2; margin-top: 20px; }
+  .contact__chapo { order: 2; max-width: 560px; margin-top: 20px; }
   .contact__tel { order: 3; gap: 10px; margin-top: 24px; }
+  .contact__numero { font-size: var(--fs-titre1); }
   .contact__dispo--d { display: none; }
-  .contact__carte { order: 4; width: auto; margin: 24px 12px 0; }
+  .contact__carte { order: 4; align-self: center; width: calc(100% - 2 * var(--marge-contenu)); max-width: 640px; margin: 32px 0 0; }
   .contact__signature { order: 5; margin-top: 40px; }
   .contact__dispo--m { display: block; order: 6; margin-top: 16px; }
+
+  .coordonnees__colonnes { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; margin-top: 32px; }
+}
+
+/* =================================================== mobile (≤ 767) */
+@media (max-width: 767px) {
+  .contact__chapo { max-width: 600px; }
+  .contact__carte { align-self: stretch; width: auto; max-width: none; margin: 24px 12px 0; }
 
   .carte-form { gap: 24px; padding: 28px 24px; }
   .formulaire { gap: 24px; }
@@ -1147,7 +1508,9 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 
 /* ============================================ Convoyages (collection CMS)
    liste /convoyages et fiche /convoyages/[slug] : mêmes jetons, mêmes
-   composants (ariane, fiche, barre, lien) que les pages de public */
+   composants (ariane, fiche, barre, lien) que les pages de public.
+   Paliers : ≥ 1280 maquette 1440 · 992-1279 compact · 768-991 tablette (grille de trois cartes,
+   fiche en deux colonnes sous un titre pleine largeur) · ≤ 767 mobile (deux colonnes de cartes) */
 
 .page--convoyages main > * + *, .page--convoyage main > * + * { margin-top: var(--section); }
 
@@ -1166,7 +1529,8 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .convoyage-carte__lien:hover .convoyage-carte__photo img, .convoyage-carte__lien:focus-visible .convoyage-carte__photo img { transform: scale(1.04); }
 .convoyage-carte__vehicule { margin-top: 20px; font-size: var(--fs-intitule); font-weight: 400; line-height: 1.3; }
 .convoyage-carte__trajet { display: flex; align-items: flex-end; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(94, 95, 95, .22); }
-.convoyage-carte__lieu { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: var(--fs-corps); font-weight: 400; line-height: 1.3; }
+/* un nom de ville ne se coupe pas à son trait d'union (« Mont-de-Marsan ») */
+.convoyage-carte__lieu { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: var(--fs-corps); font-weight: 400; line-height: 1.3; white-space: nowrap; }
 .convoyage-carte__etiquette { font-size: var(--fs-etiquette); font-weight: 500; line-height: 1.2; letter-spacing: .2em; text-transform: uppercase; }
 .convoyage-carte__vers { flex: none; width: 20px; height: 20px; margin-bottom: 1px; transition: transform .6s var(--ease-sortie); }
 .convoyage-carte__lien:hover .convoyage-carte__vers { transform: translateX(4px); }
@@ -1175,6 +1539,9 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 /* ------------------------------------------------------------- fiche */
 .convoyage-fiche { display: flex; justify-content: space-between; align-items: flex-start; padding: 0 calc(var(--k) * 96) 0 var(--marge-contenu); }
 .convoyage-fiche__texte { width: calc(var(--k) * 576); padding-top: calc(var(--k) * 64); }
+/* titre plus large que la colonne (672 unités, la photo commence à 688) : trois lignes au plus pour les
+   véhicules actuels. Les noms de ville ne se coupent pas (classe .insecable posée dans le gabarit) */
+.convoyage-fiche__titre { width: calc(var(--k) * 624); } /* 64 px d’air avant la photo à 1440 (672 collait le titre à 16 px de la photo) */
 .convoyage-fiche__chapo { width: calc(var(--k) * 520); margin-top: calc(var(--k) * 32); }
 .convoyage-fiche__crochet { width: calc(var(--k) * 520); margin-top: 16px; }
 .convoyage-fiche__donnees { margin-top: calc(var(--k) * 48); }
@@ -1187,25 +1554,62 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
 .convoyage-suite__chapo { width: calc(var(--k) * 560); margin-top: calc(var(--k) * 20); }
 .convoyage-suite__barre { width: calc(var(--k) * 1280); max-width: none; margin: calc(var(--k) * 40) 0 0 calc(var(--k) * -16); }
 .convoyages-autres__entete { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-inline: var(--marge-contenu); color: var(--anth); }
+.convoyages-autres__lien { flex: none; }
 .convoyages-autres .convoyages-grille { margin-top: calc(var(--k) * 48); }
 
-/* =================================================== mobile (≤ 1023) */
-@media (max-width: 1023px) {
-  .convoyages-hero { padding: 32px 24px 0; }
+/* ================================================ ordinateur compact (≤ 1279) */
+@media (max-width: 1279px) {
+  /* fiche : colonne de texte souple, photo à 36 % ; le titre garde trois lignes au plus à 992 */
+  .convoyage-fiche { gap: 40px; padding-right: var(--marge-contenu); }
+  .convoyage-fiche__texte { flex: 1 1 auto; width: auto; min-width: 0; }
+  .convoyage-fiche__titre { width: auto; }
+  .convoyage-fiche__chapo, .convoyage-fiche__crochet { width: auto; max-width: 520px; }
+  .convoyage-fiche__figure { width: 36%; }
+}
+
+/* ======================================================= tablette (≤ 991) */
+@media (max-width: 991px) {
+  .convoyages-hero { padding: 32px var(--marge-contenu) 0; }
   .convoyages-hero__titre, .convoyage-fiche__titre { margin-top: 16px; }
   .convoyages-hero__accent, .convoyage-fiche__accent { margin: -2px 0 0 -2px; }
-  .convoyages-hero__chapo, .convoyages-hero__crochet { width: auto; margin-top: 20px; }
+  .convoyages-hero__chapo, .convoyages-hero__crochet { width: auto; max-width: 600px; margin-top: 20px; }
   .convoyages-hero__crochet { margin-top: 12px; }
+
+  /* grille de trois cartes, étiquettes Départ / Arrivée masquées (le trajet se lit avec la flèche) */
+  .convoyages-grille { gap: 40px 16px; }
+  .convoyage-carte__vehicule { margin-top: 14px; font-size: var(--fs-intitule); }
+  .convoyage-carte__trajet { flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 10px; padding-top: 10px; }
+  .convoyage-carte__etiquette { display: none; }
+  .convoyage-carte__lieu { font-size: var(--fs-corps-s); }
+  .convoyage-carte__vers { width: 16px; height: 16px; margin: 0; }
+
+  /* fiche : titre sur toute la largeur, puis texte et fiche à gauche, photo 3:4 à droite (38 %) */
+  .convoyage-fiche { display: grid; grid-template-columns: minmax(0, 1fr) 38%; grid-template-rows: auto auto auto auto 1fr; column-gap: 40px; align-items: start; padding: 0 var(--marge-contenu); }
+  .convoyage-fiche__texte { display: contents; }
+  .convoyage-fiche .ariane { grid-column: 1 / -1; margin-top: 32px; }
+  .convoyage-fiche__titre { grid-column: 1 / -1; }
+  .convoyage-fiche__chapo { grid-column: 1; max-width: none; margin-top: 28px; }
+  .convoyage-fiche__crochet { grid-column: 1; max-width: none; margin-top: 12px; }
+  .convoyage-fiche__donnees { grid-column: 1; margin-top: 28px; }
+  .convoyage-fiche__figure { grid-column: 2; grid-row: 3 / -1; width: auto; margin: 32px 0 0; }
+
+  .convoyage-suite__chapo { width: auto; max-width: 600px; margin-top: 16px; }
+  /* barre élargie jusqu'à la marge du cadre (16 px du bord) : un départ pré-rempli comme « Mont-de-Marsan » reste entier à 768 */
+  .convoyage-suite__barre { width: auto; margin: 28px calc(var(--marge-cadre) - var(--marge-contenu)) 0; }
+  .convoyages-autres .convoyages-grille { margin-top: 32px; }
+}
+
+/* =================================================== mobile (≤ 767) */
+@media (max-width: 767px) {
+  .convoyages-hero { padding: 32px 24px 0; }
 
   .convoyages-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px; row-gap: 32px; padding-inline: 24px; }
   .convoyage-carte__vehicule { margin-top: 12px; font-size: 16px; }
-  .convoyage-carte__trajet { flex-wrap: wrap; align-items: center; gap: 2px 6px; margin-top: 8px; padding-top: 8px; }
-  .convoyage-carte__etiquette { display: none; }
+  .convoyage-carte__trajet { gap: 2px 6px; margin-top: 8px; padding-top: 8px; }
   .convoyage-carte__lieu { font-size: var(--fs-petit); }
-  .convoyage-carte__vers { width: 14px; height: 14px; margin: 0; }
+  .convoyage-carte__vers { width: 14px; height: 14px; }
 
-  .convoyage-fiche { display: flex; flex-direction: column; align-items: stretch; padding: 0; }
-  .convoyage-fiche__texte { display: contents; }
+  .convoyage-fiche { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
   .convoyage-fiche .ariane { order: 0; margin: 32px 24px 0; }
   .convoyage-fiche__titre { order: 1; margin-inline: 24px; }
   .convoyage-fiche__figure { order: 2; width: calc(100% - 24px); margin: 28px 12px 0; }
@@ -1215,21 +1619,26 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .convoyage-fiche__donnees { order: 5; margin: 28px 24px 0; }
 
   .convoyage-suite { padding-inline: 24px; }
-  .convoyage-suite__chapo { width: auto; margin-top: 16px; }
-  .convoyage-suite__barre { width: auto; margin: 28px 0 0; }
+  .convoyage-suite__chapo { max-width: none; }
+  .convoyage-suite__barre { margin: 28px 0 0; }
   .convoyages-autres__entete { display: block; padding-inline: 24px; }
   .convoyages-autres__lien { margin-top: 16px; }
   .convoyages-autres .convoyages-grille { margin-top: 28px; }
 }
 
 /* ------------------------------ Accueil : trois convoyages mis en avant */
-.convoyages-une { padding-top: calc(var(--k) * 120); }
+/* écart avant la section sur le jeton (120 à 1440, 96 en compact, 88 en tablette) */
+.convoyages-une { padding-top: var(--section); }
 .convoyages-une__entete { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-inline: var(--marge-contenu); color: var(--anth); }
 .convoyages-une__chapo { margin-top: 16px; }
 .convoyages-une__grille { margin-top: calc(var(--k) * 56); }
 
-@media (max-width: 1023px) {
-  .convoyages-une { padding-top: 0; margin-top: 72px; }
+@media (max-width: 991px) {
+  .convoyages-une__grille { margin-top: 40px; }
+}
+
+@media (max-width: 767px) {
+  .convoyages-une { padding-top: 0; margin-top: var(--section); }
   .convoyages-une__entete { display: block; padding-inline: 24px; }
   .convoyages-une__lien { margin-top: 16px; }
   /* trois cartes : une rangée qui défile plutôt qu'une grille à deux colonnes et une carte seule */
@@ -1238,19 +1647,174 @@ select.barre__saisie { cursor: pointer; padding-right: 26px; }
   .convoyages-une__grille .convoyage-carte { flex: 0 0 72%; scroll-snap-align: start; }
 }
 
+/* ================================================ interactions et accessibilité
+   Lot A du 29/10/2026 : focus, survols, états, marges de défilement.
+   Ce fichier passe après les fichiers de mise en page (ordre alphabétique) :
+   il ne règle aucune mise en page, seulement des états. */
+
+/* ---------------------------------------------------- marges de défilement */
+/* l'élément qui reçoit le focus ne passe jamais sous l'en-tête fixe (76 px, 64 en tablette et mobile),
+   ni sous la barre d'action (tablette et mobile). Hauteurs mesurées par le script
+   (--recouvre-haut, --recouvre-bas) ; valeurs par défaut si le script ne tourne pas. */
+html {
+  scroll-padding-top: calc(var(--recouvre-haut, 76px) + 16px);
+  scroll-padding-bottom: calc(var(--recouvre-bas, 0px) + 16px);
+}
+
+/* ------------------------------------------------------------------ focus */
+/* cible d'un lien interne (« Aller au contenu », « Voir les étapes ») et titre du message
+   envoyé : le focus y est posé par le script, sans anneau autour de la section */
+[tabindex="-1"]:focus { outline: none; }
+
+/* bouton crème sur photo (panneau Professionnels de l'Accueil) : anneau crème */
+.panneau--clair :focus-visible { outline-color: var(--creme); }
+
+/* carte de convoyage : l'anneau suit l'arrondi de la photo */
+.convoyage-carte__lien:focus-visible { border-radius: var(--r-objet); }
+
+/* barre de demande : filet de 2 px au focus, comme le champ du formulaire de Contact.
+   Le chevron des listes ne pivote plus au focus (la liste n'est pas ouverte pour autant). */
+.barre__valeur::after { height: 2px; }
+.barre__champ:focus-within .barre__chevron,
+.champ--liste:focus-within .champ__chevron { transform: none; }
+
+/* ----------------------------------------------------------------- survols */
+/* panneaux de l'Accueil : tout le panneau réagit au survol, tout le panneau est cliquable */
+.panneau__lien::after { inset: -100vmax; }
+
+/* questions : au survol, le texte et le filet de la ligne foncent (la rotation du « + » redonnait un « + » identique) */
+.question { transition: border-color .3s var(--ease-sortie); }
+.question:has(.question__bouton:hover) { border-bottom-color: var(--anth); }
+.question__bouton { transition: color .3s var(--ease-sortie); }
+.question__bouton:hover { color: var(--nuit); }
+.question__bouton:hover .question__icone { transform: none; }
+
+/* --------------------------------------------------- défilement des avis */
+/* en bout de liste, la flèche s'atténue mais reste focalisable (aria-disabled) */
+.defilement__bouton[aria-disabled="true"] { opacity: .4; cursor: default; }
+.defilement--sombre .defilement__bouton[aria-disabled="true"]:hover { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px currentColor; }
+.defilement--clair .defilement__bouton[aria-disabled="true"]:hover { background: transparent; }
+
+/* ------------------------------------------------------------ menu mobile */
+.menu-mobile__panneau { overscroll-behavior: contain; }
+
+/* -------------------------------------------------------- FAQ sans script */
+/* sans JavaScript, les réponses restent lisibles (ouvertes) */
+html:not(.js) .question__reponse { grid-template-rows: 1fr; pointer-events: auto; }
+html:not(.js) .question__reponse p { opacity: 1; transform: none; }
+
+/* --------------------------------------------------- déroulé : pause */
+/* bouton rond de 44 px posé sur la grande photo, en bas à droite (créé par le script,
+   seulement quand l'avance automatique existe : jamais en mouvement réduit) */
+.deroule__photos { position: relative; }
+.deroule__pause {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  display: grid; place-items: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(61, 62, 62, .72); color: var(--creme);
+  box-shadow: inset 0 0 0 1px rgba(250, 248, 243, .55);
+  transition: background-color .3s var(--ease-sortie);
+}
+.deroule__pause:hover { background: var(--nuit); }
+/* anneau en deux tons : visible sur une photo claire comme sur une photo sombre */
+.deroule__pause:focus-visible { outline: 2px solid var(--creme); outline-offset: 3px; box-shadow: inset 0 0 0 1px rgba(250, 248, 243, .55), 0 0 0 3px var(--nuit); }
+.deroule__pause-icone { width: 18px; height: 18px; }
+.deroule__pause-icone--lecture, .deroule__pause.est-en-pause .deroule__pause-icone--pause { display: none; }
+.deroule__pause.est-en-pause .deroule__pause-icone--lecture { display: block; }
+
+/* ------------------------------------------------------------- formulaire */
+.formulaire__obligatoire { font-size: var(--fs-petit); line-height: 1.5; color: var(--anth); }
+
+/* ====================================================== tablette et mobile */
+/* cibles tactiles de 44 px sans changer le dessin : une zone invisible, centrée sur le lien
+   (composant Lien, liens dans le texte, liens du pied, logo de l'en-tête) */
+@media (max-width: 991px) {
+  html { scroll-padding-top: calc(var(--recouvre-haut, 64px) + 16px); }
+}
+@media (max-width: 991px), (pointer: coarse) {
+  .lien, .lien-texte, .pied__liens a { position: relative; }
+  .lien::before, .lien-texte::before, .pied__colonne a::before, .pied__liens a::before, .entete__logo::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%);
+  }
+}
+
+/* ================================================================= mobile */
+@media (max-width: 767px) {
+  /* barre empilée : le filet bas du champ devient le repère de focus (2 px), sans double ligne */
+  .barre__valeur::after { display: none; }
+  .barre__champ:focus-within { border-bottom-color: var(--nuit); box-shadow: 0 1px 0 0 var(--nuit); }
+  .barre__champ--vehicule:focus-within { box-shadow: 0 2px 0 0 var(--nuit); }
+  .deroule__pause { right: 12px; bottom: 12px; }
+}
+
+/* ------------------------------------------------ erreurs du formulaire plus visibles (29/10) */
+/* sans rouge (DESIGN.md : l'erreur se lit sans couleur) : bandeau sur fond rose poudré avec pictogramme,
+   messages de champ en Corps S Medium précédés du même pictogramme, champ en erreur légèrement teinté */
+.bandeau { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; border: 0; border-radius: 14px; background: var(--rose); color: var(--nuit); font-weight: 500; }
+.bandeau::before, .champ__aide.est-erreur::before { content: ""; flex: none; background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%233d3e3e' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='10' cy='10' r='8.2'/%3E%3Cpath d='M10 5.8v5.4'/%3E%3Cpath d='M10 14.2v.1' stroke-width='2'/%3E%3C/svg%3E"); }
+.bandeau::before { width: 20px; height: 20px; margin-top: 2px; }
+.champ__aide.est-erreur { display: flex; align-items: flex-start; gap: 6px; font-size: var(--fs-corps-s); font-weight: 500; color: var(--nuit); }
+.champ__aide.est-erreur::before { width: 16px; height: 16px; margin-top: 3px; }
+.est-erreur .champ__saisie { background-color: rgba(228, 199, 189, .22); }
+
+
 /* ===================================================== états de départ */
 /* posés seulement pendant le chargement (classe .anim retirée par le script,
-   ou au bout de 3,5 s si le script échoue) : pas de flash avant l'animation */
-.anim .hero__surface > .entete,
-.anim .hero__titre,
-.anim .hero__preuves,
+   ou au bout de 3,5 s si le script échoue) : pas de flash avant l'animation.
+   Règle du 29/10/2026 : rien du premier écran ne part invisible. Le texte part
+   à 50 % d'opacité, 12 px plus bas ; les photos partent déjà découvertes (découpe
+   partielle, léger zoom). Le script anime à partir de ces mêmes valeurs (main.js,
+   « premier écran »), sans saut entre la première image et l'animation. */
+
+/* photos du premier écran : découpe partielle et zoom (la photo se voit dès la première image) */
+/* Accueil : découpe légère (2 % / 3 %) pour que l'en-tête et les relevés, en crème, restent sur la photo */
+.anim .hero__surface { clip-path: inset(2% 3% 2% 3% round var(--r-surface)); }
+.anim .hero__photo img { transform: scale(1.22); }
+.anim .hero-public__photo { clip-path: inset(0 0 0 22% round var(--r-surface)); }
+.anim .hero-public__photo img { transform: scale(1.25); }
+.anim .convoyage-fiche__photo { clip-path: inset(18% 0 0 0 round var(--r-panneau)); }
+.anim .convoyage-fiche__photo img { transform: scale(1.2); filter: saturate(0) brightness(1.4); }
+
+/* titre principal : les lettres se posent (Contact, page de tâche, n'anime pas son titre) */
+.anim body:not(.page--contact) .hero__ligne,
+.anim body:not(.page--contact) .hero-public__ligne,
+.anim body:not(.page--contact) .convoyages-hero__ligne,
+.anim body:not(.page--contact) .convoyage-fiche__ligne { opacity: .5; transform: translateY(.3em); }
+
+/* mot en Swarsh : un flou qui se dissipe en glissant vers la droite */
+.anim body:not(.page--contact) .hero__accent,
+.anim body:not(.page--contact) .hero-public__accent,
+.anim body:not(.page--contact) .convoyages-hero__accent,
+.anim body:not(.page--contact) .convoyage-fiche__accent { opacity: .45; filter: blur(6px); transform: translateX(-10px); }
+
+/* textes du premier écran */
+.anim .hero__sous-titre,
+.anim .hero__releve,
+.anim .hero-public__chapo,
+.anim .hero-public__lien,
+.anim .hero-public__releve,
+.anim .hero-public__legende,
+.anim .hero-public__signature,
+.anim .convoyages-hero__chapo,
+.anim .convoyages-hero__crochet,
+.anim .convoyage-fiche__chapo,
+.anim .convoyage-fiche__crochet,
+.anim .convoyage-fiche__legende,
+.anim .convoyage-fiche__donnees .ligne-fiche { opacity: .5; transform: translateY(12px); }
+
+/* étoiles des relevés : elles éclosent (décor : la note est écrite à côté) */
+.anim .hero__releve .icone--etoile,
+.anim .hero-public__releve .icone--etoile { transform: scale(0); }
+
+/* barres de demande et carte du formulaire : elles se posent, sans disparaître */
 .anim .hero__barre,
-.anim .hero-public__texte,
-.anim .hero-public__preuves,
-.anim .hero-public .barre,
-.anim body:not(.page--accueil):not(.page--contact) > .entete { opacity: 0; }
-.anim .hero__surface { clip-path: inset(9% 7% 9% 7% round 40px); }
-.anim .hero-public__photo { clip-path: inset(0 0 0 100% round 40px); }
+.anim .hero-public__barre { transform: translateY(24px); }
+.anim [data-carte-formulaire] { transform: translateY(36px); }
+
+@media (max-width: 767px) {
+  /* hero partagé empilé : la photo s'ouvre depuis le haut */
+  .anim .hero-public__photo { clip-path: inset(0 0 18% 0 round var(--r-surface)); }
+}
 
 .ligne { padding-bottom: .06em; margin-bottom: -.06em; }
 

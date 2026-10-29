@@ -8,8 +8,10 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#faf8f3">
 <link rel="icon" href="assets/svg/icone.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/webclip-256.png">
 <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/swarsh-daisy-italic.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/swarsh-daisy-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/main.css">
 <script>(function(d){d.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('anim');setTimeout(function(){d.classList.remove('anim')},3500)}})(document.documentElement)</script>
 <script src="https://api-flowdesk.hws.pm/remarques.js" data-projet="pr-e3f974cdbcfcf78e87dd87f5c34ced4b" defer></script>
@@ -60,6 +62,7 @@
       <div class="carte-form__entete">
         <h2 class="carte-form__titre">Envoyer votre demande</h2>
         <p class="carte-form__texte">Votre demande est étudiée individuellement.</p>
+        <p class="formulaire__obligatoire">Les champs marqués * sont obligatoires.</p>
       </div>
       <form class="formulaire" data-formulaire action="#" method="post" novalidate>
         <input type="hidden" name="source" value="contact">
@@ -67,21 +70,21 @@
         <fieldset class="choix" data-champ="profil">
           <legend class="champ__libelle">Vous êtes *</legend>
           <div class="choix__options">
-            <label class="choix__option"><input type="radio" name="profil" value="pro"><span>Professionnel</span></label>
-            <label class="choix__option"><input type="radio" name="profil" value="part"><span>Particulier</span></label>
+            <label class="choix__option"><input type="radio" name="profil" value="pro" required aria-describedby="f-profil-aide"><span>Professionnel</span></label>
+            <label class="choix__option"><input type="radio" name="profil" value="part" required aria-describedby="f-profil-aide"><span>Particulier</span></label>
           </div>
-          <p class="champ__aide champ__aide--vide" data-aide></p>
+          <p class="champ__aide champ__aide--vide" id="f-profil-aide" data-aide></p>
         </fieldset>
         <div class="formulaire__rangee">
           <div class="champ " data-champ="depart">
   <label class="champ__libelle" for="f-depart">Adresse de départ *</label>
-  <span class="champ__saisie"><input class="champ__controle" id="f-depart" name="depart" type="text" placeholder="Adresse, code postal, ville" autocomplete="off" aria-describedby="f-depart-aide"></span>
+  <span class="champ__saisie"><input class="champ__controle" id="f-depart" name="depart" type="text" placeholder="Adresse, code postal, ville" autocomplete="off" required aria-describedby="f-depart-aide"></span>
   <p class="champ__aide" id="f-depart-aide" data-aide>Où se trouve le véhicule</p>
 </div>
 
           <div class="champ " data-champ="arrivee">
   <label class="champ__libelle" for="f-arrivee">Adresse d’arrivée *</label>
-  <span class="champ__saisie"><input class="champ__controle" id="f-arrivee" name="arrivee" type="text" placeholder="Adresse, code postal, ville" autocomplete="off" aria-describedby="f-arrivee-aide"></span>
+  <span class="champ__saisie"><input class="champ__controle" id="f-arrivee" name="arrivee" type="text" placeholder="Adresse, code postal, ville" autocomplete="off" required aria-describedby="f-arrivee-aide"></span>
   <p class="champ__aide" id="f-arrivee-aide" data-aide>Où le véhicule doit être livré</p>
 </div>
 
@@ -95,13 +98,13 @@
         <div class="formulaire__rangee">
           <div class="champ " data-champ="nom">
   <label class="champ__libelle" for="f-nom">Nom *</label>
-  <span class="champ__saisie"><input class="champ__controle" id="f-nom" name="nom" type="text" placeholder="Votre nom" autocomplete="family-name" aria-describedby="f-nom-aide"></span>
+  <span class="champ__saisie"><input class="champ__controle" id="f-nom" name="nom" type="text" placeholder="Votre nom" autocomplete="family-name" required aria-describedby="f-nom-aide"></span>
   <p class="champ__aide" id="f-nom-aide" data-aide>Pour savoir à qui nous répondons</p>
 </div>
 
           <div class="champ " data-champ="prenom">
   <label class="champ__libelle" for="f-prenom">Prénom *</label>
-  <span class="champ__saisie"><input class="champ__controle" id="f-prenom" name="prenom" type="text" placeholder="Votre prénom" autocomplete="given-name" aria-describedby="f-prenom-aide"></span>
+  <span class="champ__saisie"><input class="champ__controle" id="f-prenom" name="prenom" type="text" placeholder="Votre prénom" autocomplete="given-name" required aria-describedby="f-prenom-aide"></span>
   <p class="champ__aide" id="f-prenom-aide" data-aide>Pour vous répondre personnellement</p>
 </div>
 
@@ -115,14 +118,14 @@
         <div class="formulaire__rangee">
           <div class="champ " data-champ="telephone">
   <label class="champ__libelle" for="f-telephone">Téléphone *</label>
-  <span class="champ__saisie"><input class="champ__controle" id="f-telephone" name="telephone" type="tel" placeholder="06 XX XX XX XX" autocomplete="tel" inputmode=tel aria-describedby="f-telephone-aide"></span>
+  <span class="champ__saisie"><input class="champ__controle" id="f-telephone" name="telephone" type="tel" placeholder="06 XX XX XX XX" autocomplete="tel" inputmode=tel required aria-describedby="f-telephone-aide"></span>
   <p class="champ__aide" id="f-telephone-aide" data-aide>Pour vous rappeler au sujet de votre demande</p>
 </div>
 
           <div class="champ " data-champ="email">
   <label class="champ__libelle" for="f-email">Email *</label>
-  <span class="champ__saisie"><input class="champ__controle" id="f-email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email" aria-describedby="f-email-aide"></span>
-  <p class="champ__aide" id="f-email-aide" data-aide>Pour vous envoyer la confirmation de votre demande</p>
+  <span class="champ__saisie"><input class="champ__controle" id="f-email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email" required aria-describedby="f-email-aide"></span>
+  <p class="champ__aide" id="f-email-aide" data-aide>Pour vous répondre par email</p>
 </div>
 
         </div>
@@ -132,7 +135,7 @@
           <p class="champ__aide" id="f-precisions-aide" data-aide>[Champ à confirmer avec Océane]</p>
         </div>
         <div class="consentement" data-champ="consentement">
-          <label class="consentement__ligne"><input class="consentement__controle" type="checkbox" name="consentement" aria-describedby="f-consentement-aide"><span class="consentement__case" aria-hidden="true"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5.2L4.3 8.4L11 1.6"/></svg></span><span class="consentement__texte">J’accepte que mes informations soient utilisées pour répondre à ma demande. <a href="#">Politique de confidentialité</a>.</span></label>
+          <label class="consentement__ligne"><input class="consentement__controle" type="checkbox" name="consentement" required aria-describedby="f-consentement-aide"><span class="consentement__case" aria-hidden="true"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5.2L4.3 8.4L11 1.6"/></svg></span><span class="consentement__texte">J’accepte que mes informations soient utilisées pour répondre à ma demande. <a href="#">Politique de confidentialité</a>.</span></label>
           <p class="champ__aide champ__aide--vide" id="f-consentement-aide" data-aide></p>
         </div>
         <button class="bouton bouton--l formulaire__envoi" type="submit"><span class="bouton__libelle">Envoyer ma demande</span><svg class="icone icone--fleche bouton__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
@@ -141,8 +144,8 @@
       </form>
     </div>
 
-    <div class="contact__carte carte-form carte-form--envoye" data-envoye hidden>
-      <h2 class="t-titre3">Votre demande est envoyée.</h2>
+    <div class="contact__carte carte-form carte-form--envoye" data-envoye role="status" hidden>
+      <h2 class="t-titre2">Votre demande est envoyée.</h2>
       <p class="t-corps-l">Nous l’étudions personnellement et vous répondons dans la journée.</p>
       <p class="t-corps-s">En attendant, vous pouvez nous appeler au <a class="lien-texte" href="tel:+33608572314">06&nbsp;08&nbsp;57&nbsp;23&nbsp;14</a>.</p>
       <a class="lien lien--sombre " href="accueil.html"><span class="lien__ligne"><span class="lien__libelle">Revenir à l’accueil</span><svg class="icone icone--fleche lien__fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12H19"/><path d="M12 5L19 12L12 19"/></svg>
@@ -208,7 +211,7 @@
 </a>
 </div>
 
-<div class="menu-mobile" id="menu-mobile" data-menu hidden>
+<div class="menu-mobile" id="menu-mobile" data-menu role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <div class="menu-mobile__panneau">
     <div class="menu-mobile__haut">
       <img class="menu-mobile__logo" src="assets/svg/logo-creme.svg" alt="OA Convoyage" width="150" height="17">
