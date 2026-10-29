@@ -48,9 +48,7 @@ button{cursor:pointer}
 }
 @media (max-width:860px){
   .ap-barre{grid-template-columns:auto 1fr auto;gap:10px;padding:0 10px}
-  .ap-marque{display:none}
   .ap-page,.ap-appareil{display:none}
-  .ap-version{justify-self:start}
 }
 @media (max-width:767px){
   :root{--barre:50px}

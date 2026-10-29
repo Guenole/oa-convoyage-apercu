@@ -663,7 +663,7 @@
       .fromTo(img, { scale: 1.22 }, { scale: 1, duration: 2.6 }, 0)
       .from($('.entete', surface), { y: -18, opacity: 0, duration: 1 }, 0.8);
     if (split) {
-      var s = split.create(titre, { type: 'chars', mask: 'chars' });
+      var s = split.create(titre, { type: 'words,chars', mask: 'chars' });
       tl.from(s.chars, { yPercent: 110, duration: 1.2, stagger: 0.035 }, 0.75);
     } else tl.from(titre, { y: 40, opacity: 0, duration: 1.2 }, 0.75);
     tl.fromTo(accent, { clipPath: 'inset(-20% 100% -30% -5%)', filter: 'blur(8px)', opacity: 0.4 }, { clipPath: 'inset(-20% -5% -30% -5%)', filter: 'blur(0px)', opacity: 1, duration: 1.5, ease: 'power2.inOut' }, 1.15)
@@ -749,7 +749,7 @@
       .fromTo(img, { scale: 1.25 }, { scale: 1, duration: 2.4 }, 0.15)
       .from($('.ariane', hero), { y: 12, opacity: 0, duration: 0.9 }, 0.35);
     var ligne = $('.hero-public__ligne', hero);
-    if (split && ligne) { var sp = split.create(ligne, { type: 'chars', mask: 'chars' }); tl.from(sp.chars, { yPercent: 110, duration: 1.1, stagger: 0.03 }, 0.45); }
+    if (split && ligne) { var sp = split.create(ligne, { type: 'words,chars', mask: 'chars' }); tl.from(sp.chars, { yPercent: 110, duration: 1.1, stagger: 0.03 }, 0.45); }
     tl.fromTo($('[data-script]', hero), { clipPath: 'inset(-25% 100% -35% -6%)', filter: 'blur(6px)', opacity: 0.4 }, { clipPath: 'inset(-25% -6% -35% -6%)', filter: 'blur(0px)', opacity: 1, duration: 1.4, ease: 'power2.inOut' }, 0.8)
       .from($$('.hero-public__chapo, .hero-public__lien', hero), { y: 18, opacity: 0, duration: 1, stagger: 0.1 }, 1.05)
       .from($$('.hero-public__releve, .hero-public__legende', hero), { y: 14, opacity: 0, duration: 0.9, stagger: 0.1 }, 1.25)
@@ -845,7 +845,7 @@
         if (im) tl.fromTo(im, { scale: 1.2, filter: 'saturate(0) brightness(1.4)' }, { scale: 1, filter: 'saturate(1) brightness(1)', duration: 2.4, ease: 'power2.out' }, 0.2);
       }
       tl.from($('.ariane', hero), { y: 12, opacity: 0, duration: 0.9 }, 0.3);
-      if (split && ligne) { var sp = split.create(ligne, { type: 'chars', mask: 'chars' }); tl.from(sp.chars, { yPercent: 110, duration: 1.1, stagger: 0.03 }, 0.4); }
+      if (split && ligne) { var sp = split.create(ligne, { type: 'words,chars', mask: 'chars' }); tl.from(sp.chars, { yPercent: 110, duration: 1.1, stagger: 0.03 }, 0.4); }
       tl.fromTo($('[data-script]', hero), { clipPath: 'inset(-25% 100% -35% -6%)', filter: 'blur(6px)', opacity: 0.4 }, { clipPath: 'inset(-25% -6% -35% -6%)', filter: 'blur(0px)', opacity: 1, duration: 1.4, ease: 'power2.inOut' }, 0.75)
         .from($$('.convoyages-hero__chapo, .convoyages-hero__crochet, .convoyage-fiche__chapo, .convoyage-fiche__crochet, .convoyage-fiche__legende', hero), { y: 18, opacity: 0, duration: 1, stagger: 0.1 }, 1.0);
       var lignesFiche = $$('.convoyage-fiche__donnees .ligne-fiche', hero);

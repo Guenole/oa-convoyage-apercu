@@ -1,6 +1,6 @@
 /* ══════════ Aperçu du site OA Convoyage ══════════
-   1. Deux versions du même site (même structure, mêmes textes) : on passe de l'une à l'autre à tout moment,
-      sur la même page et à peu près au même endroit.
+   1. Depuis le 29/10, une seule version : la nouvelle, validée par Océane (l'ancienne n'est plus publiée ;
+      une adresse « #ancienne/… » ouvre la même page dans la nouvelle version).
    2. Ordinateur ou mobile.
    3. Les remarques passent par l'outil FlowDesk (remarques.js), chargé dans chaque page du site (voir build_apercu.py).
       Les anciennes remarques gardées sur l'appareil (mode Remarques d'avant le 28/10) restent envoyables par email.
@@ -21,9 +21,9 @@ const telephone = () => matchMedia('(max-width: 767px)').matches;
 /* ---------- état : version, page, affichage (dans l'adresse, et retenu sur l'appareil) ---------- */
 let etat = { version: 'nouvelle', page: 'accueil', appareil: 'ordinateur' };
 try { Object.assign(etat, JSON.parse(localStorage.getItem(CLE_ETAT) || '{}')); } catch (e) {}
+etat.version = 'nouvelle';
 (() => {
   const [v, p, a] = decodeURIComponent(location.hash.slice(1)).split('/');
-  if (VERSIONS[v] && v !== 'premier') etat.version = v;
   if (p && /^[\w-]+$/.test(p)) etat.page = p;
   if (APPAREILS[a]) etat.appareil = a;
 })();
@@ -35,7 +35,6 @@ const sauver = () => {
 const urlDe = (version, page) => version === 'ancienne' ? 'ancienne/index.html#' + page : 'nouvelle/' + page + '.html';
 
 function majInterface() {
-  $$('[data-version]').forEach(b => b.setAttribute('aria-pressed', b.dataset.version === etat.version));
   $$('[data-appareil]').forEach(b => b.setAttribute('aria-pressed', b.dataset.appareil === etat.appareil));
   scene.dataset.appareil = etat.appareil;
   const sel = $('#ap-page');
@@ -105,12 +104,6 @@ frame.addEventListener('load', () => {
 });
 
 /* ---------- commandes ---------- */
-$$('[data-version]').forEach(b => b.addEventListener('click', () => {
-  if (b.dataset.version === etat.version) return;
-  const f = fraction();
-  etat.version = b.dataset.version;
-  majInterface(); sauver(); charger(f);
-}));
 $$('[data-appareil]').forEach(b => b.addEventListener('click', () => {
   if (b.dataset.appareil === etat.appareil) return;
   const f = fraction();
